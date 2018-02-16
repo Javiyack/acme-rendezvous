@@ -1,0 +1,21 @@
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+       
+<tiles-definitions>
+
+	<definition name="actor/createActor" extends="master.page">	
+		<put-attribute name="title" value="Create an actor" />
+		<put-attribute name="body" value="/views/actor/createAndEditActor.jsp" />
+	</definition>
+	<definition name="actor/editActor" extends="master.page">	
+		<put-attribute name="title" value="Edit an actor" />
+		<put-attribute name="body" value="/views/actor/createAndEditActor.jsp" />
+	</definition>
+	<definition name="actor/listActor" extends="master.page">	
+		<put-attribute name="title" value="List actors without User Account" />
+		<put-attribute name="body" value="/views/actor/list.jsp" />
+	</definition>
+	
+	
+</tiles-definitions>
