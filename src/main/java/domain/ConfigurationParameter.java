@@ -1,7 +1,21 @@
 package domain;
 
-public class ConfigurationParameter {
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
 
-	public String termAndConditions;
+@Entity
+@Access(AccessType.PROPERTY)
+public class ConfigurationParameter extends DomainEntity{
 
+	private String termAndConditions;
+
+	public String getTermAndConditions() {
+		return termAndConditions;
+	}
+
+	public void setTermAndConditions(String termAndConditions) {
+		this.termAndConditions = termAndConditions;
+	}
+	
 }
