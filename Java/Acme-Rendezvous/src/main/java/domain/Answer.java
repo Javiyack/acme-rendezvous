@@ -14,7 +14,7 @@ public class Answer extends DomainEntity{
 
 	private String answer;
 
-	private Reservation rSVP;
+	private Reservation reservation;
 	
 	private Question question;
 
@@ -29,12 +29,12 @@ public class Answer extends DomainEntity{
 
 	@NotNull
 	@ManyToOne(optional = false)
-	public Reservation getrSVP() {
-		return rSVP;
+	public Reservation getReservation() {
+		return reservation;
 	}
 
-	public void setrSVP(Reservation rSVP) {
-		this.rSVP = rSVP;
+	public void setReservation(Reservation rSVP) {
+		this.reservation = rSVP;
 	}
 
 	@NotNull
