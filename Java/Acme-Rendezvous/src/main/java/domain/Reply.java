@@ -21,7 +21,7 @@ public class Reply extends DomainEntity{
 
 	private User user;
 
-	private Coment coment;
+	private Comment comment;
 
 	@NotNull
 	public String getText() {
@@ -54,12 +54,12 @@ public class Reply extends DomainEntity{
 
 	@NotNull
 	@ManyToOne(optional = false)
-	public Coment getComent() {
-		return coment;
+	public Comment getComment() {
+		return comment;
 	}
 
-	public void setComent(Coment coment) {
-		this.coment = coment;
+	public void setComment(Comment comment) {
+		this.comment = comment;
 	}
 
 	
