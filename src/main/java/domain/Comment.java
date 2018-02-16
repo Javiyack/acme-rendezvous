@@ -13,7 +13,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Coment extends DomainEntity{
+public class Comment extends DomainEntity{
 
 	private String text;
 
