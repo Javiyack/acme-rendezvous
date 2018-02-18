@@ -17,17 +17,12 @@ import security.UserAccount;
 @Access(AccessType.PROPERTY)
 public abstract class Actor extends DomainEntity {
 
-	private String				name;
-
-	private String				surname;
-
-	private String				email;
-
-	private String				phone; // Optional	
-
-	private String				CP; // Optional	
-
-	private UserAccount			userAccount;
+	private String		name;
+	private String		surname;
+	private String		email;
+	private String		phone;			// Optional	
+	private String		address;		// Optional	
+	private UserAccount	userAccount;
 
 
 	@Valid
@@ -67,7 +62,6 @@ public abstract class Actor extends DomainEntity {
 		this.email = email;
 	}
 
-
 	public String getPhone() {
 		return this.phone;
 	}
@@ -76,14 +70,12 @@ public abstract class Actor extends DomainEntity {
 		this.phone = phone;
 	}
 
-	public String getCP() {
-		return CP;
+	public String getAddress() {
+		return this.address;
 	}
 
-	public void setCP(String cP) {
-		CP = cP;
+	public void setAddress(final String address) {
+		this.address = address;
 	}
-	
-	
 
 }
