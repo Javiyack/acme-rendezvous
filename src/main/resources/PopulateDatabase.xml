@@ -88,7 +88,7 @@
 		<property name="surname" value="Llach" />
 		<property name="email" value="javillach@gmail.com" />
 		<property name="phone" value="658357522" />
-		<property name="CP" value="28080" />
+		<property name="address" value="28080" />
 		<property name="userAccount" ref="userAccountAdmin" />		
 	</bean>
 	
@@ -99,7 +99,7 @@
 		<property name="surname" value="Apellidos usuario 1" />
 		<property name="email" value="usuario1@gmail.com" />
 		<property name="phone" value="666999666" />
-		<property name="CP" value="41005" />
+		<property name="address" value="41005" />
 		<property name="userAccount" ref="userAccountUser1" />		
 	</bean>
 	
@@ -108,7 +108,7 @@
 		<property name="surname" value="Apellidos usuario 2" />
 		<property name="email" value="usuario2@gmail.com" />
 		<property name="phone" value="618399522" />
-		<property name="CP" value="41005" />
+		<property name="address" value="41005" />
 		<property name="userAccount" ref="userAccountUser2" />		
 	</bean>
 	
@@ -117,7 +117,7 @@
 		<property name="surname" value="Apellidos usuario 3" />
 		<property name="email" value="usuario3@gmail.com" />
 		<property name="phone" value="654789321" />
-		<property name="CP" value="41005" />
+		<property name="address" value="41005" />
 		<property name="userAccount" ref="userAccountUser3" />		
 	</bean>
 	
@@ -126,7 +126,7 @@
 		<property name="surname" value="Apellidos usuario 4" />
 		<property name="email" value="usuario4@gmail.com" />
 		<property name="phone" value="6770088" />
-		<property name="CP" value="41005" />
+		<property name="address" value="41005" />
 		<property name="userAccount" ref="userAccountUser4" />		
 	</bean>	
 	
