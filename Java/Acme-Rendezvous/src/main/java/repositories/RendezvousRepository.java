@@ -29,15 +29,18 @@ public interface RendezvousRepository extends JpaRepository<Rendezvous, Integer>
 	@Query("select r from Rendezvous r where r.endingDate < ?1")
 	Collection<Rendezvous> findAllOver(Date currentMoment);
 
-	@Query("select r from Rendezvous r where r.manager.id = ?1")
-	Collection<Rendezvous> findByUserId(int userId);
+	@Query("select r from Rendezvous r where r.user.id = ?1")
+	Collection<Rendezvous> findCreatedByUserId(int userId);
 
-	@Query("select r from Rendezvous r where r.id = ?1")
-	Rendezvous findOne(int id);
+	@Query("select rendezvous from Reservation r join r.rendezvous rendezvous where r.user.id = ?1")
+	Collection<Rendezvous> findReservedByUserId(int userId);
+
+	//@Query("select r from Rendezvous r where r.id = ?1")
+	//Rendezvous findOne(int id);
 
 	//10.2
-	@Query("select r from Rendezvous r")
-	Collection<Rendezvous> findAllTrips();
+	//@Query("select r from Rendezvous r")
+	//Collection<Rendezvous> findAllTrips();
 
 	//10.3
 	@Query("select r from Rendezvous r where r.ticker like %?1% or r.title  like %?1% or r.description like %?1%")
@@ -67,8 +70,8 @@ public interface RendezvousRepository extends JpaRepository<Rendezvous, Integer>
 	//@Query("select t from Trip t where t.auditRecords = ?1")
 	//Collection<Trip> findByAuditRecord(AuditRecord auditRecord);
 
-//	@Query("select avg(t.requests.size), min(t.requests.size), max(t.requests.size), " + "sqrt(sum(t.requests.size * t.requests.size) /count(t.requests.size) - (avg(t.requests.size) * avg(t.requests.size))) from Trip t")
-//	String tripStatistics();
+	//	@Query("select avg(t.requests.size), min(t.requests.size), max(t.requests.size), " + "sqrt(sum(t.requests.size * t.requests.size) /count(t.requests.size) - (avg(t.requests.size) * avg(t.requests.size))) from Trip t")
+	//	String tripStatistics();
 
 	@Query("select avg(t.price),min(t.price),max(t.price),sqrt(sum(t.price *t.price) / count(t.price) - (avg(t.price) * avg(t.price))) from Trip t")
 	String priceStatistics();
