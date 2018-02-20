@@ -31,13 +31,12 @@ public class RendezvousService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private RendezvousRepository	rendezvousRepository;
+	private RendezvousRepository rendezvousRepository;
 
 	// Supporting services ----------------------------------------------------
 
 	@Autowired
-	private UserService	userService;;
-
+	private UserService userService;;
 
 	// Constructors -----------------------------------------------------------
 
@@ -55,6 +54,8 @@ public class RendezvousService {
 
 		final Rendezvous res;
 		res = new Rendezvous();
+		// TODO ERN: añadido el usuario que crea el rendezvous
+		res.setUser(user);
 		return res;
 	}
 
@@ -67,26 +68,36 @@ public class RendezvousService {
 
 		return result;
 	}
-
-	public Rendezvous findOne(final int tripId) {
+	//TODO ERN: cambiado tripId por rendezvousId
+	public Rendezvous findOne(final int rendezvousId) {
 		Rendezvous result;
-		Assert.isTrue(tripId > 0);
+		Assert.isTrue(rendezvousId > 0);
 
-		result = this.rendezvousRepository.findOne(tripId);
+		result = this.rendezvousRepository.findOne(rendezvousId);
 
 		return result;
 	}
+	
+	//TODO ERN: añadido método findOneToEdit de Rendezvous
+		public Rendezvous findOneToEdit(final int rendezvousId) {
+			Rendezvous result;
+			Assert.isTrue(rendezvousId != 0);
+			result = this.rendezvousRepository.findOne(rendezvousId);
+			this.checkPrincipal(result);
+			Assert.isTrue(result.getDraft().equals(true));
+			return result;
+		}
 
 	public Rendezvous save(final Rendezvous rendezvous) {
 		assert rendezvous != null;
 
 		Rendezvous result;
-		
-		final User manager;
-		manager = this.userService.findByPrincipal();
-		Assert.notNull(manager);
+		//TODO ERN: comentada la parte de manager
+//		final User manager;
+//		manager = this.userService.findByPrincipal();
+//		Assert.notNull(manager);
 		//TODO Hay que corregir esto
-		  
+
 		result = this.rendezvousRepository.save(rendezvous);
 
 		return result;
@@ -108,6 +119,7 @@ public class RendezvousService {
 
 		return result;
 	}
+
 	public Collection<Rendezvous> findRquestedTripByExplorerId(final int explorerId) {
 		Collection<Rendezvous> result;
 		Date currentMoment;
@@ -117,16 +129,16 @@ public class RendezvousService {
 
 		return result;
 	}
+
 	public List<Rendezvous> findByKeyWord(final String keyWord) {
 		final List<Rendezvous> res = new ArrayList<Rendezvous>();
 		res.addAll(this.rendezvousRepository.findByKeyWord(keyWord));
-		//		res.addAll(this.tripRepository.findByTicker(keyWord));
-		//		res.addAll(this.tripRepository.findByTitle(keyWord));
-		//		res.addAll(this.tripRepository.findByDescription(keyWord));
+		// res.addAll(this.tripRepository.findByTicker(keyWord));
+		// res.addAll(this.tripRepository.findByTitle(keyWord));
+		// res.addAll(this.tripRepository.findByDescription(keyWord));
 
 		return res;
 	}
-
 
 	public Collection<Rendezvous> findByManager(final User manager) {
 		final Collection<Rendezvous> res;
@@ -134,11 +146,20 @@ public class RendezvousService {
 		return res;
 	}
 
-
 	public Collection<Rendezvous> findByCategoryId(Integer categoryId) {
 		Collection<Rendezvous> res;
 		res = rendezvousRepository.findByCategory(categoryId);
 		return res;
 	}
+	//TODO ERN: añadido método checkPrincipal para checkear que el que modifica o borra un Rendezvous es el que lo creó
+		public void checkPrincipal(final Rendezvous rendezvous) {
+			User creator;
+			User principal;
+
+			creator = rendezvous.getUser();
+			principal = this.userService.findByPrincipal();
+
+			Assert.isTrue(creator.equals(principal));
+		}
 
 }
