@@ -51,10 +51,16 @@
 		
 		
 		
+		<!-- PERMIT ALL -->
 		<security:intercept-url pattern="/user/create.do" access="permitAll" />
 		<security:intercept-url pattern="/actor/list.do" access="permitAll" />
 		<security:intercept-url pattern="/actor/display.do" access="permitAll" />
+		
+		<!-- IS AUTHENTICATED -->
 		<security:intercept-url pattern="/actor/edit.do" access="isAuthenticated()" />
+		
+		<!-- USER -->
+		<security:intercept-url pattern="/user/rendezvous/list.do" access="hasRole('USER')" />
 
 
 

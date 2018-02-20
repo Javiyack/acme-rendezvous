@@ -37,6 +37,8 @@ public class UserService {
 	// Supporting services ----------------------------------------------------
 	@Autowired
 	private UserAccountService	userAccountService;
+	@Autowired
+	private ActorService		actorService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -110,18 +112,8 @@ public class UserService {
 
 		userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);
-		result = this.findByUserAccount(userAccount);
+		result = (User) this.actorService.findByUserAccount(userAccount);
 		Assert.notNull(result);
-
-		return result;
-	}
-
-	public User findByUserAccount(final UserAccount userAccount) {
-		Assert.notNull(userAccount);
-
-		User result;
-
-		result = this.userRepository.findByUserAccountId(userAccount.getId());
 
 		return result;
 	}

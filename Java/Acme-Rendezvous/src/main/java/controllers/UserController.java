@@ -29,7 +29,7 @@ public class UserController extends AbstractController {
 	}
 
 	// Create user ---------------------------------------------------------------	
-	@RequestMapping(value = "/create")
+	@RequestMapping("/create")
 	public ModelAndView create() {
 		ModelAndView result;
 		final User user = this.userService.create();

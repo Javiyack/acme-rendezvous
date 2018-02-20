@@ -19,31 +19,33 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" uri="/WEB-INF/tags/"%>
 
 
-<display:table pagesize="5" class="displaytag" name="actors" requestURI="${requestUri}" id="row">
+
+
+
+
+<display:table pagesize="5" class="displaytag" name="rendezvouses" requestURI="${requestUri}" id="row">
+	<spring:message code="rendezvous.name" var="rendezvousName" />
+	<display:column property="name" title="${rendezvousName}" />
+
+	<spring:message code="rendezvous.description" var="rendezvousDescription" />
+	<display:column property="description" title="${rendezvousDescription}" />
+
+	<spring:message code="rendezvous.moment" var="rendezvousMoment" />
+	<display:column property="moment" title="${rendezvousMoment}" format="${displaypriceformat}" />
 	
-	<spring:message code="actor.name" var="actorName" />
-	<display:column property="name" title="${actorName}" sortable="true" />
-
-	<spring:message code="actor.surname" var="actorSurname" />
-	<display:column property="surname" title="${actorSurname}" sortable="true" />
-		
+	<spring:message code="rendezvous.picture" var="rendezvousPicture" />
 	<display:column>
-		<div>
-			<a href="actor/display.do?actorId=${row.id}"> <spring:message
- 				code="actor.display" />
-			</a>
-		</div>
+		<IMG src="${rendezvousPicture}" width="50" height="50"/>
 	</display:column>
+	
+	<spring:message code="rendezvous.location" var="rendezvousLocation" />
+	<display:column property="location" title="${rendezvousLocation}" />
 
 </display:table>
-	
-	
-<input type="button" name="back"
-	value='<spring:message code="actor.back"/>'
-	onclick="javascript: relativeRedir('/');" />
-	<br />
 
-	
+
+<acme:cancel url="/" code="rendezvous.back"/>
 	

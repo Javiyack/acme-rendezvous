@@ -9,9 +9,7 @@
 
 package services;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +35,7 @@ public class RendezvousService {
 
 	@Autowired
 	private UserService				userService;
+	@Autowired
 	private AdministratorService	adminService;
 
 
@@ -117,17 +116,6 @@ public class RendezvousService {
 
 	// Other business methods -------------------------------------------------
 
-	public Collection<Rendezvous> findAllActive() {
-		Collection<Rendezvous> result;
-		Date currentMoment;
-
-		currentMoment = new Date();
-		result = this.rendezvousRepository.findAllActive(currentMoment);
-		Assert.notNull(result);
-
-		return result;
-	}
-
 	public Collection<Rendezvous> findByUser(final int userId) {
 		Collection<Rendezvous> result;
 		result = this.rendezvousRepository.findReservedByUserId(userId);
@@ -136,34 +124,12 @@ public class RendezvousService {
 		return result;
 	}
 
-	public Collection<Rendezvous> findRquestedTripByExplorerId(final int explorerId) {
+	public Collection<Rendezvous> findReservedByUser(final int userId) {
 
 		Collection<Rendezvous> result;
-		result = this.rendezvousRepository.findReservedByUserId(explorerId);
+		result = this.rendezvousRepository.findReservedByUserId(userId);
 		Assert.notNull(result);
 
-		return result;
-	}
-
-	public List<Rendezvous> findByKeyWord(final String keyWord) {
-		final List<Rendezvous> res = new ArrayList<Rendezvous>();
-		res.addAll(this.rendezvousRepository.findByKeyWord(keyWord));
-		// res.addAll(this.tripRepository.findByTicker(keyWord));
-		// res.addAll(this.tripRepository.findByTitle(keyWord));
-		// res.addAll(this.tripRepository.findByDescription(keyWord));
-
-		return res;
-	}
-
-	//Requisito 5.3
-	public Rendezvous deleteByUser(final Rendezvous rendezvous) {
-		Assert.isTrue(rendezvous.getId() != 0);
-		this.checkPrincipal(rendezvous);
-		Rendezvous result;
-		Assert.isTrue(rendezvous.getDraft(), "Final mode is /True/");
-		Assert.isTrue(!rendezvous.getDeleted(), "deleted value is /True/");
-		rendezvous.setDeleted(true);
-		result = this.rendezvousRepository.save(rendezvous);
 		return result;
 	}
 
@@ -176,7 +142,6 @@ public class RendezvousService {
 		principal = this.userService.findByPrincipal();
 
 		Assert.isTrue(creator.equals(principal));
-
 	}
 
 }
