@@ -25,8 +25,8 @@
 		<value>/views/welcome/tiles.xml</value>
 		
 		<value>/views/actor/tiles.xml</value>
+		<value>/views/user/tiles.xml</value>
 		<value>/views/dashboard/tiles.xml</value>
-		
 		<value>/views/rendezvous/tiles.xml</value>
 
 		

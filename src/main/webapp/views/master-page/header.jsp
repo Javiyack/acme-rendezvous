@@ -25,22 +25,23 @@
 <!-- EXPLORER RANGER MANAGER ADMINISTRATOR AUDITOR SPONSOR + "$") -->
 <div>
 	<ul id="jMenu">
-		<!-- Do not forget the "fNiv" class for the first level links !! -->
-		<li>
-				<input type="text" id="keyWord" placeholder="Buscar..." autofocus="autofocus" onchange="getKeyWordAndList()" />
-				<button
-			onclick="getKeyWordAndList()"
-			class="dropbtn"  >
-			<spring:message code="msg.search" />
-		</button>
-
-			</li>
-		
+		<!-- Do not forget the "fNiv" class for the first level links !! -->		
 		<security:authorize access="hasRole('ADMINISTRATOR')">
 			<li><a class="fNiv"><spring:message
 						code="master.page.administrator" /></a>
 				<ul>
 					
+				</ul></li>
+					
+		</security:authorize>
+		
+		<security:authorize access="hasRole('USER')">
+			<li><a class="fNiv"><spring:message
+						code="master.page.user" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="user/rendezvous/list.do"><spring:message
+								code="master.page.myRendezvouses" /></a></li>
 				</ul></li>
 					
 		</security:authorize>
@@ -56,7 +57,7 @@
 						code="master.page.register" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="actor/create.do"><spring:message
+					<li><a href="user/create.do"><spring:message
 								code="master.page.registerUser" /></a></li>
 
 					
