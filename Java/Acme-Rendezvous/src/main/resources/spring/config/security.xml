@@ -75,19 +75,10 @@
 			access="permitAll" />
 		
 
-		<security:intercept-url pattern="/category/create.do"
-			access="hasRole('ADMINISTRATOR')" />
-		<security:intercept-url pattern="/category/edit.do"
-			access="hasRole('ADMINISTRATOR')" />
-		<security:intercept-url pattern="/category/delete.do"
+		<security:intercept-url pattern="/dashboard/**"
 			access="hasRole('ADMINISTRATOR')" />
 			<security:intercept-url pattern="/administrator/**"
 			access="hasRole('ADMINISTRATOR')" />
-			<!-- Cambiar al final -->
-			
-			<security:intercept-url pattern="/manager/**"
-			access="hasRole('MANAGER')" />
-			
 
 		<security:intercept-url pattern="/ranger/trip/create.do"
 			access="hasRole('RANGER')" />
