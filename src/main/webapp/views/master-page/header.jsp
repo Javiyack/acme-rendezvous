@@ -86,6 +86,21 @@
 			
 		</security:authorize>
 		
+			<security:authorize access="hasRole('USER')">
+			<li><a class="fNiv">
+				 <security:authentication
+						property="principal.username" />
+					</a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="rendezvous/user/create.do"><spring:message
+								code="master.page.newrendezvous" /></a></li>
+				</ul></li>
+			
+		</security:authorize>
+		
+		
+		
 		
 	</ul>
 </div>
