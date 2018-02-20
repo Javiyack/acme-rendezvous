@@ -7,21 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import repositories.ActorRepository;
+import repositories.ReplyRepository;
 
-import domain.Actor;
+import domain.Reply;
 
 @Component
 @Transactional
-public class StringToActorConverter implements Converter<String, Actor>{
+public class StringToReplyConverter implements Converter<String, Reply>{
 	
 
 	@Autowired
-	private ActorRepository repository;
+	private ReplyRepository repository;
 	
 	@Override
-	public Actor convert(String text) {
-		Actor result;
+	public Reply convert(String text) {
+		Reply result;
 		int id;		
 		try {
 			if(StringUtils.isEmpty(text)){

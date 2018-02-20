@@ -7,21 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import repositories.ActorRepository;
+import repositories.ReservationRepository;
 
-import domain.Actor;
+import domain.Reservation;
 
 @Component
 @Transactional
-public class StringToActorConverter implements Converter<String, Actor>{
+public class StringToReservationConverter implements Converter<String, Reservation>{
 	
 
 	@Autowired
-	private ActorRepository repository;
+	private ReservationRepository repository;
 	
 	@Override
-	public Actor convert(String text) {
-		Actor result;
+	public Reservation convert(String text) {
+		Reservation result;
 		int id;		
 		try {
 			if(StringUtils.isEmpty(text)){

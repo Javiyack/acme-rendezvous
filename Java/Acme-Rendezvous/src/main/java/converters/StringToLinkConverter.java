@@ -7,21 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import repositories.ActorRepository;
+import repositories.LinkRepository;
 
-import domain.Actor;
+import domain.Link;
 
 @Component
 @Transactional
-public class StringToActorConverter implements Converter<String, Actor>{
+public class StringToLinkConverter implements Converter<String, Link>{
 	
 
 	@Autowired
-	private ActorRepository repository;
+	private LinkRepository repository;
 	
 	@Override
-	public Actor convert(String text) {
-		Actor result;
+	public Link convert(String text) {
+		Link result;
 		int id;		
 		try {
 			if(StringUtils.isEmpty(text)){
