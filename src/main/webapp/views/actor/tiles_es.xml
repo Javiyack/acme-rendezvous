@@ -4,16 +4,16 @@
        
 <tiles-definitions>
 
-	<definition name="anonymous/actor/createandeditexplorer" extends="master.page">	
-		<put-attribute name="title" value="Crear un actor" />
-		<put-attribute name="body" value="/views/actor/createAndEditActor.jsp" />
+	<definition name="actor/edit" extends="master.page">	
+		<put-attribute name="title" value="Editar datos personales" />
+		<put-attribute name="body" value="/views/actor/edit.jsp" />
 	</definition>
-	<definition name="explorer/actor/editExplorer" extends="master.page">	
-		<put-attribute name="title" value="Editar un actor" />
-		<put-attribute name="body" value="/views/actor/createAndEditActor.jsp" />
-	</definition>
-	<definition name="actor/listActor" extends="master.page">	
-		<put-attribute name="title" value="Listar actores sin cuenta de usuario" />
+	<definition name="actor/list" extends="master.page">	
+		<put-attribute name="title" value="Lista de actores" />
 		<put-attribute name="body" value="/views/actor/list.jsp" />
+	</definition>
+	<definition name="actor/display" extends="master.page">	
+		<put-attribute name="title" value="Mostrar actor" />
+		<put-attribute name="body" value="/views/actor/display.jsp" />
 	</definition>
 </tiles-definitions>

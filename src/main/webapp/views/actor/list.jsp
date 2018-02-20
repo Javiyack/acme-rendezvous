@@ -20,45 +20,24 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<!-- Listing grid -->
-<h1>Rangers</h1>
-<display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="rangers" requestURI="${requestURI}" id="row">
+
+<display:table pagesize="5" class="displaytag" name="actors" requestURI="${requestUri}" id="row">
 	
-	<spring:message code="actor.name" var="titleName" />
-	<display:column property="name" title="${titleName}"   style="${color}"/>	
-	
-	<spring:message code="actor.surname" var="titleSurname" />
-	<display:column property="surname" title="${titleSurname}"   style="${color}"/>	
-	
-	<spring:message code="actor.phone" var="titleName" />
-	<display:column property="phone" title="${titleSurname}"   style="${color}"/>	
-	
+	<spring:message code="actor.name" var="actorName" />
+	<display:column property="name" title="${actorName}" sortable="true" />
+
+	<spring:message code="actor.surname" var="actorSurname" />
+	<display:column property="surname" title="${actorSurname}" sortable="true" />
+		
 	<display:column>
-	<a href="administrator/userAccount/createRanger.do?idRanger=<jstl:out value="${row.id}"/>"><spring:message code="actor.userAccount.assign"/></a>
+		<div>
+			<a href="actor/display.do?actorId=${row.id}"> <spring:message
+ 				code="actor.display" />
+			</a>
+		</div>
 	</display:column>
-	 
-	</display:table >
-	<br>
-	<h1>Managers</h1>
-<display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="managers" requestURI="${requestURI}" id="row">
-	
-	<spring:message code="actor.name" var="titleName" />
-	<display:column property="name" title="${titleName}"   style="${color}"/>	
-	
-	<spring:message code="actor.surname" var="titleSurname" />
-	<display:column property="surname" title="${titleSurname}"   style="${color}"/>	
-	
-	<spring:message code="actor.phone" var="titleName" />
-	<display:column property="phone" title="${titleSurname}"   style="${color}"/>	
-	
-	<display:column>
-	<a href="/administrator/userAccount/createRanger.do?idManager=<jstl:out value="${row.id}"/>"><spring:message code="actor.userAccount.assign"/></a>
-	</display:column>
-	
-	 
-	</display:table >
+
+</display:table>
 	
 	
 
