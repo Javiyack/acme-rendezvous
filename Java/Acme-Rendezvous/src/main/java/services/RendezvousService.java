@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.RendezvousRepository;
+import domain.Administrator;
 import domain.Rendezvous;
 import domain.User;
 
@@ -36,6 +37,7 @@ public class RendezvousService {
 
 	@Autowired
 	private UserService				userService;
+	private AdministratorService	adminService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -108,7 +110,8 @@ public class RendezvousService {
 
 	public void delete(final Rendezvous rendezvous) {
 		Assert.isTrue(rendezvous.getId() != 0);
-		this.checkPrincipal(rendezvous);
+		final Administrator admin = this.adminService.findByPrincipal();
+		Assert.notNull(admin);
 		this.rendezvousRepository.delete(rendezvous);
 	}
 
