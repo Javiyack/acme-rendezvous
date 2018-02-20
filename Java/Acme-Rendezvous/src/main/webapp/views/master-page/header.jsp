@@ -36,117 +36,35 @@
 
 			</li>
 		
-		<li><a class="fNiv" href="category/browse.do"><spring:message
-					code="master.page.categories" /></a></li>
 		<security:authorize access="hasRole('ADMINISTRATOR')">
 			<li><a class="fNiv"><spring:message
 						code="master.page.administrator" /></a>
 				<ul>
-					<li class="arrow"></li>
-					<li><a href="administrator/actor/edit.do"><spring:message
-								code="master.page.administrator.edit" /></a></li>
-					<li><a href="administrator/legalText/list.do"><spring:message
-								code="administrator.legalText.laws" /></a></li>			
-								
-					<li><a href="administrator/actor/list.do"><spring:message
-								code="master.page.profile.edit" /></a></li>
-					<li><a href="administrator/dashboard/statistics.do"><spring:message
-								code="master.page.profile.dashboard" /></a></li>
+					
 				</ul></li>
 					
 		</security:authorize>
-
-		<security:authorize access="hasRole('MANAGER')">
-			<li><a class="fNiv"><spring:message
-						code="master.page.manager" /></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="manager/actor/edit.do"><spring:message
-								code="master.page.edit" /></a></li>
-					<li><a href="manager/note/list.do"><spring:message
-								code="master.page.notes" /></a></li>
-					<li><a href="manager/survivalClass/list.do"><spring:message
-								code="master.page.survival" /></a></li>
-					<li><a href="manager/trip/list.do"><spring:message
-								code="master.page.misTrips" /></a></li>
-
-				</ul></li>
-		</security:authorize>
-		
-			<security:authorize access="hasRole('EXPLORER')">
-			<li><a class="fNiv"><spring:message
-						code="master.page.explorer" /></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="explorer/actor/edit.do"><spring:message
-								code="master.page.profile" /></a></li>
-					<li><a href="explorer/trip/list.do"><spring:message
-								code="master.page.trips" /></a></li>
-					<li><a href="explorer/survivalClass/list.do"><spring:message
-								code="master.page.survival" /></a></li>
-					<li><a href="actor/folder/list.do"><spring:message
-								code="master.page.messages" /></a></li>
-					<li><a href="explorer/application/list.do"><spring:message
-								code="master.page.applications" /></a></li>
-					<li><a href="explorer/creditCard/create.do"><spring:message
-								code="master.page.explorer.creditcard" /></a></li>
-				</ul></li>
-		</security:authorize>
-		
-
-		<security:authorize access="hasRole('AUDITOR')">
-			<li><a class="fNiv"><spring:message
-						code="master.page.auditor" /></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="auditor/audit/list.do"><spring:message
-								code="master.page.audits" /></a></li>
-					<li><a href="auditor/note/list.do"><spring:message
-								code="master.page.notes" /></a></li>
-				</ul></li>
-		</security:authorize>
-
-		<security:authorize access="hasRole('RANGER')">
-			<li><a class="fNiv"><spring:message
-						code="master.page.ranger" /></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="explorer/actor/edit.do"><spring:message
-								code="master.page.profile" /></a></li>
-					<li><a href="/trip/list.do"><spring:message
-								code="master.page.trips" /></a></li>
-					<li><a href="explorer/survivalClass/list.do"><spring:message
-								code="master.page.survival" /></a></li>
-					<li><a href="explorer/messages/list.do"><spring:message
-								code="master.page.messages" /></a></li>
-					<li><a href="explorer/application/list.do"><spring:message
-								code="master.page.applications" /></a></li>
-				</ul></li>
-		</security:authorize>
-
 
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv"> <spring:message
-						code="master.page.trip" /></a>
+						code="master.page.rendezvouses" /></a>
 				<ul>
-					<li class="arrow"></li>				
-
-					<li><a href="trip/list.do"><spring:message
-								code="master.page.trips" /></a></li>
-					<li><a href="anonymous/finder/create.do"><spring:message
-								code="master.page.search.trip" /></a></li>
+					<li class="arrow"></li>	
 				</ul>
-			</li>	<li><a class="fNiv"><spring:message
+			</li>	
+			<li><a class="fNiv"><spring:message
 						code="master.page.register" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="anonymous/actor/createExplorer.do"><spring:message
-								code="master.page.registerExplorer" /></a></li>
-					<li><a href="anonymous/actor/createRanger.do"><spring:message
-								code="master.page.registerRanger" /></a></li>
+					<li><a href="actor/create.do"><spring:message
+								code="master.page.registerUser" /></a></li>
 
 					
-				</ul></li>
+				</ul>
+			</li>
+			<li><a href="actor/list.do"><spring:message
+								code="master.page.actor.list" /></a>
+			</li>
 			<li><a class="fNiv" href="security/login.do"><spring:message
 						code="master.page.login" /></a></li>		
 		</security:authorize>
@@ -158,8 +76,10 @@
 					</a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="actor/folder/list.do"><spring:message
-								code="master.page.messages" /></a></li>
+					<li><a href="actor/edit.do"><spring:message
+								code="master.page.actor.edit" /></a></li>
+					<li><a href="actor/list.do"><spring:message
+								code="master.page.actor.list" /></a></li>
 					<li><a href="j_spring_security_logout"><spring:message
 								code="master.page.logout" /> </a></li>
 				</ul></li>

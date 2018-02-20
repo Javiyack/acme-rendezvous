@@ -4,17 +4,17 @@
        
 <tiles-definitions>
 
-	<definition name="actor/createActor" extends="master.page">	
-		<put-attribute name="title" value="Create an actor" />
-		<put-attribute name="body" value="/views/actor/createAndEditActor.jsp" />
+	<definition name="actor/edit" extends="master.page">	
+		<put-attribute name="title" value="Edit personal data" />
+		<put-attribute name="body" value="/views/actor/edit.jsp" />
 	</definition>
-	<definition name="actor/editActor" extends="master.page">	
-		<put-attribute name="title" value="Edit an actor" />
-		<put-attribute name="body" value="/views/actor/createAndEditActor.jsp" />
-	</definition>
-	<definition name="actor/listActor" extends="master.page">	
-		<put-attribute name="title" value="List actors without User Account" />
+	<definition name="actor/list" extends="master.page">	
+		<put-attribute name="title" value="Actors list" />
 		<put-attribute name="body" value="/views/actor/list.jsp" />
+	</definition>
+	<definition name="actor/display" extends="master.page">	
+		<put-attribute name="title" value="Display actor" />
+		<put-attribute name="body" value="/views/actor/display.jsp" />
 	</definition>
 	
 	
