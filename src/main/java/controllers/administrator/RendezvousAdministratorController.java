@@ -1,5 +1,5 @@
 
-package controllers.user;
+package controllers.administrator;
 
 import javax.validation.Valid;
 
@@ -8,17 +8,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.RendezvousService;
 import domain.Rendezvous;
 
 @Controller
-@RequestMapping("/rendezvous/user")
-public class RendezvousUserController {
+@RequestMapping("/rendezvous/administrator")
+public class RendezvousAdministratorController {
 
-	public RendezvousUserController() {
+	public RendezvousAdministratorController() {
 		super();
 	}
 
@@ -29,43 +28,6 @@ public class RendezvousUserController {
 	private RendezvousService	rendezvousService;
 
 
-	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create() {
-		ModelAndView result;
-		Rendezvous rendezvous;
-		rendezvous = this.rendezvousService.create();
-		result = this.createEditModelAndView(rendezvous);
-		return result;
-	}
-
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int rendezvousId) {
-		ModelAndView result;
-		Rendezvous rendezvous;
-		rendezvous = this.rendezvousService.findOneToEdit(rendezvousId);
-
-		result = new ModelAndView("rendezvous/user/edit");
-		result.addObject("rendezvous", rendezvous);
-
-		return result;
-	}
-
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Rendezvous rendezvous, final BindingResult binding) {
-		ModelAndView result;
-
-		if (binding.hasErrors())
-			result = this.createEditModelAndView(rendezvous);
-		else
-			try {
-				this.rendezvousService.save(rendezvous);
-				result = new ModelAndView("redirect:../list.do");
-			} catch (final Throwable ooops) {
-				result = this.createEditModelAndView(rendezvous, "rendezvous.commit.error");
-			}
-		return result;
-	}
-
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(@Valid final Rendezvous rendezvous, final BindingResult binding) {
 		ModelAndView result;
@@ -74,7 +36,7 @@ public class RendezvousUserController {
 			result = this.createEditModelAndView(rendezvous);
 		else
 			try {
-				this.rendezvousService.deleteByUser(rendezvous);
+				this.rendezvousService.delete(rendezvous);
 				result = new ModelAndView("redirect:../list.do");
 			} catch (final Throwable ooops) {
 				result = this.createEditModelAndView(rendezvous, "rendezvous.commit.error");
@@ -96,5 +58,4 @@ public class RendezvousUserController {
 
 		return result;
 	}
-
 }
