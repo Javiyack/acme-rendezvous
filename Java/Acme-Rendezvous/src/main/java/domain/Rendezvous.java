@@ -18,19 +18,22 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Access(AccessType.PROPERTY)
 public class Rendezvous extends DomainEntity {
 
-	private String name;
+	private String		name;
 
-	private String description;
+	private String		description;
 
-	private Date moment;
+	private Date		moment;
 
-	private String picture; // Optional
+	private String		picture;		// Optional
 
-	private Coordinate location; // Optional
+	private Coordinate	location;		// Optional
 
-	private Boolean draft;
+	private Boolean		draft;
 
-	private User user;
+	private User		user;
+
+	private Boolean		deleted;
+
 
 	@NotNull
 	public String getName() {
@@ -97,6 +100,15 @@ public class Rendezvous extends DomainEntity {
 
 	public void setUser(final User user) {
 		this.user = user;
+	}
+
+	@NotNull
+	public Boolean getDeleted() {
+		return this.deleted;
+	}
+
+	public void setDeleted(final Boolean deleted) {
+		this.deleted = deleted;
 	}
 
 }

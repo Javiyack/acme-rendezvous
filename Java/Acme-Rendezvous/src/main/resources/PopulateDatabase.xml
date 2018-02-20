@@ -136,6 +136,7 @@
 		<property name="description" value="Descripcion Rendezvous 1" />
 		<property name="moment" value="2018/04/15 12:00" />
 		<property name="draft" value="false" />
+		<property name="deleted" value="false" />
 		<property name="user" ref="user1" />		
 	</bean>		
 	
@@ -144,6 +145,7 @@
 		<property name="description" value="Descripcion Rendezvous 2" />
 		<property name="moment" value="2018/03/25 21:00" />
 		<property name="draft" value="false" />
+		<property name="deleted" value="false" />
 		<property name="user" ref="user2" />		
 	</bean>	
 		
@@ -152,6 +154,7 @@
 		<property name="description" value="Descripcion Rendezvous 3" />
 		<property name="moment" value="2018/06/15 22:00" />
 		<property name="draft" value="false" />
+		<property name="deleted" value="false" />
 		<property name="user" ref="user3" />		
 	</bean>	
 		
@@ -160,6 +163,7 @@
 		<property name="description" value="Descripcion Rendezvous 4" />
 		<property name="moment" value="2018/08/20 12:00" />
 		<property name="draft" value="false" />
+		<property name="deleted" value="false" />
 		<property name="user" ref="user4" />		
 	</bean>		
 	
@@ -168,6 +172,7 @@
 		<property name="description" value="Descripcion Rendezvous 2" />
 		<property name="moment" value="2018/11/15 21:00" />
 		<property name="draft" value="false" />
+		<property name="deleted" value="false" />
 		<property name="user" ref="user2" />		
 	</bean>	
 		
@@ -176,6 +181,7 @@
 		<property name="description" value="Descripcion Rendezvous 3" />
 		<property name="moment" value="2017/06/15 22:00" />
 		<property name="draft" value="false" />
+		<property name="deleted" value="false" />
 		<property name="user" ref="user3" />		
 	</bean>	
 	
@@ -184,6 +190,7 @@
 		<property name="description" value="Descripcion Rendezvous 1" />
 		<property name="moment" value="2018/04/15 12:00" />
 		<property name="draft" value="false" />
+		<property name="deleted" value="false" />
 		<property name="user" ref="user1" />		
 	</bean>		
 	
@@ -192,6 +199,7 @@
 		<property name="description" value="Descripcion Rendezvous 1" />
 		<property name="moment" value="2018/04/15 19:00" />
 		<property name="draft" value="false" />
+		<property name="deleted" value="false" />
 		<property name="user" ref="user1" />		
 	</bean>		
 		
