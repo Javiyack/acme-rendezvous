@@ -74,7 +74,7 @@ public class RendezvousUserController {
 			result = this.createEditModelAndView(rendezvous);
 		else
 			try {
-				this.rendezvousService.deleteByUser(rendezvous);
+				this.rendezvousService.delete(rendezvous);
 				result = new ModelAndView("redirect:../list.do");
 			} catch (final Throwable ooops) {
 				result = this.createEditModelAndView(rendezvous, "rendezvous.commit.error");
