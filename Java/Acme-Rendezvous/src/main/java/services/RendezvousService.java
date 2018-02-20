@@ -1,5 +1,4 @@
 /*
- * TripService.java
  * 
  * Copyright (C) 2017 Universidad de Sevilla
  * 
@@ -94,7 +93,8 @@ public class RendezvousService {
 		assert rendezvous != null;
 
 		Rendezvous result;
-
+		Assert.isTrue(rendezvous.getDraft(), "Final mode is /True/");
+		Assert.isTrue(!rendezvous.getDeleted(), "deleted value is /True/");
 		//TODO ERN: comentada la parte de manager
 		//		final User manager;
 		//		manager = this.userService.findByPrincipal();
@@ -107,7 +107,8 @@ public class RendezvousService {
 	}
 
 	public void delete(final Rendezvous rendezvous) {
-		// TODO
+		Assert.isTrue(rendezvous.getId() != 0);
+		this.checkPrincipal(rendezvous);
 		this.rendezvousRepository.delete(rendezvous);
 	}
 
@@ -151,6 +152,18 @@ public class RendezvousService {
 		return res;
 	}
 
+	//Requisito 5.3
+	public Rendezvous deleteByUser(final Rendezvous rendezvous) {
+		Assert.isTrue(rendezvous.getId() != 0);
+		this.checkPrincipal(rendezvous);
+		Rendezvous result;
+		Assert.isTrue(rendezvous.getDraft(), "Final mode is /True/");
+		Assert.isTrue(!rendezvous.getDeleted(), "deleted value is /True/");
+		rendezvous.setDeleted(true);
+		result = this.rendezvousRepository.save(rendezvous);
+		return result;
+	}
+
 	//TODO ERN: añadido método checkPrincipal para checkear que el que modifica o borra un Rendezvous es el que lo creó
 	public void checkPrincipal(final Rendezvous rendezvous) {
 		User creator;
@@ -160,6 +173,7 @@ public class RendezvousService {
 		principal = this.userService.findByPrincipal();
 
 		Assert.isTrue(creator.equals(principal));
+
 	}
 
 }
