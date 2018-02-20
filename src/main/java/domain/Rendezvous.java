@@ -7,28 +7,30 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.URL;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
 public class Rendezvous extends DomainEntity {
 
-	private String		name;
+	private String name;
 
-	private String		description;
+	private String description;
 
-	private Date		moment;
+	private Date moment;
 
-	private String		picture;		// Optional	
+	private String picture; // Optional
 
-	private Coordinate	location;		// Optional	
+	private Coordinate location; // Optional
 
-	private Boolean		draft;
+	private Boolean draft;
 
-	private User		user;
-
+	private User user;
 
 	@NotNull
 	public String getName() {
@@ -49,6 +51,8 @@ public class Rendezvous extends DomainEntity {
 	}
 
 	@NotNull
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getMoment() {
 		return this.moment;
 	}
@@ -66,6 +70,7 @@ public class Rendezvous extends DomainEntity {
 	public void setPicture(final String picture) {
 		this.picture = picture;
 	}
+
 	// Optional
 	public Coordinate getLocation() {
 		return this.location;
