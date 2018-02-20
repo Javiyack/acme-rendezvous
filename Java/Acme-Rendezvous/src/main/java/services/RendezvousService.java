@@ -21,8 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.RendezvousRepository;
-import domain.User;
 import domain.Rendezvous;
+import domain.User;
 
 @Service
 @Transactional
@@ -36,7 +36,12 @@ public class RendezvousService {
 	// Supporting services ----------------------------------------------------
 
 	@Autowired
+<<<<<<< .mine
+	private UserService				userService;
+
+=======
 	private UserService userService;;
+>>>>>>> .r52
 
 	// Constructors -----------------------------------------------------------
 
@@ -68,8 +73,13 @@ public class RendezvousService {
 
 		return result;
 	}
+<<<<<<< .mine
+
+	public Rendezvous findOne(final int rendezvousId) {
+=======
 	//TODO ERN: cambiado tripId por rendezvousId
 	public Rendezvous findOne(final int rendezvousId) {
+>>>>>>> .r52
 		Rendezvous result;
 		Assert.isTrue(rendezvousId > 0);
 
@@ -92,10 +102,18 @@ public class RendezvousService {
 		assert rendezvous != null;
 
 		Rendezvous result;
+<<<<<<< .mine
+
 		//TODO ERN: comentada la parte de manager
 //		final User manager;
 //		manager = this.userService.findByPrincipal();
 //		Assert.notNull(manager);
+=======
+		//TODO ERN: comentada la parte de manager
+//		final User manager;
+//		manager = this.userService.findByPrincipal();
+//		Assert.notNull(manager);
+>>>>>>> .r52
 		//TODO Hay que corregir esto
 
 		result = this.rendezvousRepository.save(rendezvous);
@@ -105,6 +123,7 @@ public class RendezvousService {
 
 	public void delete(final Rendezvous rendezvous) {
 		// TODO
+		this.rendezvousRepository.delete(rendezvous);
 	}
 
 	// Other business methods -------------------------------------------------
@@ -119,12 +138,14 @@ public class RendezvousService {
 
 		return result;
 	}
+<<<<<<< .mine
+	public Collection<Rendezvous> findByUser(final int userId) {
+=======
 
 	public Collection<Rendezvous> findRquestedTripByExplorerId(final int explorerId) {
+>>>>>>> .r52
 		Collection<Rendezvous> result;
-		Date currentMoment;
-		currentMoment = new Date();
-		result = this.rendezvousRepository.findAllActive(currentMoment);
+		result = this.rendezvousRepository.findReservedByUserId(userId);
 		Assert.notNull(result);
 
 		return result;
@@ -140,17 +161,6 @@ public class RendezvousService {
 		return res;
 	}
 
-	public Collection<Rendezvous> findByManager(final User manager) {
-		final Collection<Rendezvous> res;
-		res = this.rendezvousRepository.findByManager(manager);
-		return res;
-	}
-
-	public Collection<Rendezvous> findByCategoryId(Integer categoryId) {
-		Collection<Rendezvous> res;
-		res = rendezvousRepository.findByCategory(categoryId);
-		return res;
-	}
 	//TODO ERN: añadido método checkPrincipal para checkear que el que modifica o borra un Rendezvous es el que lo creó
 		public void checkPrincipal(final Rendezvous rendezvous) {
 			User creator;
@@ -162,4 +172,5 @@ public class RendezvousService {
 			Assert.isTrue(creator.equals(principal));
 		}
 
+>>>>>>> .r52
 }

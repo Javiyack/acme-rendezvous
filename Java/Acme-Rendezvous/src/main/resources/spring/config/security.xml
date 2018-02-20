@@ -43,90 +43,10 @@
 		<security:intercept-url pattern="/welcome/index.do"
 			access="permitAll" />
 
-		<security:intercept-url pattern="/anonymous/finder/create.do"
-			access="permitAll" />
-		<security:intercept-url pattern="/anonymous/finder/search.do"
-			access="permitAll" />
-
-		<security:intercept-url pattern="/anonymous/actor/createExplorer.do"
-			access="permitAll" />
-		<security:intercept-url pattern="/anonymous/actor/createRanger.do"
-			access="permitAll" />
-
-		<security:intercept-url pattern="/category/browse.do"
-			access="permitAll" />
-		<security:intercept-url pattern="/category/list.do"
-			access="permitAll" /> 
-			
-		<security:intercept-url pattern="/viaje/browse.do"
-			access="permitAll" />
-		<security:intercept-url pattern="/viaje/list.do"
-			access="permitAll" /> 
-		<security:intercept-url pattern="/viaje/edit.do"
-			access="permitAll" />
-			
-		<security:intercept-url pattern="/trip/browse.do"
-			access="permitAll" />
-		<security:intercept-url pattern="/trip/list.do"
-			access="permitAll" />
-		<security:intercept-url pattern="/trip/search.do"
-			access="permitAll" />
-		<security:intercept-url pattern="/trip/edit.do"
-			access="permitAll" />
-		
-
-		<security:intercept-url pattern="/dashboard/**"
-			access="hasRole('ADMINISTRATOR')" />
-			<security:intercept-url pattern="/administrator/**"
-			access="hasRole('ADMINISTRATOR')" />
-
-		<security:intercept-url pattern="/ranger/trip/create.do"
-			access="hasRole('RANGER')" />
-		<security:intercept-url pattern="/ranger/trip/edit.do"
-			access="hasRole('RANGER')" />
-		<security:intercept-url pattern="/ranger/trip/list.do"
-			access="hasRole('RANGER')" />
-
-		<security:intercept-url pattern="/explorer/survivalClass/list.do"
-			access="hasRole('EXPLORER')" />
-		<security:intercept-url pattern="/explorer/survivalClass/edit.do"
-			access="hasRole('EXPLORER')" />
-		<security:intercept-url pattern="/explorer/trip/list.do"
-			access="hasRole('EXPLORER')" />
-		<security:intercept-url pattern="/explorer/trip/edit.do"
-			access="hasRole('EXPLORER')" />
-
-		<security:intercept-url pattern="/explorer/application/list.do"
-			access="hasRole('EXPLORER')" />
-		<security:intercept-url pattern="/explorer/application/edit.do"
-			access="hasRole('EXPLORER')" />
-		<security:intercept-url pattern="/explorer/application/create.do"
-			access="hasRole('EXPLORER')" />
-		<security:intercept-url pattern="/explorer/application/delete.do"
-			access="hasRole('EXPLORER')" />
-		<security:intercept-url pattern="/explorer/**"
-			access="hasRole('EXPLORER')" />
-
-
-
-		<security:intercept-url pattern="/auditor/note/list.do"
-			access="hasRole('AUDITOR')" />
-		<security:intercept-url pattern="/auditor/note/edit.do"
-			access="hasRole('AUDITOR')" />
-		<security:intercept-url pattern="/auditor/note/create.do"
-			access="hasRole('AUDITOR')" />
-
-
-		<security:intercept-url pattern="/actor/folder/**"
-			access="isAuthenticated()" />
-		 <security:intercept-url pattern="/actor/message/**"
-			access="isAuthenticated()" />
-		<security:intercept-url pattern="/profile/action-1.do"
-			access="isAuthenticated()" />
-		<security:intercept-url pattern="/profile/action-2.do"
-			access="isAuthenticated()" />
-		<security:intercept-url pattern="/profile/action-3.do"
-			access="isAuthenticated()" />
+		<security:intercept-url pattern="/user/create.do" access="permitAll" />
+		<security:intercept-url pattern="/actor/list.do" access="permitAll" />
+		<security:intercept-url pattern="/actor/display.do" access="permitAll" />
+		<security:intercept-url pattern="/actor/edit.do" access="isAuthenticated()" />
 
 
 

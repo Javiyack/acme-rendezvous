@@ -13,13 +13,16 @@ package services;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.UserRepository;
+import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import security.UserAccountService;
 import domain.User;
 
 @Service
@@ -29,10 +32,12 @@ public class UserService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private UserRepository	userRepository;
-
+	private UserRepository		userRepository;
 
 	// Supporting services ----------------------------------------------------
+	@Autowired
+	private UserAccountService	userAccountService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -43,10 +48,14 @@ public class UserService {
 	// Simple CRUD methods ----------------------------------------------------
 
 	public User create() {
-		User result;
+		UserAccount useraccount;
+		final User result = new User();
+		final Authority authority = new Authority();
 
-		result = new User();
-		Assert.notNull(result);
+		authority.setAuthority(Authority.USER);
+		useraccount = this.userAccountService.createAsUser();
+
+		result.setUserAccount(useraccount);
 
 		return result;
 	}
@@ -60,30 +69,37 @@ public class UserService {
 		return result;
 	}
 
-	public User findOne(final int explorerId) {
+	public User findOne(final int userId) {
 		User result;
 
-		result = this.userRepository.findOne(explorerId);
+		result = this.userRepository.findOne(userId);
 		Assert.notNull(result);
 
 		return result;
 	}
 
-	public User save(final User explorer) {
-		Assert.notNull(explorer);
-
+	public User save(final User user) {
+		Assert.notNull(user);
 		User result;
 
-		result = this.userRepository.save(explorer);
+		if (user.getId() == 0) {
+			Md5PasswordEncoder encoder;
+
+			encoder = new Md5PasswordEncoder();
+
+			user.getUserAccount().setPassword(encoder.encodePassword(user.getUserAccount().getPassword(), null));
+		}
+
+		result = this.userRepository.save(user);
 
 		return result;
 	}
 
-	public void delete(final User explorer) {
-		Assert.notNull(explorer);
-		Assert.isTrue(explorer.getId() != 0);
+	public void delete(final User user) {
+		Assert.notNull(user);
+		Assert.isTrue(user.getId() != 0);
 
-		this.userRepository.delete(explorer);
+		this.userRepository.delete(user);
 	}
 
 	// Other business methods -------------------------------------------------

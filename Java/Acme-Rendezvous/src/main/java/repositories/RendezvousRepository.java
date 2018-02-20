@@ -18,7 +18,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import domain.Rendezvous;
-import domain.User;
 
 @Repository
 public interface RendezvousRepository extends JpaRepository<Rendezvous, Integer> {
@@ -56,15 +55,15 @@ public interface RendezvousRepository extends JpaRepository<Rendezvous, Integer>
 	//	List<Trip> findByDescription(String description);
 
 	//10.4
-	@Query("select t from Trip t where t.category.id = ?1")
-	Collection<Rendezvous> findByCategory(int category);
+	//@Query("select t from Trip t where t.category.id = ?1")
+	//Collection<Rendezvous> findByCategory(int category);
 
-	@Query("select t from Rendezvous t where t.manager = ?1")
-	Collection<Rendezvous> findByManager(User manager);
+	//@Query("select t from Rendezvous t where t.manager = ?1")
+	//Collection<Rendezvous> findByManager(User manager);
 
 	//30.1
-	@Query("select t from Rendezvous t where t.ranger = ?1")
-	Collection<Rendezvous> findByRanger(User ranger);
+	//@Query("select t from Rendezvous t where t.ranger = ?1")
+	//Collection<Rendezvous> findByRanger(User ranger);
 
 	//30.2 TODO
 	//@Query("select t from Trip t where t.auditRecords = ?1")
@@ -73,14 +72,14 @@ public interface RendezvousRepository extends JpaRepository<Rendezvous, Integer>
 	//	@Query("select avg(t.requests.size), min(t.requests.size), max(t.requests.size), " + "sqrt(sum(t.requests.size * t.requests.size) /count(t.requests.size) - (avg(t.requests.size) * avg(t.requests.size))) from Trip t")
 	//	String tripStatistics();
 
-	@Query("select avg(t.price),min(t.price),max(t.price),sqrt(sum(t.price *t.price) / count(t.price) - (avg(t.price) * avg(t.price))) from Trip t")
-	String priceStatistics();
+	//@Query("select avg(t.price),min(t.price),max(t.price),sqrt(sum(t.price *t.price) / count(t.price) - (avg(t.price) * avg(t.price))) from Trip t")
+	//String priceStatistics();
 
-	@Query("Select count(t) from Trip t")
-	String getCount();
+	//@Query("Select count(t) from Trip t")
+	//String getCount();
 
-	@Query("select count(tr) from Trip tr where tr.cancelled =TRUE")
-	String getCancelled();
+	//@Query("select count(tr) from Trip tr where tr.cancelled =TRUE")
+	//String getCancelled();
 
 	//@Query("select t from Trip t group by t having t.requests.size > avg(t.requests.size) order by t.requests.size")
 	//Collection<Trip> getMostAppliedTrips();
