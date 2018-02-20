@@ -39,7 +39,7 @@ public class UserRendezvousController extends AbstractController {
 		ModelAndView result;
 		final User user = this.userService.findByPrincipal();
 
-		final Collection<Rendezvous> rendezvouses = this.rendezvousService.findRervedByUser(user.getId());
+		final Collection<Rendezvous> rendezvouses = this.rendezvousService.findReservedByUser(user.getId());
 
 		result = new ModelAndView("user/rendezvous/list");
 		result.addObject("rendezvouses", rendezvouses);
