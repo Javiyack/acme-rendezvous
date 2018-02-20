@@ -107,11 +107,11 @@ public class ActorService {
 			result = this.findByUserAccount(userAccount);
 			Assert.notNull(result);
 
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return result;
 	}
 

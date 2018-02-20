@@ -60,30 +60,30 @@ public class AdministratorService {
 		return result;
 	}
 
-	public Administrator findOne(final int explorerId) {
+	public Administrator findOne(final int administratorId) {
 		Administrator result;
 
-		result = this.administratorRepository.findOne(explorerId);
+		result = this.administratorRepository.findOne(administratorId);
 		Assert.notNull(result);
 
 		return result;
 	}
 
-	public Administrator save(final Administrator explorer) {
-		Assert.notNull(explorer);
+	public Administrator save(final Administrator administrator) {
+		Assert.notNull(administrator);
 
 		Administrator result;
 
-		result = this.administratorRepository.save(explorer);
+		result = this.administratorRepository.save(administrator);
 
 		return result;
 	}
 
-	public void delete(final Administrator explorer) {
-		Assert.notNull(explorer);
-		Assert.isTrue(explorer.getId() != 0);
+	public void delete(final Administrator administrator) {
+		Assert.notNull(administrator);
+		Assert.isTrue(administrator.getId() != 0);
 
-		this.administratorRepository.delete(explorer);
+		this.administratorRepository.delete(administrator);
 	}
 
 	// Other business methods -------------------------------------------------

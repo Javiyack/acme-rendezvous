@@ -26,7 +26,9 @@
 		<value>/views/security/messages</value>		
 		<value>/views/welcome/messages</value>
 		
+		<value>/views/actor/messages</value>
 		<value>/views/dashboard/messages</value>
+		
 		
 			
 	</util:list>
