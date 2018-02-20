@@ -31,17 +31,13 @@ public class RendezvousService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private RendezvousRepository rendezvousRepository;
+	private RendezvousRepository	rendezvousRepository;
 
 	// Supporting services ----------------------------------------------------
 
 	@Autowired
-<<<<<<< .mine
 	private UserService				userService;
 
-=======
-	private UserService userService;;
->>>>>>> .r52
 
 	// Constructors -----------------------------------------------------------
 
@@ -73,13 +69,9 @@ public class RendezvousService {
 
 		return result;
 	}
-<<<<<<< .mine
 
 	public Rendezvous findOne(final int rendezvousId) {
-=======
-	//TODO ERN: cambiado tripId por rendezvousId
-	public Rendezvous findOne(final int rendezvousId) {
->>>>>>> .r52
+
 		Rendezvous result;
 		Assert.isTrue(rendezvousId > 0);
 
@@ -87,33 +79,26 @@ public class RendezvousService {
 
 		return result;
 	}
-	
+
 	//TODO ERN: añadido método findOneToEdit de Rendezvous
-		public Rendezvous findOneToEdit(final int rendezvousId) {
-			Rendezvous result;
-			Assert.isTrue(rendezvousId != 0);
-			result = this.rendezvousRepository.findOne(rendezvousId);
-			this.checkPrincipal(result);
-			Assert.isTrue(result.getDraft().equals(true));
-			return result;
-		}
+	public Rendezvous findOneToEdit(final int rendezvousId) {
+		Rendezvous result;
+		Assert.isTrue(rendezvousId != 0);
+		result = this.rendezvousRepository.findOne(rendezvousId);
+		this.checkPrincipal(result);
+		Assert.isTrue(result.getDraft().equals(true));
+		return result;
+	}
 
 	public Rendezvous save(final Rendezvous rendezvous) {
 		assert rendezvous != null;
 
 		Rendezvous result;
-<<<<<<< .mine
 
 		//TODO ERN: comentada la parte de manager
-//		final User manager;
-//		manager = this.userService.findByPrincipal();
-//		Assert.notNull(manager);
-=======
-		//TODO ERN: comentada la parte de manager
-//		final User manager;
-//		manager = this.userService.findByPrincipal();
-//		Assert.notNull(manager);
->>>>>>> .r52
+		//		final User manager;
+		//		manager = this.userService.findByPrincipal();
+		//		Assert.notNull(manager);
 		//TODO Hay que corregir esto
 
 		result = this.rendezvousRepository.save(rendezvous);
@@ -138,14 +123,19 @@ public class RendezvousService {
 
 		return result;
 	}
-<<<<<<< .mine
-	public Collection<Rendezvous> findByUser(final int userId) {
-=======
 
-	public Collection<Rendezvous> findRquestedTripByExplorerId(final int explorerId) {
->>>>>>> .r52
+	public Collection<Rendezvous> findByUser(final int userId) {
 		Collection<Rendezvous> result;
 		result = this.rendezvousRepository.findReservedByUserId(userId);
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	public Collection<Rendezvous> findRquestedTripByExplorerId(final int explorerId) {
+
+		Collection<Rendezvous> result;
+		result = this.rendezvousRepository.findReservedByUserId(explorerId);
 		Assert.notNull(result);
 
 		return result;
@@ -162,15 +152,14 @@ public class RendezvousService {
 	}
 
 	//TODO ERN: añadido método checkPrincipal para checkear que el que modifica o borra un Rendezvous es el que lo creó
-		public void checkPrincipal(final Rendezvous rendezvous) {
-			User creator;
-			User principal;
+	public void checkPrincipal(final Rendezvous rendezvous) {
+		User creator;
+		User principal;
 
-			creator = rendezvous.getUser();
-			principal = this.userService.findByPrincipal();
+		creator = rendezvous.getUser();
+		principal = this.userService.findByPrincipal();
 
-			Assert.isTrue(creator.equals(principal));
-		}
+		Assert.isTrue(creator.equals(principal));
+	}
 
->>>>>>> .r52
 }
