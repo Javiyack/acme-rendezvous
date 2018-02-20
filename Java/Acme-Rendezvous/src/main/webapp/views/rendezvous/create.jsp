@@ -8,26 +8,55 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-<%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <form:form action="rendezvous/edit.do" modelAttribute="rendezvous">
+
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="user" />
 
 
-<acme:textbox code="rendezvous.name" path="name"/>
+	<acme:textbox code="rendezvous.name" path="name" />
 
-<acme:textarea code="rendezvous.description" path="description"/>
+	<acme:textarea code="rendezvous.description" path="description" />
 
-<acme:textbox code="rendezvous.moment" path="moment" placeholder="dd/MM/yyyy HH:mm"/>
+	<acme:textbox code="rendezvous.moment" path="moment"
+		placeholder="dd/MM/yyyy HH:mm" />
 
-<acme:textbox code="rendezvous.picture" path="picture"/>
+	<acme:textbox code="rendezvous.picture" path="picture" />
+
+	<jstl:out value="<spring:message code="rendezvous.location"/>" />
+	<br />
+
+	<acme:textbox code="rendezvous.location.longitude"
+		path="location.longitude" />
+	<acme:textbox code="rendezvous.location.latitude"
+		path="location.latitude" />
+	<br />
+
+	<form:label path="draft">
+		<spring:message code="rendezvous.draft" />
+	</form:label>
+	<form:checkbox path="draft"/>
+	<br/>
+	
+	<acme:cancel url="/" code="rendezvous.cancel"/>
+	<acme:submit name="save" code="rendezvous.save"/>
+
+<jstl:if test="${rendezvous.id!=0 }">
+<input type="submit" name="delete"
+			value="<spring:message code="rendezvous.delete" />"
+			onclick="return confirm('<spring:message code="rendezvous.confirm.delete" />')" />
+
+</jstl:if>
 
 
 
 
- 	<%-- <form:label path="priority">
+
+
+	<%-- <form:label path="priority">
 		<spring:message code="ms.priority" />:
 	</form:label>
 	<form:select path="priority">
