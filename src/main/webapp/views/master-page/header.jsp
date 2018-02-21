@@ -25,57 +25,56 @@
 <!-- EXPLORER RANGER MANAGER ADMINISTRATOR AUDITOR SPONSOR + "$") -->
 <div>
 	<ul id="jMenu">
-		<!-- Do not forget the "fNiv" class for the first level links !! -->		
-		<security:authorize access="hasRole('ADMINISTRATOR')">
-			<li><a class="fNiv"><spring:message
-						code="master.page.administrator" /></a>
-				<ul>
-					
-				</ul></li>
-					
+		<!-- Do not forget the "fNiv" class for the first level links !! -->
+
+		<security:authorize access="isAnonymous()">
+
+			<li><a href="user/list.do"><spring:message
+						code="master.page.user.list" /></a></li>
+
+			<li><a href="rendezvous/list.do"><spring:message
+						code="master.page.rendezvouses" /></a></li>
+
+			<li><a class="fNiv" href="security/login.do"><spring:message
+						code="master.page.login" /></a></li>
+
+			<li><a href="user/create.do"><spring:message
+						code="master.page.register" /></a></li>
+
 		</security:authorize>
-		
+
 		<security:authorize access="hasRole('USER')">
+
+			<li><a href="user/list.do"><spring:message
+						code="master.page.user.list" /></a></li>
+
 			<li><a class="fNiv"><spring:message
-						code="master.page.user" /></a>
+						code="master.page.rendezvouses" /></a>
 				<ul>
 					<li class="arrow"></li>
+					<li><a href="rendezvous/list.do"><spring:message
+								code="master.page.rendezvouses" /></a></li>
 					<li><a href="rendezvous/user/list.do"><spring:message
 								code="master.page.myRendezvouses" /></a></li>
 					<li><a href="rendezvous/user/create.do"><spring:message
 								code="master.page.newrendezvous" /></a></li>
 				</ul></li>
+
+		</security:authorize>
+
+		<security:authorize access="hasRole('ADMINISTRATOR')">
 			<li><a href="rendezvous/list.do"><spring:message
-								code="master.page.rendezvouses" /></a></li>
-					
+						code="master.page.rendezvouses" /> </a></li>
+
+			<li><a href="comment/list.do"><spring:message
+						code="master.page.comments" /> </a></li>
+
+			<li><a href="dashboard/list.do"><spring:message
+						code="master.page.dashboard" /> </a></li>
+
 		</security:authorize>
 
-		<security:authorize access="isAnonymous()">
-			<li><a class="fNiv"> <spring:message
-						code="master.page.rendezvouses" /></a>
-				<ul>
-					<li class="arrow"></li>	
-					<li><a href="rendezvous/list.do"><spring:message
-								code="master.page.rendezvouses" /></a></li>
-				</ul>
-			</li>	
-			<li><a class="fNiv"><spring:message
-						code="master.page.register" /></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="user/create.do"><spring:message
-								code="master.page.registerUser" /></a></li>
 
-					
-				</ul>
-			</li>
-			<li><a href="user/list.do"><spring:message
-								code="master.page.user.list" /></a>
-			</li>
-			<li><a class="fNiv" href="security/login.do"><spring:message
-						code="master.page.login" /></a></li>		
-		</security:authorize>
-		
 		<security:authorize access="isAuthenticated()">
 			<li><a class="fNiv">
 				 <security:authentication
@@ -85,15 +84,12 @@
 					<li class="arrow"></li>
 					<li><a href="actor/edit.do"><spring:message
 								code="master.page.actor.edit" /></a></li>
-					<li><a href="user/list.do"><spring:message
-								code="master.page.user.list" /></a></li>
+					
 					<li><a href="j_spring_security_logout"><spring:message
 								code="master.page.logout" /> </a></li>
 				</ul></li>
 			
-		</security:authorize>
-		
-		
+		</security:authorize>		
 		
 		
 	</ul>
