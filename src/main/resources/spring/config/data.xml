@@ -22,7 +22,7 @@
 
 	<!-- Repository packages -->
 
-	<jpa:repositories base-package="repositories" />
+	<jpa:repositories query-lookup-strategy="use-declared-query" base-package="repositories" />
 	<jpa:repositories base-package="security" />
 
 	<!-- Data source -->

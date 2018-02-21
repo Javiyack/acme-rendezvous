@@ -104,103 +104,103 @@ public class AdministratorService {
 
 	// Dashboard
 
-	//	public Object dashboardRendezvousesByUser() {
-	//		final Administrator admin = this.findByPrincipal();
-	//		Assert.notNull(admin);
-	//
-	//		final Object statistics = this.administratorRepository.dashboardRendezvousesByUser();
-	//
-	//		return statistics;
-	//	}
-	//
-	//	public Object dashboardRendezvousesRatioCreation() {
-	//		final Administrator admin = this.findByPrincipal();
-	//		Assert.notNull(admin);
-	//
-	//		final Object statistics = this.administratorRepository.dashboardRendezvousesRatioCreation();
-	//
-	//		return statistics;
-	//	}
-	//
-	//	public Object dashboardUsersPerRendezvous() {
-	//		final Administrator admin = this.findByPrincipal();
-	//		Assert.notNull(admin);
-	//
-	//		final Object statistics = this.administratorRepository.dashboardUsersPerRendezvous();
-	//
-	//		return statistics;
-	//	}
-	//
-	//	public Object dashboardRendezvousesRsvp() {
-	//		final Administrator admin = this.findByPrincipal();
-	//		Assert.notNull(admin);
-	//
-	//		final Object statistics = this.administratorRepository.dashboardRendezvousesRsvp();
-	//
-	//		return statistics;
-	//	}
-	//
-	//	public Collection<Object> dashboardRendezvousesTop10() {
-	//		final Administrator admin = this.findByPrincipal();
-	//		Assert.notNull(admin);
-	//
-	//		final Collection<Object> statistics = this.administratorRepository.dashboardRendezvousesTop10();
-	//
-	//		return statistics;
-	//	}
-	//
-	//	public Object dashboardAnnouncementsRatio() {
-	//		final Administrator admin = this.findByPrincipal();
-	//		Assert.notNull(admin);
-	//
-	//		final Object statistics = this.administratorRepository.dashboardAnnouncementsRatio();
-	//
-	//		return statistics;
-	//	}
-	//
-	//	public Collection<Object> dashboardAnnouncementsAbove75() {
-	//		final Administrator admin = this.findByPrincipal();
-	//		Assert.notNull(admin);
-	//
-	//		final Collection<Object> statistics = this.administratorRepository.dashboardAnnouncementsAbove75();
-	//
-	//		return statistics;
-	//	}
-	//
-	//	public Collection<Object> dashboardRendezvousesLinked() {
-	//		final Administrator admin = this.findByPrincipal();
-	//		Assert.notNull(admin);
-	//
-	//		final Collection<Object> statistics = this.administratorRepository.dashboardRendezvousesLinked();
-	//
-	//		return statistics;
-	//	}
-	//
-	//	public Object dashboardQuestionsPerRendezvous() {
-	//		final Administrator admin = this.findByPrincipal();
-	//		Assert.notNull(admin);
-	//
-	//		final Object statistics = this.administratorRepository.dashboardQuestionsPerRendezvous();
-	//
-	//		return statistics;
-	//	}
-	//
-	//	public Object dashboardAnswersPerRendezvous() {
-	//		final Administrator admin = this.findByPrincipal();
-	//		Assert.notNull(admin);
-	//
-	//		final Object statistics = this.administratorRepository.dashboardAnswersPerRendezvous();
-	//
-	//		return statistics;
-	//	}
-	//
-	//	public Object dashboardRepliesPerComment() {
-	//		final Administrator admin = this.findByPrincipal();
-	//		Assert.notNull(admin);
-	//
-	//		final Object statistics = this.administratorRepository.dashboardRepliesPerComment();
-	//
-	//		return statistics;
-	//	}
+		public Object[] dashboardRendezvousesByUser() {
+			final Administrator admin = this.findByPrincipal();
+			Assert.notNull(admin);
+	
+			final Collection<Double> statistics = this.administratorRepository.dashboardRendezvousesByUser();
+	
+			return statistics.toArray();
+		}
+	
+		public Object[] dashboardRendezvousesRatioCreation() {
+			final Administrator admin = this.findByPrincipal();
+			Assert.notNull(admin);
+	
+			final Collection<Double> statistics = this.administratorRepository.dashboardRendezvousesRatioCreation();
+	
+			return statistics.toArray();
+		}
+	
+		public Object[] dashboardUsersPerRendezvous() {
+			final Administrator admin = this.findByPrincipal();
+			Assert.notNull(admin);
+	
+			final Collection<Double> statistics = this.administratorRepository.dashboardUsersPerRendezvous();
+	
+			return statistics.toArray();
+		}
+	
+		public Object[] dashboardRendezvousesRsvp() {
+			final Administrator admin = this.findByPrincipal();
+			Assert.notNull(admin);
+	
+			final Collection<Double> statistics = this.administratorRepository.dashboardRendezvousesRsvp();
+	
+			return statistics.toArray();
+		}
+	
+		public Collection<Object> dashboardRendezvousesTop10() {
+			final Administrator admin = this.findByPrincipal();
+			Assert.notNull(admin);
+	
+			final Collection<Object> statistics = this.administratorRepository.findTop10dashboardRendezvousesTop10();
+	
+			return statistics;
+		}
+	
+		public Object[] dashboardAnnouncementsRatio() {
+			final Administrator admin = this.findByPrincipal();
+			Assert.notNull(admin);
+	
+			final Collection<Double> statistics = this.administratorRepository.dashboardAnnouncementsRatio();
+	
+			return statistics.toArray();
+		}
+	
+		public Collection<Object> dashboardAnnouncementsAbove75() {
+			final Administrator admin = this.findByPrincipal();
+			Assert.notNull(admin);
+	
+			final Collection<Object> statistics = this.administratorRepository.dashboardAnnouncementsAbove75();
+	
+			return statistics;
+		}
+	
+		public Collection<Object> dashboardRendezvousesLinked() {
+			final Administrator admin = this.findByPrincipal();
+			Assert.notNull(admin);
+	
+			final Collection<Object> statistics = this.administratorRepository.dashboardRendezvousesLinked();
+	
+			return statistics;
+		}
+	
+		public Object[] dashboardQuestionsPerRendezvous() {
+			final Administrator admin = this.findByPrincipal();
+			Assert.notNull(admin);
+	
+			final Collection<Double> statistics = this.administratorRepository.dashboardQuestionsPerRendezvous();
+	
+			return statistics.toArray();
+		}
+	
+		public Object[] dashboardAnswersPerRendezvous() {
+			final Administrator admin = this.findByPrincipal();
+			Assert.notNull(admin);
+	
+			final Collection<Double> statistics = this.administratorRepository.dashboardAnswersPerRendezvous();
+	
+			return statistics.toArray();
+		}
+	
+		public Object[] dashboardRepliesPerComment() {
+			final Administrator admin = this.findByPrincipal();
+			Assert.notNull(admin);
+	
+			final Collection<Double> statistics = this.administratorRepository.dashboardRepliesPerComment();
+	
+			return statistics.toArray();
+		}
 
 }
