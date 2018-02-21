@@ -33,7 +33,7 @@
 </jstl:if>
 
 <jstl:if test="${placeholder == null}">
-	<jstl:set var="placeholder" value="false" />
+	<jstl:set var="placeholder" value="" />
 </jstl:if>
 
 

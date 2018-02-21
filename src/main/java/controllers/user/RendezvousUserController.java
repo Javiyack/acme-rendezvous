@@ -52,6 +52,7 @@ public class RendezvousUserController {
 		result = new ModelAndView("rendezvous/user/list");
 		result.addObject("rendezvouses", rendezvouses);
 		result.addObject("requestUri", "rendezvous/user/list.do");
+		result.addObject("user",user);
 
 		return result;
 	}
