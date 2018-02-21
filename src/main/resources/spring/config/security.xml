@@ -48,7 +48,7 @@
 		<!-- Admin -->
 		<security:intercept-url pattern="/rendezvous/administrator/**" access="hasRole('ADMINISTRATOR')" />
 		<security:intercept-url pattern="/dashboard/**" access="hasRole('ADMINISTRATOR')" />
-		
+		<security:intercept-url pattern="/comment/administrator/**" access="hasRole('ADMINISTRATOR')" />
 		
 		
 		<!-- PERMIT ALL -->
