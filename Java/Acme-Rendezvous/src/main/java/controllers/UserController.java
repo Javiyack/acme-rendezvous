@@ -58,9 +58,9 @@ public class UserController extends AbstractController {
 
 		final Collection<User> attendants = this.userService.findAttendantsByRendezvous(rendezvousId);
 
-		result = new ModelAndView("actor/list");
-		result.addObject("actors", attendants);
-		result.addObject("requestUri", "actor/list.do");
+		result = new ModelAndView("user/list");
+		result.addObject("users", attendants);
+		result.addObject("requestUri", "user/list.do");
 
 		return result;
 	}
