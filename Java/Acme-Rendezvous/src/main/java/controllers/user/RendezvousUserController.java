@@ -7,16 +7,19 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.RendezvousService;
-import services.UserService;
 import domain.Rendezvous;
+import domain.Reservation;
 import domain.User;
+import services.RendezvousService;
+import services.ReservationService;
+import services.UserService;
 
 @Controller
 @RequestMapping("/rendezvous/user")
@@ -26,17 +29,18 @@ public class RendezvousUserController {
 		super();
 	}
 
-
-	//Services ---------------------------------------------------------------
-
-	@Autowired
-	private RendezvousService	rendezvousService;
+	// Services ---------------------------------------------------------------
 
 	@Autowired
-	private UserService			userService;
+	private RendezvousService rendezvousService;
 
+	@Autowired
+	private UserService userService;
 
-	//List ---------------------------------------------------------------		
+	@Autowired
+	private ReservationService reservationService;
+
+	// List ---------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 
@@ -52,7 +56,7 @@ public class RendezvousUserController {
 		return result;
 	}
 
-	//Create ---------------------------------------------------------------
+	// Create ---------------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
@@ -62,7 +66,7 @@ public class RendezvousUserController {
 		return result;
 	}
 
-	//Edit ---------------------------------------------------------------
+	// Edit ---------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int rendezvousId) {
 		ModelAndView result;
@@ -75,7 +79,7 @@ public class RendezvousUserController {
 		return result;
 	}
 
-	//Save ---------------------------------------------------------------
+	// Save ---------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Rendezvous rendezvous, final BindingResult binding) {
 		ModelAndView result;
@@ -92,7 +96,7 @@ public class RendezvousUserController {
 		return result;
 	}
 
-	//Delete ---------------------------------------------------------------
+	// Delete ---------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(@Valid final Rendezvous rendezvous, final BindingResult binding) {
 		ModelAndView result;
@@ -108,13 +112,66 @@ public class RendezvousUserController {
 			}
 		return result;
 	}
+	
+	// Reserve
 
-	// Auxiliary methods ---------------------------------------------------------------
+		@RequestMapping(value = "/reserve", method = RequestMethod.GET)
+		public ModelAndView reserve(@RequestParam final int rendezvousId) {
+			
+			ModelAndView result;
+			
+			Rendezvous rendezvous;
+			rendezvous = this.rendezvousService.findOne(rendezvousId);
+			Assert.notNull(rendezvous);
+			
+			Reservation reservation;
+			reservation = this.reservationService.create();
+			Assert.notNull(reservation);
+			
+			Reservation done;
+			done = this.rendezvousService.reserveRendezvous(reservation, rendezvous);
+			Assert.notNull(done);
+			
+			this.reservationService.save(done);
+
+			result = new ModelAndView("redirect:../list.do");
+
+			return result;
+		}
+
+	// Cancel
+
+	@RequestMapping(value = "/cancel", method = RequestMethod.GET)
+	public ModelAndView cancel(@RequestParam final int rendezvousId) {
+		ModelAndView result;
+
+		Rendezvous rendezvous;
+		rendezvous = this.rendezvousService.findOne(rendezvousId);
+		Assert.notNull(rendezvous);
+
+		User user;
+		user = this.userService.findByPrincipal();
+		Assert.notNull(user);
+
+		Reservation reservation;
+		reservation = this.reservationService.findReservationByUserAndRendezvous(user, rendezvous);
+
+		Reservation canceled = this.rendezvousService.cancelRendezvous(reservation);
+		this.reservationService.save(canceled);
+
+		result = new ModelAndView("redirect:../list.do");
+
+		return result;
+	}
+
+	// Auxiliary methods
+	// ---------------------------------------------------------------
 	protected ModelAndView createEditModelAndView(final Rendezvous rendezvous) {
 		final ModelAndView result;
 		result = this.createEditModelAndView(rendezvous, null);
 		return result;
 	}
+
 	protected ModelAndView createEditModelAndView(final Rendezvous rendezvous, final String message) {
 		final ModelAndView result;
 		result = new ModelAndView("rendezvous/user/create");
