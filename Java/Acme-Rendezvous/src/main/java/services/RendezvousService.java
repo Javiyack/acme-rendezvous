@@ -29,7 +29,7 @@ public class RendezvousService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private RendezvousRepository	rendezvousRepository;
+	private RendezvousRepository rendezvousRepository;
 
 	// Supporting services ----------------------------------------------------
 
@@ -81,7 +81,7 @@ public class RendezvousService {
 		return result;
 	}
 
-	//TODO ERN: añadido método findOneToEdit de Rendezvous
+	// TODO ERN: añadido método findOneToEdit de Rendezvous
 	public Rendezvous findOneToEdit(final int rendezvousId) {
 		Rendezvous result;
 		Assert.isTrue(rendezvousId != 0);
@@ -97,11 +97,11 @@ public class RendezvousService {
 		Rendezvous result;
 
 		Assert.isTrue(!rendezvous.getDeleted(), "deleted value is /True/");
-		//TODO ERN: comentada la parte de manager
-		//		final User manager;
-		//		manager = this.userService.findByPrincipal();
-		//		Assert.notNull(manager);
-		//TODO Hay que corregir esto
+		// TODO ERN: comentada la parte de manager
+		// final User manager;
+		// manager = this.userService.findByPrincipal();
+		// Assert.notNull(manager);
+		// TODO Hay que corregir esto
 
 		result = this.rendezvousRepository.save(rendezvous);
 
@@ -133,20 +133,49 @@ public class RendezvousService {
 
 		return result;
 	}
-
+	
 	//Requisito 5.3
-	public Rendezvous deleteByUser(final Rendezvous rendezvous) {
-		Assert.isTrue(rendezvous.getId() != 0);
-		this.checkPrincipal(rendezvous);
-		Rendezvous result;
-		Assert.isTrue(rendezvous.getDraft(), "Final mode is /True/");
-		Assert.isTrue(!rendezvous.getDeleted(), "deleted value is /True/");
-		rendezvous.setDeleted(true);
-		result = this.rendezvousRepository.save(rendezvous);
-		return result;
+		public Rendezvous deleteByUser(final Rendezvous rendezvous) {
+			Assert.isTrue(rendezvous.getId() != 0);
+			this.checkPrincipal(rendezvous);
+			Rendezvous result;
+			Assert.isTrue(rendezvous.getDraft(), "Final mode is /True/");
+			Assert.isTrue(!rendezvous.getDeleted(), "deleted value is /True/");
+			rendezvous.setDeleted(true);
+			result = this.rendezvousRepository.save(rendezvous);
+			return result;
+		}
+
+	public Reservation reserveRendezvous(Reservation reservation, Rendezvous rendezvous) {
+
+		Assert.notNull(reservation);
+		Assert.notNull(rendezvous);
+
+		User principal = this.userService.findByPrincipal();
+		Assert.notNull(principal);
+
+		if (rendezvous.getAdult().equals(true)) {
+			Assert.isTrue(principal.getAdult().equals(true));
+		}
+
+		reservation.setRendezvous(rendezvous);
+		reservation.setUser(principal);
+		reservation.setCanceled(false);
+
+		return reservation;
+
 	}
 
-	//TODO ERN: añadido método checkPrincipal para checkear que el que modifica o borra un Rendezvous es el que lo creó
+	public Reservation cancelRendezvous(Reservation reservation) {
+
+		Assert.notNull(reservation);
+		reservation.setCanceled(true);
+		return reservation;
+
+	}
+
+	// TODO ERN: añadido método checkPrincipal para checkear que el que modifica o
+	// borra un Rendezvous es el que lo creó
 	public void checkPrincipal(final Rendezvous rendezvous) {
 		User creator;
 		User principal;
