@@ -61,7 +61,7 @@
 	
 	<display:column>
 		<div>
-			<a href="rendezvous/user/reserve.do?=${row.id}"> 
+			<a href="rendezvous/user/reserve.do?rendezvousId=${row.id}"> 
 				<spring:message code="rendezvous.reserve" />
 			</a>
 		</div>
@@ -69,7 +69,7 @@
 	<jstl:if test="${user eq row.user }">
 	<display:column>
 		<div>
-			<a href="rendezvous/user/edit.do?=${row.id}"> 
+			<a href="rendezvous/user/edit.do?rendezvousId=${row.id}"> 
 				<spring:message code="rendezvous.edit" />
 			</a>
 		</div>
