@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -23,7 +24,16 @@ public abstract class Actor extends DomainEntity {
 	private String		phone;			// Optional	
 	private String		address;		// Optional	
 	private UserAccount	userAccount;
+	private Boolean adult;
 
+	@NotNull
+	public Boolean getAdult() {
+		return adult;
+	}
+
+	public void setAdult(Boolean adult) {
+		this.adult = adult;
+	}
 
 	@Valid
 	@OneToOne(cascade = CascadeType.ALL)
