@@ -38,6 +38,8 @@ public class RendezvousService {
 	private UserService				userService;
 	@Autowired
 	private AdministratorService	adminService;
+	@Autowired 
+	private ReservationService reservationService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -56,9 +58,10 @@ public class RendezvousService {
 
 		final Rendezvous res;
 		res = new Rendezvous();
-		// TODO ERN: añadido el usuario que crea el rendezvous
+		
 		res.setUser(user);
 		res.setDeleted(false);
+		
 		return res;
 	}
 
@@ -95,6 +98,7 @@ public class RendezvousService {
 	public Rendezvous save(final Rendezvous rendezvous) {
 		assert rendezvous != null;
 
+		int id = rendezvous.getId();
 		Rendezvous result;
 
 		Assert.isTrue(!rendezvous.getDeleted(), "deleted value is /True/");
@@ -105,6 +109,26 @@ public class RendezvousService {
 		// TODO Hay que corregir esto
 
 		result = this.rendezvousRepository.save(rendezvous);
+		
+		if(id==0) {
+			
+			Reservation reservation;
+			reservation = reservationService.create();
+			Assert.notNull(reservation);
+			
+			User user;
+			user = this.userService.findByPrincipal();
+			Assert.notNull(user);
+			
+			reservation.setUser(user);
+			reservation.setRendezvous(result);
+			
+			this.reservationService.save(reservation);
+			
+			
+			
+		}
+	
 
 		return result;
 	}

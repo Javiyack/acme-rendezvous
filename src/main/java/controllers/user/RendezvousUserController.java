@@ -63,6 +63,7 @@ public class RendezvousUserController {
 		ModelAndView result;
 		Rendezvous rendezvous;
 		rendezvous = this.rendezvousService.create();
+		
 		result = this.createEditModelAndView(rendezvous);
 		return result;
 	}
