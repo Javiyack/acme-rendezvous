@@ -47,6 +47,17 @@ public class ReplyService {
 	}
 
 
+	public Collection<Reply> findAllByCommentId(final int commentId) {
+
+		Collection<Reply> result;
+
+		result = this.replyRepository.findAllByCommetId(commentId);
+		Assert.notNull(result);
+
+		return result;
+	}
+
+
 	public Reply findOne(final int replyId) {
 		Reply result;
 
@@ -69,6 +80,12 @@ public class ReplyService {
 		Assert.notNull(reply);
 
 		this.replyRepository.delete(reply);
+	}
+	
+	public void deleteInBatch(final Collection<Reply> replys) {
+		Assert.notEmpty(replys);
+
+		this.replyRepository.deleteInBatch(replys);
 	}
 
 }

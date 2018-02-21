@@ -1,14 +1,16 @@
 package services;
 
 import java.util.Collection;
-import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import domain.Actor;
+import domain.Administrator;
 import domain.Comment;
+import domain.Reply;
 import domain.User;
 import repositories.CommentRepository;
 
@@ -20,10 +22,12 @@ public class CommentService {
 	@Autowired
 	private CommentRepository commentRepository;
 
-	// Supporting services 
+	// Supporting services
 	@Autowired
-	private UserService userService;
+	private ReplyService replyService;
 
+	@Autowired
+	private ActorService actorService;
 
 	// Constructor ----------------------------------------------------------
 	public CommentService() {
@@ -33,9 +37,13 @@ public class CommentService {
 	// Methods CRUD ---------------------------------------------------------
 	public Comment create() {
 
+		final Actor actor = actorService.findByPrincipal();
+		Assert.isTrue(actor instanceof User);
+
 		final Comment result;
 
 		result = new Comment();
+		result.setUser((User) actor);
 
 		return result;
 	}
@@ -43,7 +51,6 @@ public class CommentService {
 	public Collection<Comment> findAll() {
 
 		Collection<Comment> result;
-
 		result = this.commentRepository.findAll();
 		Assert.notNull(result);
 
@@ -51,6 +58,14 @@ public class CommentService {
 	}
 
 	public Collection<Comment> findAllByUser(final int userId) {
+
+		// Comprobamos que el actor autenticado es un "User"
+
+		final Actor actor = actorService.findByPrincipal();
+		Assert.isTrue(actor instanceof User);
+
+		// Comprobamos que el usuario autenticado coincide con el usario pasado
+		Assert.isTrue(((User) actor).getId() == userId);
 
 		Collection<Comment> result;
 
@@ -78,8 +93,21 @@ public class CommentService {
 		return saved;
 	}
 
+	// TOASK ¿Solo administradores puden borrar comentarios?
 	public void delete(final Comment comment) {
 		Assert.notNull(comment);
+		// Comprobamos que el actor autenticado es un "Administrator"
+
+		final Actor actor = actorService.findByPrincipal();
+		Assert.isTrue(actor instanceof Administrator);
+
+		// Buscamos y borramos todos las respuestas si las hubiera
+
+		Collection<Reply> replies = replyService.findAllByCommentId(comment.getId());
+		if (!replies.isEmpty())
+			replyService.deleteInBatch(replies);
+
+		// Finalmente borramos el comentario
 
 		this.commentRepository.delete(comment);
 	}
