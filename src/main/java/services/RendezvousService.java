@@ -17,11 +17,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import repositories.RendezvousRepository;
 import domain.Administrator;
 import domain.Rendezvous;
 import domain.Reservation;
 import domain.User;
-import repositories.RendezvousRepository;
 
 @Service
 @Transactional
@@ -30,7 +30,7 @@ public class RendezvousService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private RendezvousRepository rendezvousRepository;
+	private RendezvousRepository	rendezvousRepository;
 
 	// Supporting services ----------------------------------------------------
 
@@ -38,8 +38,8 @@ public class RendezvousService {
 	private UserService				userService;
 	@Autowired
 	private AdministratorService	adminService;
-	@Autowired 
-	private ReservationService reservationService;
+	@Autowired
+	private ReservationService		reservationService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -58,10 +58,10 @@ public class RendezvousService {
 
 		final Rendezvous res;
 		res = new Rendezvous();
-		
+
 		res.setUser(user);
 		res.setDeleted(false);
-		
+
 		return res;
 	}
 
@@ -98,7 +98,7 @@ public class RendezvousService {
 	public Rendezvous save(final Rendezvous rendezvous) {
 		assert rendezvous != null;
 
-		int id = rendezvous.getId();
+		final int id = rendezvous.getId();
 		Rendezvous result;
 
 		Assert.isTrue(!rendezvous.getDeleted(), "deleted value is /True/");
@@ -109,26 +109,23 @@ public class RendezvousService {
 		// TODO Hay que corregir esto
 
 		result = this.rendezvousRepository.save(rendezvous);
-		
-		if(id==0) {
-			
+
+		if (id == 0) {
+
 			Reservation reservation;
-			reservation = reservationService.create();
+			reservation = this.reservationService.create();
 			Assert.notNull(reservation);
-			
+
 			User user;
 			user = this.userService.findByPrincipal();
 			Assert.notNull(user);
-			
+
 			reservation.setUser(user);
 			reservation.setRendezvous(result);
-			
+
 			this.reservationService.save(reservation);
-			
-			
-			
+
 		}
-	
 
 		return result;
 	}
@@ -158,30 +155,29 @@ public class RendezvousService {
 
 		return result;
 	}
-	
-	//Requisito 5.3
-		public Rendezvous deleteByUser(final Rendezvous rendezvous) {
-			Assert.isTrue(rendezvous.getId() != 0);
-			this.checkPrincipal(rendezvous);
-			Rendezvous result;
-			Assert.isTrue(rendezvous.getDraft(), "Final mode is /True/");
-			Assert.isTrue(!rendezvous.getDeleted(), "deleted value is /True/");
-			rendezvous.setDeleted(true);
-			result = this.rendezvousRepository.save(rendezvous);
-			return result;
-		}
 
-	public Reservation reserveRendezvous(Reservation reservation, Rendezvous rendezvous) {
+	//Requisito 5.3
+	public Rendezvous deleteByUser(final Rendezvous rendezvous) {
+		Assert.isTrue(rendezvous.getId() != 0);
+		this.checkPrincipal(rendezvous);
+		Rendezvous result;
+		Assert.isTrue(rendezvous.getDraft(), "Final mode is /True/");
+		Assert.isTrue(!rendezvous.getDeleted(), "deleted value is /True/");
+		rendezvous.setDeleted(true);
+		result = this.rendezvousRepository.save(rendezvous);
+		return result;
+	}
+
+	public Reservation reserveRendezvous(final Reservation reservation, final Rendezvous rendezvous) {
 
 		Assert.notNull(reservation);
 		Assert.notNull(rendezvous);
 
-		User principal = this.userService.findByPrincipal();
+		final User principal = this.userService.findByPrincipal();
 		Assert.notNull(principal);
-
-		if (rendezvous.getAdult().equals(true)) {
+		Assert.isTrue(!rendezvous.getUser().equals(principal), "Cannot reserve this rendezvous");
+		if (rendezvous.getAdult().equals(true))
 			Assert.isTrue(principal.getAdult().equals(true));
-		}
 
 		reservation.setRendezvous(rendezvous);
 		reservation.setUser(principal);
@@ -191,7 +187,7 @@ public class RendezvousService {
 
 	}
 
-	public Reservation cancelRendezvous(Reservation reservation) {
+	public Reservation cancelRendezvous(final Reservation reservation) {
 
 		Assert.notNull(reservation);
 		reservation.setCanceled(true);
