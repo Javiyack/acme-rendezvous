@@ -53,9 +53,9 @@
 		
 		<!-- PERMIT ALL -->
 		<security:intercept-url pattern="/user/create.do" access="permitAll" />
-		<security:intercept-url pattern="/actor/list.do" access="permitAll" />
-		<security:intercept-url pattern="/actor/listAttendants.do" access="permitAll" />
-		<security:intercept-url pattern="/actor/display.do" access="permitAll" />
+		<security:intercept-url pattern="/user/list.do" access="permitAll" />
+		<security:intercept-url pattern="/user/listAttendants.do" access="permitAll" />
+		<security:intercept-url pattern="/user/display.do" access="permitAll" />
 		<security:intercept-url pattern="/rendezvous/list.do" access="permitAll" />
 		
 		<!-- IS AUTHENTICATED -->

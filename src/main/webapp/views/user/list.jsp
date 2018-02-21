@@ -21,18 +21,18 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<display:table pagesize="5" class="displaytag" name="actors" requestURI="${requestUri}" id="row">
+<display:table pagesize="5" class="displaytag" name="users" requestURI="${requestUri}" id="row">
 	
-	<spring:message code="actor.name" var="actorName" />
-	<display:column property="name" title="${actorName}" sortable="true" />
+	<spring:message code="user.name" var="userName" />
+	<display:column property="name" title="${userName}" sortable="true" />
 
-	<spring:message code="actor.surname" var="actorSurname" />
-	<display:column property="surname" title="${actorSurname}" sortable="true" />
+	<spring:message code="user.surname" var="userSurname" />
+	<display:column property="surname" title="${userSurname}" sortable="true" />
 		
 	<display:column>
 		<div>
-			<a href="actor/display.do?actorId=${row.id}"> <spring:message
- 				code="actor.display" />
+			<a href="user/display.do?userId=${row.id}"> <spring:message
+ 				code="user.display" />
 			</a>
 		</div>
 	</display:column>
@@ -41,7 +41,7 @@
 	
 	
 <input type="button" name="back"
-	value='<spring:message code="actor.back"/>'
+	value='<spring:message code="user.back"/>'
 	onclick="javascript: relativeRedir('/');" />
 	<br />
 

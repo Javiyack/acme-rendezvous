@@ -69,8 +69,8 @@
 					
 				</ul>
 			</li>
-			<li><a href="actor/list.do"><spring:message
-								code="master.page.actor.list" /></a>
+			<li><a href="user/list.do"><spring:message
+								code="master.page.user.list" /></a>
 			</li>
 			<li><a class="fNiv" href="security/login.do"><spring:message
 						code="master.page.login" /></a></li>		
@@ -85,8 +85,8 @@
 					<li class="arrow"></li>
 					<li><a href="actor/edit.do"><spring:message
 								code="master.page.actor.edit" /></a></li>
-					<li><a href="actor/list.do"><spring:message
-								code="master.page.actor.list" /></a></li>
+					<li><a href="user/list.do"><spring:message
+								code="master.page.user.list" /></a></li>
 					<li><a href="j_spring_security_logout"><spring:message
 								code="master.page.logout" /> </a></li>
 				</ul></li>
