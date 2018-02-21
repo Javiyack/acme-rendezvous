@@ -58,6 +58,21 @@ public class ActorController extends AbstractController {
 		return result;
 	}
 
+	// list attendants ---------------------------------------------------------------		
+	@RequestMapping(value = "/listAttendants", method = RequestMethod.GET)
+	public ModelAndView listAttendants(@RequestParam final int rendezvousId) {
+
+		ModelAndView result;
+
+		final Collection<User> attendants = this.userService.findAttendantsByRendezvous(rendezvousId);
+
+		result = new ModelAndView("actor/list");
+		result.addObject("actors", attendants);
+		result.addObject("requestUri", "actor/list.do");
+
+		return result;
+	}
+
 	// Edition -----------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit() {
@@ -106,12 +121,12 @@ public class ActorController extends AbstractController {
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam final int actorId) {
 		final ModelAndView result;
-		final Actor actor;
+		final User actor;
 		final Collection<Rendezvous> rendezvouses;
 
-		actor = this.actorService.findOne(actorId);
+		actor = (User) this.actorService.findOne(actorId);
 
-		rendezvouses = this.rendezvousService.findByUser(actorId);
+		rendezvouses = this.rendezvousService.findReservedByUser(actor.getId());
 
 		result = new ModelAndView("actor/display");
 

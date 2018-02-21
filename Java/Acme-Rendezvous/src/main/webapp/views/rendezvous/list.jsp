@@ -19,7 +19,6 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-<%@taglib prefix="acme" uri="/WEB-INF/tags/"%>
 
 
 
@@ -43,9 +42,30 @@
 	
 	<spring:message code="rendezvous.location" var="rendezvousLocation" />
 	<display:column property="location" title="${rendezvousLocation}" />
+	
+	<spring:message code="rendezvous.user" var="rendezvousUser" />
+	<display:column>
+		<div>
+			<a href="actor/display.do?actorId=${row.user.id}"> 
+				<spring:message code="rendezvous.user" />
+			</a>
+		</div>
+	</display:column>
+	
+	<spring:message code="rendezvous.attendants" var="rendezvousAttendants" />
+	<display:column>
+		<div>
+			<a href="actor/listAttendants.do?rendezvousId=${row.id}"> 
+				<spring:message code="rendezvous.attendants" />
+			</a>
+		</div>
+	</display:column>
 
 </display:table>
 
 
-<acme:cancel url="/" code="rendezvous.back"/>
+<input type="button" name="back"
+	value='<spring:message code="rendezvous.back"/>'
+	onclick="javascript: relativeRedir('/');" />
+	<br />
 	

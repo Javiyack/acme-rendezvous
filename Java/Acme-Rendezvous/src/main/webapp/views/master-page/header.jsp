@@ -40,9 +40,13 @@
 						code="master.page.user" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="user/rendezvous/list.do"><spring:message
+					<li><a href="rendezvous/user/list.do"><spring:message
 								code="master.page.myRendezvouses" /></a></li>
+					<li><a href="rendezvous/user/create.do"><spring:message
+								code="master.page.newrendezvous" /></a></li>
 				</ul></li>
+			<li><a href="rendezvous/list.do"><spring:message
+								code="master.page.rendezvouses" /></a></li>
 					
 		</security:authorize>
 
@@ -51,6 +55,8 @@
 						code="master.page.rendezvouses" /></a>
 				<ul>
 					<li class="arrow"></li>	
+					<li><a href="rendezvous/list.do"><spring:message
+								code="master.page.rendezvouses" /></a></li>
 				</ul>
 			</li>	
 			<li><a class="fNiv"><spring:message
@@ -83,19 +89,6 @@
 								code="master.page.actor.list" /></a></li>
 					<li><a href="j_spring_security_logout"><spring:message
 								code="master.page.logout" /> </a></li>
-				</ul></li>
-			
-		</security:authorize>
-		
-			<security:authorize access="hasRole('USER')">
-			<li><a class="fNiv">
-				 <security:authentication
-						property="principal.username" />
-					</a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="rendezvous/user/create.do"><spring:message
-								code="master.page.newrendezvous" /></a></li>
 				</ul></li>
 			
 		</security:authorize>

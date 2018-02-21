@@ -13,28 +13,28 @@
 
  	 
 
-<h2>
+<p>
 	<spring:message code="actor.name" var="actorName" />
-	<jstl:out value="${actorName}: ${actor.name }" />
-</h2>
+	<jstl:out value="${actorName} ${actor.name }" />
+</p>
 <p>
 	<spring:message code="actor.surname" var="actorSurname" />
-	<jstl:out value="${actorSurname}: ${actor.surname}" />
+	<jstl:out value="${actorSurname} ${actor.surname}" />
 </p>
 
 <p>
 	<spring:message code="actor.email" var="actorEmail" />
-	<jstl:out value="${actorEmail}: ${actor.email }" />
+	<jstl:out value="${actorEmail} ${actor.email }" />
 </p>
 
 <p>
 	<spring:message code="actor.phone" var="actorPhone" />
-	<jstl:out value="${actorPhone}: ${actor.phone }" />
+	<jstl:out value="${actorPhone} ${actor.phone }" />
 </p>
 
 <p>
 	<spring:message code="actor.address" var="actorAddress" />
-	<jstl:out value="${actorAddress}: ${actor.address }" />
+	<jstl:out value="${actorAddress} ${actor.address }" />
 </p>
 
 
@@ -67,7 +67,7 @@
 
 <input type="button" name="back"
 	value='<spring:message code="actor.back"/>'
-	onclick="javascript: relativeRedir('actor/list.do');" />
+	onclick="javascript: relativeRedir('/');" />
 	<br />
 
 	

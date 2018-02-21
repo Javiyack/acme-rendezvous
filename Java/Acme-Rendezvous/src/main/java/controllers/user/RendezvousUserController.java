@@ -1,6 +1,8 @@
 
 package controllers.user;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.RendezvousService;
+import services.UserService;
 import domain.Rendezvous;
+import domain.User;
 
 @Controller
 @RequestMapping("/rendezvous/user")
@@ -23,12 +27,32 @@ public class RendezvousUserController {
 	}
 
 
-	//Services
+	//Services ---------------------------------------------------------------
 
 	@Autowired
 	private RendezvousService	rendezvousService;
 
+	@Autowired
+	private UserService			userService;
 
+
+	//List ---------------------------------------------------------------		
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list() {
+
+		ModelAndView result;
+		final User user = this.userService.findByPrincipal();
+
+		final Collection<Rendezvous> rendezvouses = this.rendezvousService.findReservedByUser(user.getId());
+
+		result = new ModelAndView("rendezvous/user/list");
+		result.addObject("rendezvouses", rendezvouses);
+		result.addObject("requestUri", "rendezvous/user/list.do");
+
+		return result;
+	}
+
+	//Create ---------------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
@@ -38,6 +62,7 @@ public class RendezvousUserController {
 		return result;
 	}
 
+	//Edit ---------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int rendezvousId) {
 		ModelAndView result;
@@ -50,6 +75,7 @@ public class RendezvousUserController {
 		return result;
 	}
 
+	//Save ---------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Rendezvous rendezvous, final BindingResult binding) {
 		ModelAndView result;
@@ -66,6 +92,7 @@ public class RendezvousUserController {
 		return result;
 	}
 
+	//Delete ---------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(@Valid final Rendezvous rendezvous, final BindingResult binding) {
 		ModelAndView result;

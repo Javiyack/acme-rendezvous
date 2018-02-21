@@ -10,6 +10,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import security.UserAccountService;
+import domain.Rendezvous;
 import domain.User;
 
 @Service
@@ -39,6 +41,8 @@ public class UserService {
 	private UserAccountService	userAccountService;
 	@Autowired
 	private ActorService		actorService;
+	@Autowired
+	private RendezvousService	rendezvousService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -116,6 +120,17 @@ public class UserService {
 		Assert.notNull(result);
 
 		return result;
+	}
+
+	public Collection<User> findAttendantsByRendezvous(final int rendezvousId) {
+		Collection<User> attendants = new ArrayList<User>();
+		final Rendezvous rendezvous = this.rendezvousService.findOne(rendezvousId);
+		Assert.notNull(rendezvous);
+
+		attendants = this.userRepository.findAttendantsByRendezvous(rendezvousId);
+
+		return attendants;
+
 	}
 
 }

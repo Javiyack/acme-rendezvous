@@ -12,6 +12,10 @@
 		<put-attribute name="title" value="Actors list" />
 		<put-attribute name="body" value="/views/actor/list.jsp" />
 	</definition>
+	<definition name="actor/listAttendants" extends="master.page">	
+		<put-attribute name="title" value="Attendants list" />
+		<put-attribute name="body" value="/views/actor/list.jsp" />
+	</definition>
 	<definition name="actor/display" extends="master.page">	
 		<put-attribute name="title" value="Display actor" />
 		<put-attribute name="body" value="/views/actor/display.jsp" />
