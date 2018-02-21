@@ -14,32 +14,32 @@
  	 
 
 <p>
-	<spring:message code="actor.name" var="actorName" />
-	<jstl:out value="${actorName} ${actor.name }" />
+	<spring:message code="user.name" var="userName" />
+	<jstl:out value="${userName} ${user.name }" />
 </p>
 <p>
-	<spring:message code="actor.surname" var="actorSurname" />
-	<jstl:out value="${actorSurname} ${actor.surname}" />
-</p>
-
-<p>
-	<spring:message code="actor.email" var="actorEmail" />
-	<jstl:out value="${actorEmail} ${actor.email }" />
+	<spring:message code="user.surname" var="userSurname" />
+	<jstl:out value="${userSurname} ${user.surname}" />
 </p>
 
 <p>
-	<spring:message code="actor.phone" var="actorPhone" />
-	<jstl:out value="${actorPhone} ${actor.phone }" />
+	<spring:message code="user.email" var="userEmail" />
+	<jstl:out value="${userEmail} ${user.email }" />
 </p>
 
 <p>
-	<spring:message code="actor.address" var="actorAddress" />
-	<jstl:out value="${actorAddress} ${actor.address }" />
+	<spring:message code="user.phone" var="userPhone" />
+	<jstl:out value="${userPhone} ${user.phone }" />
+</p>
+
+<p>
+	<spring:message code="user.address" var="userAddress" />
+	<jstl:out value="${userAddress} ${user.address }" />
 </p>
 
 
 <h4>
-	<spring:message code="actor.rendezvous" />
+	<spring:message code="user.rendezvous" />
 </h4>
 
 <display:table name="rendezvouses" class="displaytag">
@@ -66,7 +66,7 @@
 <br/>
 
 <input type="button" name="back"
-	value='<spring:message code="actor.back"/>'
+	value='<spring:message code="user.back"/>'
 	onclick="javascript: relativeRedir('/');" />
 	<br />
 

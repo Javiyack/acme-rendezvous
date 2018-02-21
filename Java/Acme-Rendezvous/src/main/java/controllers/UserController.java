@@ -1,6 +1,8 @@
 
 package controllers;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.RendezvousService;
 import services.UserService;
+import domain.Rendezvous;
 import domain.User;
 
 @Controller
@@ -19,13 +24,45 @@ public class UserController extends AbstractController {
 
 	// Supporting services -----------------------------------------------------
 	@Autowired
-	UserService	userService;
+	UserService			userService;
+	@Autowired
+	RendezvousService	rendezvousService;
 
 
 	// Constructors -----------------------------------------------------------
 
 	public UserController() {
 		super();
+	}
+
+	// list user ---------------------------------------------------------------		
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list() {
+
+		ModelAndView result;
+
+		final Collection<User> users = this.userService.findAll();
+
+		result = new ModelAndView("user/list");
+		result.addObject("users", users);
+		result.addObject("requestUri", "user/list.do");
+
+		return result;
+	}
+
+	// list attendants ---------------------------------------------------------------		
+	@RequestMapping(value = "/listAttendants", method = RequestMethod.GET)
+	public ModelAndView listAttendants(@RequestParam final int rendezvousId) {
+
+		ModelAndView result;
+
+		final Collection<User> attendants = this.userService.findAttendantsByRendezvous(rendezvousId);
+
+		result = new ModelAndView("actor/list");
+		result.addObject("actors", attendants);
+		result.addObject("requestUri", "actor/list.do");
+
+		return result;
 	}
 
 	// Create user ---------------------------------------------------------------	
@@ -53,6 +90,25 @@ public class UserController extends AbstractController {
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(user, "user.commit.error");
 			}
+		return result;
+	}
+
+	// Display user -----------------------------------------------------------
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam final int userId) {
+		final ModelAndView result;
+		final User user;
+		final Collection<Rendezvous> rendezvouses;
+
+		user = this.userService.findOne(userId);
+
+		rendezvouses = this.rendezvousService.findReservedByUser(user.getId());
+
+		result = new ModelAndView("user/display");
+
+		result.addObject("user", user);
+		result.addObject("rendezvouses", rendezvouses);
+
 		return result;
 	}
 

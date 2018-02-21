@@ -1,8 +1,6 @@
 
 package controllers;
 
-import java.util.Collection;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
@@ -19,7 +16,6 @@ import services.RendezvousService;
 import services.UserService;
 import domain.Actor;
 import domain.Administrator;
-import domain.Rendezvous;
 import domain.User;
 
 @Controller
@@ -41,36 +37,6 @@ public class ActorController extends AbstractController {
 
 	public ActorController() {
 		super();
-	}
-
-	// list user ---------------------------------------------------------------		
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
-
-		ModelAndView result;
-
-		final Collection<Actor> actors = this.actorService.findAll();
-
-		result = new ModelAndView("actor/list");
-		result.addObject("actors", actors);
-		result.addObject("requestUri", "actor/list.do");
-
-		return result;
-	}
-
-	// list attendants ---------------------------------------------------------------		
-	@RequestMapping(value = "/listAttendants", method = RequestMethod.GET)
-	public ModelAndView listAttendants(@RequestParam final int rendezvousId) {
-
-		ModelAndView result;
-
-		final Collection<User> attendants = this.userService.findAttendantsByRendezvous(rendezvousId);
-
-		result = new ModelAndView("actor/list");
-		result.addObject("actors", attendants);
-		result.addObject("requestUri", "actor/list.do");
-
-		return result;
 	}
 
 	// Edition -----------------------------------------------------------
@@ -114,26 +80,6 @@ public class ActorController extends AbstractController {
 			} catch (final Throwable ooops) {
 				result = this.createEditModelAndView(user, "actor.commit.error");
 			}
-		return result;
-	}
-
-	// Display actor -----------------------------------------------------------
-	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam final int actorId) {
-		final ModelAndView result;
-		final User actor;
-		final Collection<Rendezvous> rendezvouses;
-
-		actor = (User) this.actorService.findOne(actorId);
-
-		rendezvouses = this.rendezvousService.findReservedByUser(actor.getId());
-
-		result = new ModelAndView("actor/display");
-
-		result.addObject("actor", actor);
-		result.addObject("rendezvouses", rendezvouses);
-		;
-
 		return result;
 	}
 
