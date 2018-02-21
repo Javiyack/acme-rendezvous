@@ -46,7 +46,7 @@
 	<spring:message code="rendezvous.user" var="rendezvousUser" />
 	<display:column>
 		<div>
-			<a href="actor/display.do?actorId=${row.user.id}"> 
+			<a href="user/display.do?userId=${row.user.id}"> 
 				<spring:message code="rendezvous.user" />
 			</a>
 		</div>
@@ -55,7 +55,7 @@
 	<spring:message code="rendezvous.attendants" var="rendezvousAttendants" />
 	<display:column>
 		<div>
-			<a href="actor/listAttendants.do?rendezvousId=${row.id}"> 
+			<a href="user/listAttendants.do?rendezvousId=${row.id}"> 
 				<spring:message code="rendezvous.attendants" />
 			</a>
 		</div>
