@@ -33,7 +33,17 @@ public class Rendezvous extends DomainEntity {
 	private User		user;
 
 	private Boolean		deleted;
+	
+	private Boolean adult;
 
+	
+	public Boolean getAdult() {
+		return adult;
+	}
+
+	public void setAdult(Boolean adult) {
+		this.adult = adult;
+	}
 
 	@NotNull
 	public String getName() {

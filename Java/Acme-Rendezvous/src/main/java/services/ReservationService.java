@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import domain.Rendezvous;
 import domain.Reservation;
+import domain.User;
 import repositories.ReservationRepository;
 
 @Service
@@ -69,6 +71,12 @@ public class ReservationService {
 		Assert.notNull(reservation);
 
 		this.reservationRepository.delete(reservation);
+	}
+	
+	public Reservation findReservationByUserAndRendezvous(User user, Rendezvous rendezvous) {
+		Assert.notNull(user);
+		Assert.notNull(rendezvous);
+		return this.reservationRepository.findReservationByUserAndRendezvous(user, rendezvous);
 	}
 
 }
