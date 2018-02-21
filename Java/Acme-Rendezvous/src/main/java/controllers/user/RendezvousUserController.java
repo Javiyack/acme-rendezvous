@@ -85,7 +85,7 @@ public class RendezvousUserController {
 		else
 			try {
 				this.rendezvousService.save(rendezvous);
-				result = new ModelAndView("redirect:../list.do");
+				result = new ModelAndView("redirect:/");
 			} catch (final Throwable ooops) {
 				result = this.createEditModelAndView(rendezvous, "rendezvous.commit.error");
 			}
@@ -101,7 +101,7 @@ public class RendezvousUserController {
 			result = this.createEditModelAndView(rendezvous);
 		else
 			try {
-				this.rendezvousService.delete(rendezvous);
+				this.rendezvousService.deleteByUser(rendezvous);
 				result = new ModelAndView("redirect:../list.do");
 			} catch (final Throwable ooops) {
 				result = this.createEditModelAndView(rendezvous, "rendezvous.commit.error");
