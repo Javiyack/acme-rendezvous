@@ -18,6 +18,7 @@
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="userAccount" />
+	<form:hidden path="userAccount.authorities[0].authority" />
 	
 	<form:label path="name">
 		<spring:message code="user.name" />
@@ -52,6 +53,21 @@
 	</form:label>
 	<form:input path="address" />
 	<form:errors cssClass="error" path="address" />
+	<br />
+	
+	<form:label path="userAccount.username">
+		<spring:message code="user.userAccount.username" />
+	</form:label>
+	<form:input path="userAccount.username" />
+	<form:errors cssClass="error" path="userAccount.username" />
+	<br />
+
+	<form:label path="userAccount.password">
+		<spring:message code="user.userAccount.password" />
+	</form:label>
+	<form:password path="userAccount.password" />
+	<form:errors cssClass="error" path="userAccount.password" />
+	<br />
 	<br />
 	
 	
