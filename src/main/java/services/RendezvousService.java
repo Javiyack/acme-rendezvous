@@ -116,9 +116,9 @@ public class RendezvousService {
 
 	// Other business methods -------------------------------------------------
 
-	public Collection<Rendezvous> findByUser(final int userId) {
+	public Collection<Rendezvous> findCreatedByUser(final int userId) {
 		Collection<Rendezvous> result;
-		result = this.rendezvousRepository.findReservedByUserId(userId);
+		result = this.rendezvousRepository.findCreatedByUserId(userId);
 		Assert.notNull(result);
 
 		return result;

@@ -168,8 +168,8 @@
 	</bean>		
 	
 	<bean id="rendezvous5" class="domain.Rendezvous">
-		<property name="name" value="Rendezvous 2" ></property>
-		<property name="description" value="Descripcion Rendezvous 2" />
+		<property name="name" value="Rendezvous 5" ></property>
+		<property name="description" value="Descripcion Rendezvous 5" />
 		<property name="moment" value="2018/11/15 21:00" />
 		<property name="draft" value="false" />
 		<property name="deleted" value="false" />
@@ -177,8 +177,8 @@
 	</bean>	
 		
 	<bean id="rendezvous6" class="domain.Rendezvous">
-		<property name="name" value="Rendezvous 3" ></property>
-		<property name="description" value="Descripcion Rendezvous 3" />
+		<property name="name" value="Rendezvous 6" ></property>
+		<property name="description" value="Descripcion Rendezvous 6" />
 		<property name="moment" value="2017/06/15 22:00" />
 		<property name="draft" value="false" />
 		<property name="deleted" value="false" />
@@ -186,8 +186,8 @@
 	</bean>	
 	
 	<bean id="rendezvous7" class="domain.Rendezvous">
-		<property name="name" value="Rendezvous 1" ></property>
-		<property name="description" value="Descripcion Rendezvous 1" />
+		<property name="name" value="Rendezvous 7" ></property>
+		<property name="description" value="Descripcion Rendezvous 7" />
 		<property name="moment" value="2018/04/15 12:00" />
 		<property name="draft" value="false" />
 		<property name="deleted" value="false" />
@@ -195,8 +195,8 @@
 	</bean>		
 	
 	<bean id="rendezvous8" class="domain.Rendezvous">
-		<property name="name" value="Rendezvous 1" ></property>
-		<property name="description" value="Descripcion Rendezvous 1" />
+		<property name="name" value="Rendezvous 8" ></property>
+		<property name="description" value="Descripcion Rendezvous 8" />
 		<property name="moment" value="2018/04/15 19:00" />
 		<property name="draft" value="false" />
 		<property name="deleted" value="false" />

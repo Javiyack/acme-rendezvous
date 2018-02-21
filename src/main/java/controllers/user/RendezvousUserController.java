@@ -43,7 +43,7 @@ public class RendezvousUserController {
 		ModelAndView result;
 		final User user = this.userService.findByPrincipal();
 
-		final Collection<Rendezvous> rendezvouses = this.rendezvousService.findReservedByUser(user.getId());
+		final Collection<Rendezvous> rendezvouses = this.rendezvousService.findCreatedByUser(user.getId());
 
 		result = new ModelAndView("rendezvous/user/list");
 		result.addObject("rendezvouses", rendezvouses);
