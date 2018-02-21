@@ -88,7 +88,8 @@
 		<property name="email" value="javillach@gmail.com" />
 		<property name="phone" value="658357522" />
 		<property name="address" value="C/ Amargura 55" />
-		<property name="userAccount" ref="userAccountAdmin" />		
+		<property name="userAccount" ref="userAccountAdmin" />	
+		<property name="adult" value="true"/>	
 	</bean>
 	
 	<!-- Users -->	
@@ -99,7 +100,8 @@
 		<property name="email" value="usuario1@gmail.com" />
 		<property name="phone" value="666999666" />
 		<property name="address" value="C/ Calvario 66" />
-		<property name="userAccount" ref="userAccountUser1" />		
+		<property name="userAccount" ref="userAccountUser1" />	
+		<property name="adult" value="true"/>	
 	</bean>
 	
 	<bean id="user2" class="domain.User">
@@ -108,7 +110,8 @@
 		<property name="email" value="usuario2@gmail.com" />
 		<property name="phone" value="618399522" />
 		<property name="address" value="C/ Suplicio 77" />
-		<property name="userAccount" ref="userAccountUser2" />		
+		<property name="userAccount" ref="userAccountUser2" />	
+		<property name="adult" value="true"/>	
 	</bean>
 	
 	<bean id="user3" class="domain.User">
@@ -117,7 +120,8 @@
 		<property name="email" value="usuario3@gmail.com" />
 		<property name="phone" value="654789321" />
 		<property name="address" value="C/ Dolores 88" />
-		<property name="userAccount" ref="userAccountUser3" />		
+		<property name="userAccount" ref="userAccountUser3" />	
+		<property name="adult" value="true"/>	
 	</bean>
 	
 	<bean id="user4" class="domain.User">
@@ -126,7 +130,8 @@
 		<property name="email" value="usuario4@gmail.com" />
 		<property name="phone" value="6770088" />
 		<property name="address" value="C/ Angustia 99" />
-		<property name="userAccount" ref="userAccountUser4" />		
+		<property name="userAccount" ref="userAccountUser4" />	
+		<property name="adult" value="false"/>	
 	</bean>	
 	
 	<!-- Rendezvouses -->
@@ -137,7 +142,8 @@
 		<property name="moment" value="2018/04/15 12:00" />
 		<property name="draft" value="false" />
 		<property name="deleted" value="false" />
-		<property name="user" ref="user1" />		
+		<property name="user" ref="user1" />	
+		<property name="adult" value="false"/>	
 	</bean>		
 	
 	<bean id="rendezvous2" class="domain.Rendezvous">
@@ -146,7 +152,8 @@
 		<property name="moment" value="2018/03/25 21:00" />
 		<property name="draft" value="false" />
 		<property name="deleted" value="false" />
-		<property name="user" ref="user2" />		
+		<property name="user" ref="user2" />	
+		<property name="adult" value="false"/>	
 	</bean>	
 		
 	<bean id="rendezvous3" class="domain.Rendezvous">
@@ -155,7 +162,8 @@
 		<property name="moment" value="2018/06/15 22:00" />
 		<property name="draft" value="false" />
 		<property name="deleted" value="false" />
-		<property name="user" ref="user3" />		
+		<property name="user" ref="user3" />	
+		<property name="adult" value="false"/>		
 	</bean>	
 		
 	<bean id="rendezvous4" class="domain.Rendezvous">
@@ -164,7 +172,8 @@
 		<property name="moment" value="2018/08/20 12:00" />
 		<property name="draft" value="false" />
 		<property name="deleted" value="false" />
-		<property name="user" ref="user4" />		
+		<property name="user" ref="user4" />	
+		<property name="adult" value="false"/>		
 	</bean>		
 	
 	<bean id="rendezvous5" class="domain.Rendezvous">
@@ -173,7 +182,8 @@
 		<property name="moment" value="2018/11/15 21:00" />
 		<property name="draft" value="false" />
 		<property name="deleted" value="false" />
-		<property name="user" ref="user2" />		
+		<property name="user" ref="user2" />	
+		<property name="adult" value="false"/>		
 	</bean>	
 		
 	<bean id="rendezvous6" class="domain.Rendezvous">
@@ -182,7 +192,8 @@
 		<property name="moment" value="2017/06/15 22:00" />
 		<property name="draft" value="false" />
 		<property name="deleted" value="false" />
-		<property name="user" ref="user3" />		
+		<property name="user" ref="user3" />	
+		<property name="adult" value="false"/>		
 	</bean>	
 	
 	<bean id="rendezvous7" class="domain.Rendezvous">
@@ -191,7 +202,8 @@
 		<property name="moment" value="2018/04/15 12:00" />
 		<property name="draft" value="false" />
 		<property name="deleted" value="false" />
-		<property name="user" ref="user1" />		
+		<property name="user" ref="user1" />
+		<property name="adult" value="false"/>			
 	</bean>		
 	
 	<bean id="rendezvous8" class="domain.Rendezvous">
@@ -200,7 +212,8 @@
 		<property name="moment" value="2018/04/15 19:00" />
 		<property name="draft" value="false" />
 		<property name="deleted" value="false" />
-		<property name="user" ref="user1" />		
+		<property name="user" ref="user1" />	
+		<property name="adult" value="true"/>		
 	</bean>		
 		
 		
