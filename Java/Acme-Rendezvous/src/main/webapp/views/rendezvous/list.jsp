@@ -21,10 +21,6 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-
-
-
-
 <display:table pagesize="5" class="displaytag" name="rendezvouses" requestURI="${requestUri}" id="row">
 	<spring:message code="rendezvous.name" var="rendezvousName" />
 	<display:column property="name" title="${rendezvousName}" />
