@@ -10,11 +10,12 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="rendezvous/edit.do" modelAttribute="rendezvous">
+<form:form action="rendezvous/user/edit.do" modelAttribute="rendezvous">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="user" />
+	<form:hidden path="deleted" />
 
 
 	<acme:textbox code="rendezvous.name" path="name" />
@@ -26,21 +27,12 @@
 
 	<acme:textbox code="rendezvous.picture" path="picture" />
 
-	<jstl:out value="<spring:message code="rendezvous.location"/>" />
-	<br />
-
-	<acme:textbox code="rendezvous.location.longitude"
-		path="location.longitude" />
-	<acme:textbox code="rendezvous.location.latitude"
-		path="location.latitude" />
-	<br />
-
 	<form:label path="draft">
 		<spring:message code="rendezvous.draft" />
 	</form:label>
 	<form:checkbox path="draft"/>
 	<br/>
-	
+
 	<acme:cancel url="/" code="rendezvous.cancel"/>
 	<acme:submit name="save" code="rendezvous.save"/>
 

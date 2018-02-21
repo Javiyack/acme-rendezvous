@@ -31,7 +31,7 @@
 		<bean class="converters.ReplyToStringConverter" />
 		<bean class="converters.ReservationToStringConverter" />
 		<bean class="converters.UserAccountToString" />
-		
+		<bean class="converters.UserToStringConverter" />
 		
 		<bean class="converters.StringToActorConverter" />
 		<bean class="converters.StringToAdministratorConverter" />
@@ -45,7 +45,7 @@
 		<bean class="converters.StringToReplyConverter" />
 		<bean class="converters.StringToReservationConverter" />
 		<bean class="converters.StringToUserAccount" />
-		
+		<bean class="converters.StringToUserConverter" />		
 		
 	</util:list>
 	
