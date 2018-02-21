@@ -31,7 +31,12 @@
 		<spring:message code="rendezvous.draft" />
 	</form:label>
 	<form:checkbox path="draft"/>
-	<br/>
+
+	<form:label path="adult">
+		<spring:message code="rendezvous.adult" />
+	</form:label>
+	<form:checkbox path="adult"/>
+	<br />
 
 	<acme:cancel url="/" code="rendezvous.cancel"/>
 	<acme:submit name="save" code="rendezvous.save"/>
