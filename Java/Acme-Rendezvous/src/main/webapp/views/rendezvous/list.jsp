@@ -58,7 +58,7 @@
 	</display:column>
 	
 	<security:authorize access="hasRole('USER')">
-	
+	<jstl:if test="${user != row.user }">
 	<display:column>
 		<div>
 			<a href="rendezvous/user/reserve.do?rendezvousId=${row.id}"> 
@@ -66,6 +66,7 @@
 			</a>
 		</div>
 	</display:column>
+	</jstl:if>
 	<jstl:if test="${user eq row.user }">
 	<display:column>
 		<div>
