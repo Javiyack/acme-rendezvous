@@ -56,6 +56,26 @@
 			</a>
 		</div>
 	</display:column>
+	
+	<security:authorize access="hasRole('USER')">
+	
+	<display:column>
+		<div>
+			<a href="rendezvous/user/reserve.do?=${row.id}"> 
+				<spring:message code="rendezvous.reserve" />
+			</a>
+		</div>
+	</display:column>
+	<jstl:if test="${user eq row.user }">
+	<display:column>
+		<div>
+			<a href="rendezvous/user/edit.do?=${row.id}"> 
+				<spring:message code="rendezvous.edit" />
+			</a>
+		</div>
+	</display:column>
+	</jstl:if>
+	</security:authorize>
 
 </display:table>
 
