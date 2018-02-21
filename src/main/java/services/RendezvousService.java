@@ -57,6 +57,7 @@ public class RendezvousService {
 		res = new Rendezvous();
 		// TODO ERN: añadido el usuario que crea el rendezvous
 		res.setUser(user);
+		res.setDeleted(false);
 		return res;
 	}
 
@@ -94,7 +95,7 @@ public class RendezvousService {
 		assert rendezvous != null;
 
 		Rendezvous result;
-		Assert.isTrue(rendezvous.getDraft(), "Final mode is /True/");
+
 		Assert.isTrue(!rendezvous.getDeleted(), "deleted value is /True/");
 		//TODO ERN: comentada la parte de manager
 		//		final User manager;
@@ -130,6 +131,18 @@ public class RendezvousService {
 		result = this.rendezvousRepository.findReservedByUserId(userId);
 		Assert.notNull(result);
 
+		return result;
+	}
+
+	//Requisito 5.3
+	public Rendezvous deleteByUser(final Rendezvous rendezvous) {
+		Assert.isTrue(rendezvous.getId() != 0);
+		this.checkPrincipal(rendezvous);
+		Rendezvous result;
+		Assert.isTrue(rendezvous.getDraft(), "Final mode is /True/");
+		Assert.isTrue(!rendezvous.getDeleted(), "deleted value is /True/");
+		rendezvous.setDeleted(true);
+		result = this.rendezvousRepository.save(rendezvous);
 		return result;
 	}
 
