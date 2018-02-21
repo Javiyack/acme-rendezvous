@@ -17,10 +17,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import repositories.RendezvousRepository;
 import domain.Administrator;
 import domain.Rendezvous;
+import domain.Reservation;
 import domain.User;
+import repositories.RendezvousRepository;
 
 @Service
 @Transactional
