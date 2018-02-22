@@ -68,6 +68,15 @@
 		</div>
 	</display:column>
 	
+	<spring:message code="rendezvous.similar" var="rendezvousSimilar" />
+	<display:column>
+		<div>
+			<a href="rendezvous/listSimilar.do?rendezvousId=${row.id}"> 
+				<spring:message code="rendezvous.similar" />
+			</a>
+		</div>
+	</display:column>
+	
 	<security:authorize access="hasRole('USER')">
 	<display:column>
 	<jstl:forEach items="${reserved }" var="rend">

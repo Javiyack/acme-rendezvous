@@ -9,6 +9,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -50,12 +51,12 @@ public class RendezvousService {
 	@Autowired
 	private QuestionService			questionService;
 	@Autowired
-	private AnnouncementService		announcementService;	
+	private AnnouncementService		announcementService;
 	@Autowired
 	private LinkService				linkService;
 	@Autowired
 	private CommentService			commentService;
-	
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -146,53 +147,51 @@ public class RendezvousService {
 	}
 
 	// Requisito funcional 6.2 ADMIN can remove a rendezvous that he or she thinks is inappropriate.
-		// El borrado ha de hacerlo un admnistrador y es real, no virtual como el del usuario.
-		public void remove(final Rendezvous rendezvous) {
-			Assert.notNull(rendezvous);
-			// Comprobamos que el actor autenticado es un "Administrator"
+	// El borrado ha de hacerlo un admnistrador y es real, no virtual como el del usuario.
+	public void remove(final Rendezvous rendezvous) {
+		Assert.notNull(rendezvous);
+		// Comprobamos que el actor autenticado es un "Administrator"
 
-			final Actor actor = actorService.findByPrincipal();
-			Assert.isTrue(actor instanceof Administrator);
-			// Antes de borrar el rendezvous hay que borrar todos los objetos que lo referencien
-			
-			// Buscamos y borramos todas las reservas si las hubiera
+		final Actor actor = this.actorService.findByPrincipal();
+		Assert.isTrue(actor instanceof Administrator);
+		// Antes de borrar el rendezvous hay que borrar todos los objetos que lo referencien
 
-			Collection<Reservation> reservations = reservationService.findAllByRendezvousId(rendezvous.getId());
-			if (!reservations.isEmpty())
-				reservationService.deleteInBatch(reservations);
+		// Buscamos y borramos todas las reservas si las hubiera
 
-			// Buscamos y borramos todos las Questions si las hubiera
+		final Collection<Reservation> reservations = this.reservationService.findAllByRendezvousId(rendezvous.getId());
+		if (!reservations.isEmpty())
+			this.reservationService.deleteInBatch(reservations);
 
-			Collection<Question> questions = questionService.findAllByRendezvousId(rendezvous.getId());
-			if (!questions.isEmpty())
-				questionService.deleteInBatch(questions);
+		// Buscamos y borramos todos las Questions si las hubiera
 
-			// Buscamos y borramos todos los Announcements si los hubiera
+		final Collection<Question> questions = this.questionService.findAllByRendezvousId(rendezvous.getId());
+		if (!questions.isEmpty())
+			this.questionService.deleteInBatch(questions);
 
-			Collection<Announcement> announcements = announcementService.findAllByRendezvousId(rendezvous.getId());
-			if (!announcements.isEmpty())
-				announcementService.deleteInBatch(announcements);
+		// Buscamos y borramos todos los Announcements si los hubiera
 
-			// Buscamos y borramos todos los Links si los hubiera
+		final Collection<Announcement> announcements = this.announcementService.findByRendezvous(rendezvous.getId());
+		if (!announcements.isEmpty())
+			this.announcementService.deleteInBatch(announcements);
 
-			Collection<Link> links = linkService.findAllByRendezvousId(rendezvous.getId());
-			if (!links.isEmpty())
-				linkService.deleteInBatch(links);
+		// Buscamos y borramos todos los Links si los hubiera
 
-			// buscamos y borramos todos los comments si los hubiera
+		final Collection<Link> links = this.linkService.findAllByRendezvousId(rendezvous.getId());
+		if (!links.isEmpty())
+			this.linkService.deleteInBatch(links);
 
-			Collection<Comment> comments = commentService.findAllByRendezvousId(rendezvous.getId());
-			if (!comments.isEmpty()) {
-				for (Comment comment : comments) {
-					commentService.delete(comment);
-				}
-			}
+		// buscamos y borramos todos los comments si los hubiera
 
-			// Finalmente borramos el comentario
+		final Collection<Comment> comments = this.commentService.findAllByRendezvousId(rendezvous.getId());
+		if (!comments.isEmpty())
+			for (final Comment comment : comments)
+				this.commentService.delete(comment);
 
-			this.rendezvousRepository.delete(rendezvous);
-			
-		}
+		// Finalmente borramos el comentario
+
+		this.rendezvousRepository.delete(rendezvous);
+
+	}
 	// Other business methods -------------------------------------------------
 
 	public Collection<Rendezvous> findCreatedByUser(final int userId) {
@@ -265,6 +264,21 @@ public class RendezvousService {
 		principal = this.userService.findByPrincipal();
 
 		Assert.isTrue(creator.equals(principal));
+	}
+
+	public Collection<Rendezvous> findSimilarRendezvous(final int rendezvousId) {
+		final Rendezvous rendezvous = this.rendezvousRepository.findOne(rendezvousId);
+		Assert.notNull(rendezvous);
+		final Collection<Link> links = this.linkService.findAllByRendezvousId(rendezvousId);
+		final Collection<Rendezvous> rendezvouses = new ArrayList<Rendezvous>();
+
+		for (final Link l : links)
+			if (l.getRendezvous().getId() != rendezvousId)
+				rendezvouses.add(l.getRendezvous());
+			else
+				rendezvouses.add(l.getLinkedToRendezvous());
+
+		return rendezvouses;
 	}
 
 }
