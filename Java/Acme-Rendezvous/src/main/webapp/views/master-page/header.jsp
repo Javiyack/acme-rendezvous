@@ -52,7 +52,7 @@
 						code="master.page.rendezvouses" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="rendezvous/list.do"><spring:message
+					<li><a href="rendezvous/user/listAll.do"><spring:message
 								code="master.page.rendezvouses" /></a></li>
 					<li><a href="rendezvous/user/list.do"><spring:message
 								code="master.page.myRendezvouses" /></a></li>
