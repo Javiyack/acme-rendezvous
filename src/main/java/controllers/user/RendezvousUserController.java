@@ -58,6 +58,25 @@ public class RendezvousUserController {
 
 		return result;
 	}
+
+	// List Reserved ---------------------------------------------------------------
+	@RequestMapping(value = "/listReserved", method = RequestMethod.GET)
+	public ModelAndView listReserved() {
+
+		ModelAndView result;
+		final User user = this.userService.findByPrincipal();
+
+		final Collection<Rendezvous> rendezvouses = this.rendezvousService.findReservedByUser(user.getId());
+
+		result = new ModelAndView("rendezvous/user/listReserved");
+		result.addObject("rendezvouses", rendezvouses);
+		result.addObject("requestUri", "rendezvous/user/listReserved.do");
+		result.addObject("user", user);
+
+		return result;
+	}
+
+	// List All ---------------------------------------------------------------
 	@RequestMapping(value = "/listAll", method = RequestMethod.GET)
 	public ModelAndView listAll() {
 
@@ -134,7 +153,7 @@ public class RendezvousUserController {
 		return result;
 	}
 
-	// Reserve
+	// Reserve -----------------------------------------------------------
 
 	@RequestMapping(value = "/reserve", method = RequestMethod.GET)
 	public ModelAndView reserve(@RequestParam final int rendezvousId) {
@@ -160,7 +179,7 @@ public class RendezvousUserController {
 		return result;
 	}
 
-	// Cancel
+	// Cancel -----------------------------------------------------------
 
 	@RequestMapping(value = "/cancel", method = RequestMethod.GET)
 	public ModelAndView cancel(@RequestParam final int rendezvousId) {
@@ -185,8 +204,7 @@ public class RendezvousUserController {
 		return result;
 	}
 
-	// Auxiliary methods
-	// ---------------------------------------------------------------
+	// Auxiliary methods ----------------------------------------------------
 	protected ModelAndView createEditModelAndView(final Rendezvous rendezvous) {
 		final ModelAndView result;
 		result = this.createEditModelAndView(rendezvous, null);

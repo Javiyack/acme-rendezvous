@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Collection;
@@ -7,9 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import domain.Answer;
-import domain.Reservation;
 import repositories.AnswerRepository;
+import domain.Answer;
+import domain.Rendezvous;
+import domain.Reservation;
+import domain.User;
 
 @Service
 @Transactional
@@ -17,9 +20,15 @@ public class AnswerService {
 
 	// Managed repositories ------------------------------------------------
 	@Autowired
-	private AnswerRepository answerRepository;
+	private AnswerRepository	answerRepository;
 
-	// Supporting services 
+	// Supporting services --------------------------------------------------
+	@Autowired
+	private RendezvousService	rendezvousService;
+	@Autowired
+	private UserService			userService;
+	@Autowired
+	private ReservationService	reservationService;
 
 
 	// Constructor ----------------------------------------------------------
@@ -47,13 +56,25 @@ public class AnswerService {
 		return result;
 	}
 
-	
-	public Collection<Answer> findByReservation(final Reservation reserva){
+	public Collection<Answer> findByReservation(final Reservation reserva) {
 		Assert.notNull(reserva);
-		
-		Collection<Answer> result = answerRepository.findByReservation(reserva);		
-		
+
+		final Collection<Answer> result = this.answerRepository.findByReservation(reserva);
+
 		return result;
+	}
+
+	public Collection<Answer> findByUserAndRendezvous(final int userId, final int rendezvousId) {
+		final User user = this.userService.findOne(userId);
+		final Rendezvous rendezvous = this.rendezvousService.findOne(rendezvousId);
+		Assert.notNull(user);
+		Assert.notNull(rendezvous);
+
+		final Reservation reservation = this.reservationService.findReservationByUserAndRendezvous(user, rendezvous);
+
+		final Collection<Answer> answers = this.answerRepository.findByReservation(reservation);
+
+		return answers;
 	}
 
 	public Answer findOne(final int answerId) {
@@ -80,14 +101,14 @@ public class AnswerService {
 		this.answerRepository.delete(answer);
 	}
 
-	public void deleteInBatch(Collection<Answer> answers) {
+	public void deleteInBatch(final Collection<Answer> answers) {
 		// TOASK ¿Habria que comprobar usuario logado?
-		answerRepository.deleteInBatch(answers);
+		this.answerRepository.deleteInBatch(answers);
 	}
 
-	public Collection<Answer> findByQuestionId(int id) {
+	public Collection<Answer> findByQuestionId(final int id) {
 		// TODO Auto-generated method stub
-		return answerRepository.findByQuestionId(id);
+		return this.answerRepository.findByQuestionId(id);
 	}
 
 }

@@ -19,43 +19,16 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
-<% String url = request.getAttribute("javax.servlet.forward.request_uri").toString(); %>
-
-<%=url %>
 
 
 
-
-<display:table pagesize="5" class="displaytag" name="users" requestURI="${requestUri}" id="row">
+<display:table pagesize="5" class="displaytag" name="answers" requestURI="${requestUri}" id="row">
 	
-	<spring:message code="user.name" var="userName" />
-	<display:column property="name" title="${userName}" sortable="true" />
+	<spring:message code="answer.question" var="answerQuestion" />
+	<display:column property="question.question" title="${answerQuestion}" sortable="true" />
 
-	<spring:message code="user.surname" var="userSurname" />
-	<display:column property="surname" title="${userSurname}" sortable="true" />
-		
-	<display:column>
-		<div>
-			<a href="user/display.do?userId=${row.id}"> <spring:message
- 				code="user.display" />
-			</a>
-		</div>
-	</display:column>
-	
-	
-	
-	<jstl:if test="${showAnswer}">
-	<display:column>
-		<div>
-			<a href="answer/list.do?userId=${row.id}&rendezvousId=${rendezvousId}"> 
-				<spring:message code="user.question.answer" />
-			</a>
-		</div>
-	</display:column>
-	</jstl:if>
-	
+	<spring:message code="answer.answer" var="answerAnswer" />
+	<display:column property="answer" title="${answerAnswer}" sortable="true" />	
 	
 	
 </display:table>
@@ -63,7 +36,7 @@
 
 	
 <input type="button" name="back"
-	value='<spring:message code="user.back"/>'
+	value='<spring:message code="answer.back"/>'
 	onclick="javascript: relativeRedir('/');" />
 	<br />
 
