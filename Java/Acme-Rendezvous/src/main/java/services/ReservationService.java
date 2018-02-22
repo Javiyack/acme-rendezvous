@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import domain.Answer;
 import domain.Rendezvous;
 import domain.Reservation;
 import domain.User;
@@ -21,7 +22,8 @@ public class ReservationService {
 	private ReservationRepository reservationRepository;
 
 	// Supporting services 
-
+	@Autowired
+	private AnswerService answerService;
 
 	// Constructor ----------------------------------------------------------
 	public ReservationService() {
@@ -79,15 +81,20 @@ public class ReservationService {
 		return this.reservationRepository.findReservationByUserAndRendezvous(user, rendezvous);
 	}
 	
-	public Collection<Reservation> findReservationsByRendezvous(Rendezvous rendezvous) {
-		Assert.notNull(rendezvous);
-		return this.reservationRepository.findReservationsByRendezvous(rendezvous);
+	public Collection<Reservation> findAllByRendezvousId(final int rendezvousId) {
+		
+		return this.reservationRepository.findReservationsByRendezvous(rendezvousId);
 	}
 
 	public void deleteInBatch(Collection<Reservation> reservations) {
 		// TOASK ¿habria que comprobar aqui tambien que en usuario logado es admin?
 		
 		Assert.notEmpty(reservations);
+		
+		for (Reservation reservation : reservations) {
+			Collection<Answer> answers = answerService.findByReservation(reservation);
+			answerService.deleteInBatch(answers);
+		}
 
 		this.reservationRepository.deleteInBatch(reservations);
 	}

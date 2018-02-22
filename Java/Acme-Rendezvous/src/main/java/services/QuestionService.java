@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import domain.Answer;
 import domain.Question;
 import repositories.QuestionRepository;
 
@@ -19,6 +20,8 @@ public class QuestionService {
 	private QuestionRepository questionRepository;
 
 	// Supporting services 
+	@Autowired
+	private AnswerService answerService;
 
 
 	// Constructor ----------------------------------------------------------
@@ -69,6 +72,25 @@ public class QuestionService {
 		Assert.notNull(question);
 
 		this.questionRepository.delete(question);
+	}
+
+	public Collection<Question> findAllByRendezvousId(final int id) {
+		
+		return questionRepository.findAllByRendezvousId(id);
+	}
+
+	public void deleteInBatch(Collection<Question> questions) {
+		// TOASK ¿habria que comprobar aqui tambien que en usuario logado es admin?
+
+		Assert.notEmpty(questions);
+
+		for (Question question : questions) {
+			Collection<Answer> answers = answerService.findByQuestionId(question.getId());
+			answerService.deleteInBatch(answers);
+		}
+
+		this.questionRepository.deleteInBatch(questions);
+
 	}
 
 }

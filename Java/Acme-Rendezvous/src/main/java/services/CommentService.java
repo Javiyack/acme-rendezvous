@@ -112,4 +112,9 @@ public class CommentService {
 		this.commentRepository.delete(comment);
 	}
 
+	public Collection<Comment> findAllByRendezvousId(int id) {
+		
+		return commentRepository.findAllByRendezvousId(id);
+	}
+
 }

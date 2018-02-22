@@ -71,4 +71,18 @@ public class LinkService {
 		this.linkRepository.delete(link);
 	}
 
+	public Collection<Link> findAllByRendezvousId(int id) {
+		
+		return 	linkRepository.findAllByRendezvousId(id);
+	
+	}
+
+	public void deleteInBatch(Collection<Link> links) {
+		// TOASK ¿habria que comprobar aqui tambien que en usuario logado es admin?
+
+		Assert.notEmpty(links);
+
+		this.linkRepository.deleteInBatch(links);
+	}
+
 }

@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import domain.Announcement;
+import domain.Answer;
+import domain.Reservation;
 import repositories.AnnouncementRepository;
 
 @Service
@@ -69,6 +71,20 @@ public class AnnouncementService {
 		Assert.notNull(announcement);
 
 		this.announcementRepository.delete(announcement);
+	}
+
+	public Collection<Announcement> findAllByRendezvousId(int id) {
+		
+		return announcementRepository.findAllByRendezvousId(id);
+	}
+
+	public void deleteInBatch(Collection<Announcement> announcements) {
+		// TOASK ¿habria que comprobar aqui tambien que en usuario logado es admin?
+
+		Assert.notEmpty(announcements);		
+
+		this.announcementRepository.deleteInBatch(announcements);
+
 	}
 
 }
