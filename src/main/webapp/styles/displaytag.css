@@ -21,7 +21,8 @@ th,td {
 }
 
 thead tr {
-	background-color: #fc0;
+	background-color: #322f32;
+	color: white;
 }
 
 th.sorted {
@@ -29,12 +30,14 @@ th.sorted {
 }
 
 th a,th a:visited {
-	color: black;
+	
+	color: white;
+	
 }
 
 th a:hover {
 	text-decoration: underline;
-	color: black;
+	color: #a3c2c2;;
 }
 
 th.sorted a,th.sortable a {
@@ -67,7 +70,7 @@ tr.odd {
 }
 
 tr.tableRowEven,tr.even {
-	background-color: #fea
+	background-color: #e6e6e6
 }
 
 div.exportlinks {
