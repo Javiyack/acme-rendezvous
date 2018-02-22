@@ -172,7 +172,7 @@
 		<property name="moment" value="2018/08/20 12:00" />
 		<property name="draft" value="false" />
 		<property name="deleted" value="false" />
-		<property name="user" ref="user4" />	
+		<property name="user" ref="user3" />	
 		<property name="adult" value="false"/>		
 	</bean>		
 	
@@ -209,7 +209,7 @@
 	<bean id="rendezvous8" class="domain.Rendezvous">
 		<property name="name" value="Rendezvous 8" ></property>
 		<property name="description" value="Descripcion Rendezvous 8" />
-		<property name="moment" value="2018/04/15 19:00" />
+		<property name="moment" value="2018/03/23 09:52" />
 		<property name="draft" value="false" />
 		<property name="deleted" value="false" />
 		<property name="user" ref="user1" />	
@@ -279,31 +279,54 @@
 	<bean id="comment1-1" class="domain.Comment">
 		<property name="text" value="Texto Comment 1 - rendezvous 1 - user 2" />
 		<property name="moment" value="2018/01/13 12:00" />
+		<property name="picture" value="https://shared.uoit.ca/shared/department/science-rendezvous/thumbnails/SR%20Logo.jpg" />
 		<property name="user" ref="user2" />
 		<property name="rendezvous" ref="rendezvous1" />
 	</bean>
-	
+
 	<bean id="comment2-1" class="domain.Comment">
-		<property name="text" value="Texto Comment 1 - rendezvous 2 - user 3" />
+		<property name="text" value="Texto SOEZ Comment 2 - rendezvous 1 - user 3" />
 		<property name="moment" value="2018/01/14 20:17" />
 		<property name="user" ref="user3" />
 		<property name="rendezvous" ref="rendezvous1" />
 	</bean>
+
+	<bean id="comment3-1" class="domain.Comment">
+		<property name="text" value="Texto Comment 3 - rendezvous 1 - user 4" />
+		<property name="moment" value="2018/01/13 12:00" />
+		<property name="user" ref="user4" />
+		<property name="rendezvous" ref="rendezvous1" />
+	</bean>
+	
+	<bean id="comment1-2" class="domain.Comment">
+		<property name="text" value="Texto Comment 1 - rendezvous 2 - user 1" />
+		<property name="moment" value="2018/01/13 18:33" />
+		<property name="user" ref="user1" />
+		<property name="rendezvous" ref="rendezvous2" />
+	</bean>
+
+	<bean id="comment2-2" class="domain.Comment">
+		<property name="text" value="Texto Comment 2 - rendezvous 2 - user 3" />
+		<property name="moment" value="2018/01/14 20:17" />
+		<property name="user" ref="user3" />
+		<property name="rendezvous" ref="rendezvous2" />
+	</bean>
+	
 	
 <!-- Replies -->
 		
 	<bean id="reply1-1-1" class="domain.Reply">
 		<property name="text" value="Texto Reply 1 - Comment 1" />
 		<property name="moment" value="2018/01/13 12:00" />
-		<property name="user" ref="user2" />
+		<property name="user" ref="user3" />
 		<property name="comment" ref="comment1-1" />
 	</bean>
 	
 	<bean id="reply1-2-3" class="domain.Reply">
 		<property name="text" value="Texto Reply 1 - Comment 2" />
 		<property name="moment" value="2018/01/14 20:17" />
-		<property name="user" ref="user3" />
-		<property name="comment" ref="comment2-1" />
+		<property name="user" ref="user4" />
+		<property name="comment" ref="comment2-2" />
 	</bean>
 	
 	
