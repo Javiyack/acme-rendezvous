@@ -158,7 +158,7 @@
 		
 	<bean id="rendezvous3" class="domain.Rendezvous">
 		<property name="name" value="Rendezvous 3" ></property>
-		<property name="description" value="Descripcion Rendezvous 3" />
+		<property name="description" value="Descripcion SOEZ Rendezvous 3" />
 		<property name="moment" value="2018/06/15 22:00" />
 		<property name="draft" value="false" />
 		<property name="deleted" value="false" />
@@ -347,12 +347,6 @@
 		<property name="linkedToRendezvous" ref="rendezvous6" />
 	</bean>
 	
-	
-	<!-- Trashed Rendezvouses -->
-		
-	<bean id="trashed5" class="domain.Trash">
-		<property name="rendezvous" ref="rendezvous5" />
-	</bean>
 	
 	
 	<!-- Questions -->
