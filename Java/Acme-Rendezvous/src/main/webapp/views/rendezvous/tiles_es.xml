@@ -42,6 +42,11 @@
 		<put-attribute name="body" value="/views/rendezvous/list.jsp" />
 	</definition>
 	
+	<definition name="rendezvous/user/listReserved" extends="master.page">
+		<put-attribute name="title" value="Mis citas reservadas" />
+		<put-attribute name="body" value="/views/rendezvous/list.jsp" />
+	</definition>
+	
 	<definition name="rendezvous/administrator/edit" extends="master.page">
 		<put-attribute name="title" value="Editar cita" />
 		<put-attribute name="body" value="/views/rendezvous/create.jsp" />

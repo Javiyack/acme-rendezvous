@@ -56,6 +56,8 @@
 								code="master.page.rendezvouses" /></a></li>
 					<li><a href="rendezvous/user/list.do"><spring:message
 								code="master.page.myRendezvouses" /></a></li>
+					<li><a href="rendezvous/user/listReserved.do"><spring:message
+								code="master.page.myReservedRendezvouses" /></a></li>
 					<li><a href="rendezvous/user/create.do"><spring:message
 								code="master.page.newrendezvous" /></a></li>
 				</ul></li>
@@ -82,8 +84,6 @@
 					</a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="actor/edit.do"><spring:message
-								code="master.page.actor.edit" /></a></li>
 					
 					<li><a href="j_spring_security_logout"><spring:message
 								code="master.page.logout" /> </a></li>

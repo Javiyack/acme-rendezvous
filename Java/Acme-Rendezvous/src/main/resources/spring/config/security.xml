@@ -59,6 +59,7 @@
 		<security:intercept-url pattern="/rendezvous/list.do" access="permitAll" />
 		<security:intercept-url pattern="/rendezvous/listSimilar.do" access="permitAll" />
 		<security:intercept-url pattern="/announcement/list.do" access="permitAll" />
+		<security:intercept-url pattern="/answer/list.do" access="permitAll" />
 		
 		<!-- IS AUTHENTICATED -->
 		<security:intercept-url pattern="/actor/edit.do" access="isAuthenticated()" />

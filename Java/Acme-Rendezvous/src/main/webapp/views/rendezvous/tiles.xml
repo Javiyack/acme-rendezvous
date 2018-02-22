@@ -32,6 +32,10 @@
 		<put-attribute name="title" value="My rendezvouses" />
 		<put-attribute name="body" value="/views/rendezvous/list.jsp" />
 	</definition>
+	<definition name="rendezvous/user/listReserved" extends="master.page">
+		<put-attribute name="title" value="My reserved rendezvouses" />
+		<put-attribute name="body" value="/views/rendezvous/list.jsp" />
+	</definition>
 	<definition name="rendezvous/administrator/edit" extends="master.page">
 		<put-attribute name="title" value="Edit Rendevous" />
 		<put-attribute name="body" value="/views/rendezvous/create.jsp" />

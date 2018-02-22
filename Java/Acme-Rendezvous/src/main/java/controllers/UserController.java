@@ -46,6 +46,7 @@ public class UserController extends AbstractController {
 		result = new ModelAndView("user/list");
 		result.addObject("users", users);
 		result.addObject("requestUri", "user/list.do");
+		result.addObject("showAnswer", false);
 
 		return result;
 	}
@@ -61,6 +62,8 @@ public class UserController extends AbstractController {
 		result = new ModelAndView("user/list");
 		result.addObject("users", attendants);
 		result.addObject("requestUri", "user/list.do");
+		result.addObject("showAnswer", true);
+		result.addObject("rendezvousId", rendezvousId);
 
 		return result;
 	}
