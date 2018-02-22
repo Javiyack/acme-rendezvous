@@ -23,7 +23,7 @@
 
 <display:table pagesize="5" class="displaytag" name="comments" requestURI="${requestUri}" id="row">
 	<spring:message code="comment.text" var="commentText" />
-	<display:column property="text" title="${rendezvousName}" />
+	<display:column property="text" title="${commentText}" />
 
 
 	
@@ -32,9 +32,9 @@
 	<spring:message code="comment.moment" var="commentMoment" />
 	<display:column property="moment" title="${commentMoment}" format="${momentFormat}" />
 	
-	<spring:message code="comment.picture" var="commentPicture" />
-	<display:column>
-		<IMG src="picture"/>
+	<spring:message code="comment.picture" var="picture" />
+	<display:column  title="${picture}">
+		<IMG src="${row.picture}" class="commentImg"/>
 	</display:column>
 	
 	<spring:message code="comment.delete" var="commentPicture" />
