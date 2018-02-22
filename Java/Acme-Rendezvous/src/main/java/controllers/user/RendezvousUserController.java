@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import domain.Rendezvous;
-import domain.Reservation;
-import domain.User;
 import services.RendezvousService;
 import services.ReservationService;
 import services.UserService;
+import domain.Rendezvous;
+import domain.Reservation;
+import domain.User;
 
 @Controller
 @RequestMapping("/rendezvous/user")
@@ -29,16 +29,18 @@ public class RendezvousUserController {
 		super();
 	}
 
+
 	// Services ---------------------------------------------------------------
 
 	@Autowired
-	private RendezvousService rendezvousService;
+	private RendezvousService	rendezvousService;
 
 	@Autowired
-	private UserService userService;
+	private UserService			userService;
 
 	@Autowired
-	private ReservationService reservationService;
+	private ReservationService	reservationService;
+
 
 	// List ---------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -52,7 +54,24 @@ public class RendezvousUserController {
 		result = new ModelAndView("rendezvous/user/list");
 		result.addObject("rendezvouses", rendezvouses);
 		result.addObject("requestUri", "rendezvous/user/list.do");
-		result.addObject("user",user);
+		result.addObject("user", user);
+
+		return result;
+	}
+	@RequestMapping(value = "/listAll", method = RequestMethod.GET)
+	public ModelAndView listAll() {
+
+		ModelAndView result;
+
+		final Collection<Rendezvous> rendezvouses = this.rendezvousService.findAll();
+		final User user;
+		user = this.userService.findByPrincipal();
+		final Collection<Rendezvous> reserved = this.rendezvousService.findReservedByUser(user.getId());
+		result = new ModelAndView("rendezvous/list");
+		result.addObject("rendezvouses", rendezvouses);
+		result.addObject("requestUri", "rendezvous/user/listAll.do");
+		result.addObject("reserved", reserved);
+		result.addObject("user", user);
 
 		return result;
 	}
@@ -63,7 +82,7 @@ public class RendezvousUserController {
 		ModelAndView result;
 		Rendezvous rendezvous;
 		rendezvous = this.rendezvousService.create();
-		
+
 		result = this.createEditModelAndView(rendezvous);
 		return result;
 	}
@@ -114,32 +133,32 @@ public class RendezvousUserController {
 			}
 		return result;
 	}
-	
+
 	// Reserve
 
-		@RequestMapping(value = "/reserve", method = RequestMethod.GET)
-		public ModelAndView reserve(@RequestParam final int rendezvousId) {
-			
-			ModelAndView result;
-			
-			Rendezvous rendezvous;
-			rendezvous = this.rendezvousService.findOne(rendezvousId);
-			Assert.notNull(rendezvous);
-			
-			Reservation reservation;
-			reservation = this.reservationService.create();
-			Assert.notNull(reservation);
-			
-			Reservation done;
-			done = this.rendezvousService.reserveRendezvous(reservation, rendezvous);
-			Assert.notNull(done);
-			
-			this.reservationService.save(done);
+	@RequestMapping(value = "/reserve", method = RequestMethod.GET)
+	public ModelAndView reserve(@RequestParam final int rendezvousId) {
 
-			result = new ModelAndView("redirect:../list.do");
+		ModelAndView result;
 
-			return result;
-		}
+		Rendezvous rendezvous;
+		rendezvous = this.rendezvousService.findOne(rendezvousId);
+		Assert.notNull(rendezvous);
+
+		Reservation reservation;
+		reservation = this.reservationService.create();
+		Assert.notNull(reservation);
+
+		Reservation done;
+		done = this.rendezvousService.reserveRendezvous(reservation, rendezvous);
+		Assert.notNull(done);
+
+		this.reservationService.save(done);
+
+		result = new ModelAndView("redirect:../list.do");
+
+		return result;
+	}
 
 	// Cancel
 
@@ -158,7 +177,7 @@ public class RendezvousUserController {
 		Reservation reservation;
 		reservation = this.reservationService.findReservationByUserAndRendezvous(user, rendezvous);
 
-		Reservation canceled = this.rendezvousService.cancelRendezvous(reservation);
+		final Reservation canceled = this.rendezvousService.cancelRendezvous(reservation);
 		this.reservationService.save(canceled);
 
 		result = new ModelAndView("redirect:../list.do");
