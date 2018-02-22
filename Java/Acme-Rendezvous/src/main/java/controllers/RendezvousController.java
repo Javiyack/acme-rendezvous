@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+
 import services.RendezvousService;
 import domain.Rendezvous;
 
@@ -30,8 +31,11 @@ public class RendezvousController {
 	//List ---------------------------------------------------------------		
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
+
 		ModelAndView result;
+
 		final Collection<Rendezvous> rendezvouses = this.rendezvousService.findAll();
+
 		result = new ModelAndView("rendezvous/list");
 		result.addObject("rendezvouses", rendezvouses);
 		result.addObject("requestUri", "rendezvous/list.do");

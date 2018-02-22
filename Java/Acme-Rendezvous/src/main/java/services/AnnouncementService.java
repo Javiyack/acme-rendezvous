@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Collection;
@@ -7,10 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import repositories.AnnouncementRepository;
 import domain.Announcement;
 import domain.Answer;
 import domain.Reservation;
-import repositories.AnnouncementRepository;
+import domain.Rendezvous;
 
 @Service
 @Transactional
@@ -18,9 +20,11 @@ public class AnnouncementService {
 
 	// Managed repositories ------------------------------------------------
 	@Autowired
-	private AnnouncementRepository announcementRepository;
+	private AnnouncementRepository	announcementRepository;
 
-	// Supporting services 
+	// Supporting services --------------------------------------------------
+	@Autowired
+	private RendezvousService		rendezvousService;
 
 
 	// Constructor ----------------------------------------------------------
@@ -48,7 +52,6 @@ public class AnnouncementService {
 		return result;
 	}
 
-
 	public Announcement findOne(final int announcementId) {
 		Announcement result;
 
@@ -73,11 +76,16 @@ public class AnnouncementService {
 		this.announcementRepository.delete(announcement);
 	}
 
-	public Collection<Announcement> findAllByRendezvousId(int id) {
-		
-		return announcementRepository.findAllByRendezvousId(id);
-	}
+	// Other business methods -------------------------------------------------
 
+	public Collection<Announcement> findByRendezvous(final int rendezvousId) {
+		final Rendezvous rendezvous = this.rendezvousService.findOne(rendezvousId);
+		Assert.notNull(rendezvous);
+		final Collection<Announcement> announcements = this.announcementRepository.findByRendezvous(rendezvousId);
+		Assert.notNull(announcements);
+		return announcements;
+	}
+	
 	public void deleteInBatch(Collection<Announcement> announcements) {
 		// TOASK ¿habria que comprobar aqui tambien que en usuario logado es admin?
 

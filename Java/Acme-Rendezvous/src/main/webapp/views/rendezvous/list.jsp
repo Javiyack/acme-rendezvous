@@ -59,6 +59,15 @@
 		</div>
 	</display:column>
 	
+	<spring:message code="rendezvous.announcements" var="rendezvousAnnouncements" />
+	<display:column>
+		<div>
+			<a href="announcement/list.do?rendezvousId=${row.id}"> 
+				<spring:message code="rendezvous.announcements" />
+			</a>
+		</div>
+	</display:column>
+	
 	<security:authorize access="hasRole('USER')">
 	<display:column>
 	<jstl:forEach items="${reserved }" var="rend">
@@ -99,7 +108,6 @@
 	<jstl:out value="${passed}"/>
 	</jstl:if>
 	</display:column>
-	
 	
 	<security:authorize access="hasRole('ADMINISTRATOR')">
 	<display:column>
