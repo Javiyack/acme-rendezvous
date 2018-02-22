@@ -79,6 +79,17 @@ public class ReservationService {
 		return this.reservationRepository.findReservationByUserAndRendezvous(user, rendezvous);
 	}
 	
-	
+	public Collection<Reservation> findReservationsByRendezvous(Rendezvous rendezvous) {
+		Assert.notNull(rendezvous);
+		return this.reservationRepository.findReservationsByRendezvous(rendezvous);
+	}
+
+	public void deleteInBatch(Collection<Reservation> reservations) {
+		// TOASK ¿habria que comprobar aqui tambien que en usuario logado es admin?
+		
+		Assert.notEmpty(reservations);
+
+		this.reservationRepository.deleteInBatch(reservations);
+	}
 
 }
