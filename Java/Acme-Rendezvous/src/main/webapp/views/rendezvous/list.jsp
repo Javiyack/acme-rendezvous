@@ -78,18 +78,24 @@
 	</display:column>
 	
 	<security:authorize access="hasRole('USER')">
+	
 	<display:column>
-	<jstl:forEach items="${reserved }" var="rend">
-	</jstl:forEach>
-
-	<jstl:if test="${rend ne row and user ne row.user}">
+	<jstl:choose>
+	<jstl:when test="${reserved.contains(row)}">
 		<div>
+			<a href="rendezvous/user/cancel.do?rendezvousId=${row.id}"> 
+				<spring:message code="rendezvous.cancel" />
+			</a>
+		</div>
+	</jstl:when>
+	<jstl:when test="${!reserved.contains(row) and user ne row.user}">
+	<div>
 			<a href="rendezvous/user/reserve.do?rendezvousId=${row.id}"> 
 				<spring:message code="rendezvous.reserve" />
 			</a>
 		</div>
-	</jstl:if>
-
+	</jstl:when>
+	</jstl:choose>
 	</display:column>
 
 	<display:column>
@@ -117,6 +123,7 @@
 	<jstl:out value="${passed}"/>
 	</jstl:if>
 	</display:column>
+	
 	
 	<security:authorize access="hasRole('ADMINISTRATOR')">
 	<display:column>
