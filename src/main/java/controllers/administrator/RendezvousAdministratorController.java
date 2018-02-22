@@ -1,6 +1,8 @@
 
 package controllers.administrator;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +29,26 @@ public class RendezvousAdministratorController {
 
 	@Autowired
 	private RendezvousService	rendezvousService;
+	
+	
+	// List ---------------------------------------------------------------
 
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list() {
 
+		ModelAndView result;
+
+		final Collection<Rendezvous> rendezvouses = this.rendezvousService.findAll();
+		result = new ModelAndView("rendezvous/list");
+		result.addObject("rendezvouses", rendezvouses);
+		result.addObject("requestUri", "rendezvous/list.do");
+
+		return result;
+	}
+
+	// Delete by POST ------------------------------------------------------------
+
+	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(@Valid final Rendezvous rendezvous, final BindingResult binding) {
 		ModelAndView result;
@@ -48,9 +68,9 @@ public class RendezvousAdministratorController {
 	// Delete by GET (link)------------------------------------------------------
 
 		@RequestMapping(value = "/delete", method = RequestMethod.GET)
-		public ModelAndView deleteByGET(@RequestParam(required = false) Integer Id) {
+		public ModelAndView deleteByGET(@RequestParam(required = false) Integer rendezvousId) {
 			ModelAndView result;
-			Rendezvous selected = rendezvousService.findOne(Id);
+			Rendezvous selected = rendezvousService.findOne(rendezvousId);
 
 			try {
 				rendezvousService.remove(selected);

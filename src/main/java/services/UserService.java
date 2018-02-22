@@ -19,13 +19,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import domain.Actor;
+import domain.Rendezvous;
+import domain.User;
 import repositories.UserRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import security.UserAccountService;
-import domain.Rendezvous;
-import domain.User;
 
 @Service
 @Transactional
@@ -116,7 +117,9 @@ public class UserService {
 
 		userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);
-		result = (User) this.actorService.findByUserAccount(userAccount);
+		Actor actor = this.actorService.findByUserAccount(userAccount);
+		Assert.isTrue(actor instanceof User);
+		result = (User) actor;
 		Assert.notNull(result);
 
 		return result;

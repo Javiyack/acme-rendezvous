@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import domain.Answer;
+import domain.Reservation;
 import repositories.AnswerRepository;
 
 @Service
@@ -46,6 +47,14 @@ public class AnswerService {
 		return result;
 	}
 
+	
+	public Collection<Answer> findByReservation(final Reservation reserva){
+		Assert.notNull(reserva);
+		
+		Collection<Answer> result = answerRepository.findByReservation(reserva);		
+		
+		return result;
+	}
 
 	public Answer findOne(final int answerId) {
 		Answer result;
@@ -69,6 +78,16 @@ public class AnswerService {
 		Assert.notNull(answer);
 
 		this.answerRepository.delete(answer);
+	}
+
+	public void deleteInBatch(Collection<Answer> answers) {
+		// TOASK ¿Habria que comprobar usuario logado?
+		answerRepository.deleteInBatch(answers);
+	}
+
+	public Collection<Answer> findByQuestionId(int id) {
+		// TODO Auto-generated method stub
+		return answerRepository.findByQuestionId(id);
 	}
 
 }
