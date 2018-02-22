@@ -15,35 +15,35 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.CommentService;
-import services.RendezvousService;
-import domain.Comment;
+import services.AnnouncementService;
+import domain.Announcement;
 
 @Controller
-@RequestMapping("/comment")
-public class CommentController extends AbstractController {
+@RequestMapping("/announcement")
+public class AnnouncementController extends AbstractController {
 
 	// Services ---------------------------------------------------------------
 
 	@Autowired
-	private CommentService		commetService;
-	@Autowired
-	private RendezvousService	rendezvousService;
+	private AnnouncementService	announcementService;
 
 
 	// Listing ----------------------------------------------------------------
 
-	@RequestMapping("/list")
-	public ModelAndView action1() {
-		ModelAndView result;
-		Collection<Comment> comments;
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list(@RequestParam final int rendezvousId) {
 
-		comments = this.commetService.findAll();
-		result = new ModelAndView("comment/list");
-		result.addObject("requestURI", "comment/list.do");
-		result.addObject("comments", comments);
+		final ModelAndView result;
+
+		final Collection<Announcement> announcements = this.announcementService.findByRendezvous(rendezvousId);
+
+		result = new ModelAndView("announcement/list");
+		result.addObject("announcements", announcements);
+		result.addObject("requestUri", "announcement/list.do");
 
 		return result;
 	}

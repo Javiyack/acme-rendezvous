@@ -55,6 +55,7 @@ public class RendezvousUserController {
 		result.addObject("rendezvouses", rendezvouses);
 		result.addObject("requestUri", "rendezvous/user/list.do");
 		result.addObject("user", user);
+		
 
 		return result;
 	}
@@ -134,7 +135,7 @@ public class RendezvousUserController {
 		return result;
 	}
 
-	// Reserve
+	// Reserve ---------------------------------------------------------------
 
 	@RequestMapping(value = "/reserve", method = RequestMethod.GET)
 	public ModelAndView reserve(@RequestParam final int rendezvousId) {
@@ -160,7 +161,7 @@ public class RendezvousUserController {
 		return result;
 	}
 
-	// Cancel
+	// Cancel ---------------------------------------------------------------
 
 	@RequestMapping(value = "/cancel", method = RequestMethod.GET)
 	public ModelAndView cancel(@RequestParam final int rendezvousId) {
@@ -185,8 +186,7 @@ public class RendezvousUserController {
 		return result;
 	}
 
-	// Auxiliary methods
-	// ---------------------------------------------------------------
+	// Auxiliary methods ----------------------------------------------------
 	protected ModelAndView createEditModelAndView(final Rendezvous rendezvous) {
 		final ModelAndView result;
 		result = this.createEditModelAndView(rendezvous, null);

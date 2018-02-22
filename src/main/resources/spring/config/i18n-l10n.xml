@@ -31,6 +31,7 @@
 		<value>/views/dashboard/messages</value>
 		<value>/views/rendezvous/messages</value>
 		<value>/views/comment/messages</value>
+		<value>/views/announcement/messages</value>
 		
 		
 			
