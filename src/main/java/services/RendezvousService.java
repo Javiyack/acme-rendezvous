@@ -17,11 +17,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import repositories.RendezvousRepository;
+import domain.Actor;
 import domain.Administrator;
 import domain.Rendezvous;
 import domain.Reservation;
 import domain.User;
+import repositories.RendezvousRepository;
 
 @Service
 @Transactional
@@ -36,6 +37,8 @@ public class RendezvousService {
 
 	@Autowired
 	private UserService				userService;
+	@Autowired
+	private ActorService			actorService;
 	@Autowired
 	private AdministratorService	adminService;
 	@Autowired
@@ -136,6 +139,58 @@ public class RendezvousService {
 		this.rendezvousRepository.delete(rendezvous);
 	}
 
+	
+	// Requisito funcional 6.2 ADMIN can remove a rendezvous that he or she thinks is inappropriate.
+	// El borrado ha de hacerlo un admnistrador y es real, no virtual como el del usuario.
+	public void remove(final Rendezvous rendezvous) {
+		Assert.notNull(rendezvous);
+		// Comprobamos que el actor autenticado es un "Administrator"
+
+		final Actor actor = actorService.findByPrincipal();
+		Assert.isTrue(actor instanceof Administrator);
+		// Antes de borrar el rendezvous hay que borrar todos los objetos que lo referencien
+		
+		// Buscamos y borramos todas las reservas si las hubiera
+
+		Collection<Reservation> reservations = reservationService.findReservationsByRendezvous(rendezvous);
+		if (!reservations.isEmpty())
+			reservationService.deleteInBatch(reservations);
+
+//		// Buscamos y borramos todos las Reservations si las hubiera
+//
+//		Collection<Reply> replies = replyService.findAllByCommentId(comment.getId());
+//		if (!replies.isEmpty())
+//			replyService.deleteInBatch(replies);
+//
+//		// Buscamos y borramos todos las Questions si las hubiera
+//
+//		Collection<Reply> replies = replyService.findAllByCommentId(comment.getId());
+//		if (!replies.isEmpty())
+//			replyService.deleteInBatch(replies);
+//
+//		// Buscamos y borramos todos los Announcements si los hubiera
+//
+//		Collection<Reply> replies = replyService.findAllByCommentId(comment.getId());
+//		if (!replies.isEmpty())
+//			replyService.deleteInBatch(replies);
+//
+//		// Buscamos y borramos todos los Links si los hubiera
+//
+//		Collection<Reply> replies = replyService.findAllByCommentId(comment.getId());
+//		if (!replies.isEmpty())
+//			replyService.deleteInBatch(replies);
+//
+//		// Buscamos y borramos todos los Comments si los hubiera
+//
+//		Collection<Reply> replies = replyService.findAllByCommentId(comment.getId());
+//		if (!replies.isEmpty())
+//			replyService.deleteInBatch(replies);
+
+		// Finalmente borramos el comentario
+
+		this.rendezvousRepository.delete(rendezvous);
+		
+	}
 	// Other business methods -------------------------------------------------
 
 	public Collection<Rendezvous> findCreatedByUser(final int userId) {

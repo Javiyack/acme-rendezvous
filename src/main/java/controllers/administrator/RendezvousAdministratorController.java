@@ -8,10 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.RendezvousService;
 import domain.Rendezvous;
+import services.RendezvousService;
 
 @Controller
 @RequestMapping("/rendezvous/administrator")
@@ -43,6 +44,26 @@ public class RendezvousAdministratorController {
 			}
 		return result;
 	}
+	
+	// Delete by GET (link)------------------------------------------------------
+
+		@RequestMapping(value = "/delete", method = RequestMethod.GET)
+		public ModelAndView deleteByGET(@RequestParam(required = false) Integer Id) {
+			ModelAndView result;
+			Rendezvous selected = rendezvousService.findOne(Id);
+
+			try {
+				rendezvousService.remove(selected);
+
+				result = new ModelAndView("redirect:list.do");
+			} catch (final Throwable oops) {
+				oops.printStackTrace();
+				result = this.createEditModelAndView(selected, "msg.commit.error");
+			}
+
+			return result;
+		}
+
 
 	// Auxiliary methods ---------------------------------------------------------------
 	protected ModelAndView createEditModelAndView(final Rendezvous rendezvous) {

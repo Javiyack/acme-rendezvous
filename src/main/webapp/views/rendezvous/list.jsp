@@ -96,6 +96,17 @@
 	</display:column>
 	</jstl:if>
 	</security:authorize>
+	
+	
+	<security:authorize access="hasRole('ADMINISTRATOR')">
+	<display:column>
+		<div>
+			<a href="rendezvous/administrator/delete.do?rendezvousId=${row.id}"> 
+				<spring:message code="comment.delete" />
+			</a>
+		</div>
+	</display:column>
+	</security:authorize>
 
 </display:table>
 
