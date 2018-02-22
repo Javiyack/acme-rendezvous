@@ -20,7 +20,7 @@
 
 
 <div>
-	<img src="http://creek-tours.com/wp-content/uploads/Kenya-Tanzania-Family-Safari-banner.jpg" alt="Acme-Rendezvous Co., Inc." style="height:6em; width:15em"/>
+	<img src="https://static1.squarespace.com/static/57f9bc25b8a79bc648c871ef/t/59cc9d5cedaed87e75ecdc12/1518476813543/?format=1000w" alt="Acme-Rendezvous Co., Inc." style="height:6em; width:15em"/>
 </div>
 <!-- EXPLORER RANGER MANAGER ADMINISTRATOR AUDITOR SPONSOR + "$") -->
 <div>
@@ -66,7 +66,7 @@
 			<li><a href="rendezvous/list.do"><spring:message
 						code="master.page.rendezvouses" /> </a></li>
 
-			<li><a href="comment/list.do"><spring:message
+			<li><a href="comment/administrator/list.do"><spring:message
 						code="master.page.comments" /> </a></li>
 
 			<li><a href="dashboard/list.do"><spring:message
