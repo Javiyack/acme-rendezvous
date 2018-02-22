@@ -104,12 +104,6 @@ public class RendezvousService {
 
 		final int id = rendezvous.getId();
 		Rendezvous result;
-		
-		Assert.isTrue(!rendezvous.getDeleted(), "deleted value is /True/");
-		if(rendezvous.getId()!=0) {
-			Assert.isTrue(rendezvous.getDraft().equals(true),"Cannot edit a Rendezvous in final mode");
-		}
-
 		result = this.rendezvousRepository.save(rendezvous);
 
 		if (id == 0) {
