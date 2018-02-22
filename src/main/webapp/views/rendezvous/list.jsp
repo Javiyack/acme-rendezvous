@@ -26,19 +26,6 @@
 	<spring:message code="rendezvous.name" var="rendezvousName" />
 	<display:column property="name" title="${rendezvousName}" />
 	
-	<jstl:if test="${row.deleted == true }">
-	<spring:message code ="rendezvous.deleted" var="deleted"/>
-	<display:column>
-	<jstl:out value="${deleted }"/>
-	</display:column>
-	</jstl:if>
-	
-	<jstl:if test="${date lt row.moment}">
-	<spring:message code ="rendezvous.passed" var="passed"/>
-	<display:column>
-	<jstl:out value="${passed}"/>
-	</display:column>
-	</jstl:if>
 	
 	<spring:message code="rendezvous.description" var="rendezvousDescription" />
 	<display:column property="description" title="${rendezvousDescription}" />
@@ -73,29 +60,45 @@
 	</display:column>
 	
 	<security:authorize access="hasRole('USER')">
-	<jstl:if test="${user != row.user }">
-	<jstl:forEach items="${reserved }" var="rend">
-	<jstl:if test="${rend ne row }">
 	<display:column>
+	<jstl:forEach items="${reserved }" var="rend">
+	</jstl:forEach>
+
+	<jstl:if test="${rend ne row and user ne row.user}">
 		<div>
 			<a href="rendezvous/user/reserve.do?rendezvousId=${row.id}"> 
 				<spring:message code="rendezvous.reserve" />
 			</a>
 		</div>
+	</jstl:if>
+
 	</display:column>
-	</jstl:if>
-	</jstl:forEach>
-	</jstl:if>
-	<jstl:if test="${user eq row.user and row.deleted==false and row.draft==true}">
+
 	<display:column>
+		<jstl:if test="${user == row.user and row.deleted==false and row.draft==true}">
 		<div>
 			<a href="rendezvous/user/edit.do?rendezvousId=${row.id}"> 
 				<spring:message code="rendezvous.edit" />
 			</a>
 		</div>
+		</jstl:if>
 	</display:column>
-	</jstl:if>
 	</security:authorize>
+	
+	<spring:message code ="rendezvous.deleted" var="deleted"/>
+	<display:column title="${deleted}">
+	<jstl:if test="${row.deleted == true }">
+	<jstl:out value="${deleted }"/>
+	</jstl:if>
+	</display:column>
+
+	
+	<spring:message code ="rendezvous.passed" var="passed"/>
+	<display:column title="${passed}">
+	<jstl:if test="${row.moment < date}">
+	<jstl:out value="${passed}"/>
+	</jstl:if>
+	</display:column>
 	
 	
 	<security:authorize access="hasRole('ADMINISTRATOR')">
