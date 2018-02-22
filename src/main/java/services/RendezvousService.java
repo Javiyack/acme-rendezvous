@@ -19,6 +19,10 @@ import org.springframework.util.Assert;
 
 import domain.Actor;
 import domain.Administrator;
+import domain.Announcement;
+import domain.Comment;
+import domain.Link;
+import domain.Question;
 import domain.Rendezvous;
 import domain.Reservation;
 import domain.User;
@@ -43,7 +47,15 @@ public class RendezvousService {
 	private AdministratorService	adminService;
 	@Autowired
 	private ReservationService		reservationService;
-
+	@Autowired
+	private QuestionService			questionService;
+	@Autowired
+	private AnnouncementService		announcementService;	
+	@Autowired
+	private LinkService				linkService;
+	@Autowired
+	private CommentService			commentService;
+	
 
 	// Constructors -----------------------------------------------------------
 
@@ -146,39 +158,36 @@ public class RendezvousService {
 		
 		// Buscamos y borramos todas las reservas si las hubiera
 
-		Collection<Reservation> reservations = reservationService.findReservationsByRendezvous(rendezvous);
+		Collection<Reservation> reservations = reservationService.findAllByRendezvousId(rendezvous.getId());
 		if (!reservations.isEmpty())
 			reservationService.deleteInBatch(reservations);
 
-//		// Buscamos y borramos todos las Reservations si las hubiera
-//
-//		Collection<Reply> replies = replyService.findAllByCommentId(comment.getId());
-//		if (!replies.isEmpty())
-//			replyService.deleteInBatch(replies);
-//
-//		// Buscamos y borramos todos las Questions si las hubiera
-//
-//		Collection<Reply> replies = replyService.findAllByCommentId(comment.getId());
-//		if (!replies.isEmpty())
-//			replyService.deleteInBatch(replies);
-//
-//		// Buscamos y borramos todos los Announcements si los hubiera
-//
-//		Collection<Reply> replies = replyService.findAllByCommentId(comment.getId());
-//		if (!replies.isEmpty())
-//			replyService.deleteInBatch(replies);
-//
-//		// Buscamos y borramos todos los Links si los hubiera
-//
-//		Collection<Reply> replies = replyService.findAllByCommentId(comment.getId());
-//		if (!replies.isEmpty())
-//			replyService.deleteInBatch(replies);
-//
-//		// Buscamos y borramos todos los Comments si los hubiera
-//
-//		Collection<Reply> replies = replyService.findAllByCommentId(comment.getId());
-//		if (!replies.isEmpty())
-//			replyService.deleteInBatch(replies);
+		// Buscamos y borramos todos las Questions si las hubiera
+
+		Collection<Question> questions = questionService.findAllByRendezvousId(rendezvous.getId());
+		if (!questions.isEmpty())
+			questionService.deleteInBatch(questions);
+
+		// Buscamos y borramos todos los Announcements si los hubiera
+
+		Collection<Announcement> announcements = announcementService.findAllByRendezvousId(rendezvous.getId());
+		if (!announcements.isEmpty())
+			announcementService.deleteInBatch(announcements);
+
+		// Buscamos y borramos todos los Links si los hubiera
+
+		Collection<Link> links = linkService.findAllByRendezvousId(rendezvous.getId());
+		if (!links.isEmpty())
+			linkService.deleteInBatch(links);
+
+		// buscamos y borramos todos los comments si los hubiera
+
+		Collection<Comment> comments = commentService.findAllByRendezvousId(rendezvous.getId());
+		if (!comments.isEmpty()) {
+			for (Comment comment : comments) {
+				commentService.delete(comment);
+			}
+		}
 
 		// Finalmente borramos el comentario
 
