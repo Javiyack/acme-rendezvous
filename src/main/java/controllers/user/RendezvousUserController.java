@@ -55,7 +55,6 @@ public class RendezvousUserController {
 		result.addObject("rendezvouses", rendezvouses);
 		result.addObject("requestUri", "rendezvous/user/list.do");
 		result.addObject("user", user);
-		
 
 		return result;
 	}
@@ -67,7 +66,7 @@ public class RendezvousUserController {
 		final Collection<Rendezvous> rendezvouses = this.rendezvousService.findAll();
 		final User user;
 		user = this.userService.findByPrincipal();
-		final Collection<Rendezvous> reserved = this.rendezvousService.findReservedByUser(user.getId());
+		final Collection<Rendezvous> reserved = this.rendezvousService.findReservedAndNotCanceledByUserId(user.getId());
 		result = new ModelAndView("rendezvous/list");
 		result.addObject("rendezvouses", rendezvouses);
 		result.addObject("requestUri", "rendezvous/user/listAll.do");
@@ -128,14 +127,14 @@ public class RendezvousUserController {
 		else
 			try {
 				this.rendezvousService.deleteByUser(rendezvous);
-				result = new ModelAndView("redirect:../list.do");
+				result = new ModelAndView("redirect:/");
 			} catch (final Throwable ooops) {
 				result = this.createEditModelAndView(rendezvous, "rendezvous.commit.error");
 			}
 		return result;
 	}
 
-	// Reserve ---------------------------------------------------------------
+	// Reserve
 
 	@RequestMapping(value = "/reserve", method = RequestMethod.GET)
 	public ModelAndView reserve(@RequestParam final int rendezvousId) {
@@ -156,12 +155,12 @@ public class RendezvousUserController {
 
 		this.reservationService.save(done);
 
-		result = new ModelAndView("redirect:../list.do");
+		result = new ModelAndView("redirect:/");
 
 		return result;
 	}
 
-	// Cancel ---------------------------------------------------------------
+	// Cancel
 
 	@RequestMapping(value = "/cancel", method = RequestMethod.GET)
 	public ModelAndView cancel(@RequestParam final int rendezvousId) {
@@ -181,12 +180,13 @@ public class RendezvousUserController {
 		final Reservation canceled = this.rendezvousService.cancelRendezvous(reservation);
 		this.reservationService.save(canceled);
 
-		result = new ModelAndView("redirect:../list.do");
+		result = new ModelAndView("redirect:/");
 
 		return result;
 	}
 
-	// Auxiliary methods ----------------------------------------------------
+	// Auxiliary methods
+	// ---------------------------------------------------------------
 	protected ModelAndView createEditModelAndView(final Rendezvous rendezvous) {
 		final ModelAndView result;
 		result = this.createEditModelAndView(rendezvous, null);
