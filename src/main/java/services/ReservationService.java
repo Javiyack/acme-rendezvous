@@ -78,5 +78,7 @@ public class ReservationService {
 		Assert.notNull(rendezvous);
 		return this.reservationRepository.findReservationByUserAndRendezvous(user, rendezvous);
 	}
+	
+	
 
 }

@@ -16,6 +16,7 @@ import domain.User;
 public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
 	
 	@Query("select r from Reservation r where r.user = ?1 and r.rendezvous = ?2")Reservation findReservationByUserAndRendezvous(User user, Rendezvous rendezvous);
+	
 
 
 }

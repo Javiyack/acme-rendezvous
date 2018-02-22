@@ -92,6 +92,7 @@ public class RendezvousService {
 		result = this.rendezvousRepository.findOne(rendezvousId);
 		this.checkPrincipal(result);
 		Assert.isTrue(result.getDraft().equals(true));
+		Assert.isTrue(result.getDeleted().equals(false), "Cannot edit a deleted Rendezvous");
 		return result;
 	}
 
@@ -100,13 +101,11 @@ public class RendezvousService {
 
 		final int id = rendezvous.getId();
 		Rendezvous result;
-
+		
 		Assert.isTrue(!rendezvous.getDeleted(), "deleted value is /True/");
-		// TODO ERN: comentada la parte de manager
-		// final User manager;
-		// manager = this.userService.findByPrincipal();
-		// Assert.notNull(manager);
-		// TODO Hay que corregir esto
+		if(rendezvous.getId()!=0) {
+			Assert.isTrue(rendezvous.getDraft().equals(true),"Cannot edit a Rendezvous in final mode");
+		}
 
 		result = this.rendezvousRepository.save(rendezvous);
 
