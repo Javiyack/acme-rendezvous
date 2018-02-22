@@ -170,7 +170,7 @@ public class RendezvousService {
 
 		// Buscamos y borramos todos los Announcements si los hubiera
 
-		final Collection<Announcement> announcements = this.announcementService.findByRendezvous(rendezvous.getId());
+		final Collection<Announcement> announcements = this.announcementService.findAllByRendezvousId(rendezvous.getId());
 		if (!announcements.isEmpty())
 			this.announcementService.deleteInBatch(announcements);
 
@@ -209,6 +209,16 @@ public class RendezvousService {
 		Assert.notNull(result);
 
 		return result;
+	}
+
+	public Collection<Rendezvous> findReservedAndNotCanceledByUserId(final int userId) {
+
+		Collection<Rendezvous> result;
+		result = this.rendezvousRepository.findReservedAndNotCanceledByUserId(userId);
+		Assert.notNull(result);
+
+		return result;
+
 	}
 
 	//Requisito 5.3

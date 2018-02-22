@@ -17,8 +17,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import domain.Rendezvous;
-import domain.Reservation;
-import domain.User;
 
 @Repository
 public interface RendezvousRepository extends JpaRepository<Rendezvous, Integer> {
@@ -28,7 +26,8 @@ public interface RendezvousRepository extends JpaRepository<Rendezvous, Integer>
 
 	@Query("select rendezvous from Reservation r join r.rendezvous rendezvous where r.user.id = ?1")
 	Collection<Rendezvous> findReservedByUserId(int userId);
-	
-	
+
+	@Query("select rendezvous from Reservation r join r.rendezvous rendezvous where r.canceled=false and r.user.id = ?1")
+	Collection<Rendezvous> findReservedAndNotCanceledByUserId(int userId);
 
 }
