@@ -4,6 +4,8 @@
 
 package repositories;
 
+import java.util.Collection;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -15,8 +17,11 @@ import domain.User;
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
 	
-	@Query("select r from Reservation r where r.user = ?1 and r.rendezvous = ?2")Reservation findReservationByUserAndRendezvous(User user, Rendezvous rendezvous);
-	
+	@Query("select r from Reservation r where r.user = ?1 and r.rendezvous = ?2")
+	Reservation findReservationByUserAndRendezvous(User user, Rendezvous rendezvous);
+
+	@Query("select r from Reservation r where r.rendezvous = ?1")
+	Collection<Reservation> findReservationsByRendezvous(Rendezvous rendezvous);
 
 
 }
