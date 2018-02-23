@@ -170,7 +170,7 @@ public class RendezvousService {
 
 		// Buscamos y borramos todos los Announcements si los hubiera
 
-		final Collection<Announcement> announcements = this.announcementService.findAllByRendezvousId(rendezvous.getId());
+		final Collection<Announcement> announcements = this.announcementService.findByRendezvous(rendezvous.getId());
 		if (!announcements.isEmpty())
 			this.announcementService.deleteInBatch(announcements);
 
