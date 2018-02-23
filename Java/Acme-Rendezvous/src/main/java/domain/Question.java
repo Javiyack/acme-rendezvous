@@ -10,18 +10,18 @@ import javax.validation.constraints.NotNull;
 @Access(AccessType.PROPERTY)
 public class Question extends DomainEntity{
 
-	private String question;
+	private String text;
 
 	private Rendezvous rendezvous;
 
 	
 	@NotNull
-	public String getQuestion() {
-		return question;
+	public String getText() {
+		return text;
 	}
 
-	public void setQuestion(String question) {
-		this.question = question;
+	public void setText(String text) {
+		this.text = text;
 	}
 
 	@NotNull

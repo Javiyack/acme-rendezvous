@@ -352,15 +352,15 @@
 	<!-- Questions -->
 		
 	<bean id="question1-1" class="domain.Question">
-		<property name="question" value="Question 1 Rendezvous 1" />
+		<property name="text" value="Question 1 Rendezvous 1" />
 		<property name="rendezvous" ref="rendezvous1" />
 	</bean>
 	<bean id="question2-1" class="domain.Question">
-		<property name="question" value="Question 2 Rendezvous 1" />
+		<property name="text" value="Question 2 Rendezvous 1" />
 		<property name="rendezvous" ref="rendezvous1" />
 	</bean>
 	<bean id="question3-1" class="domain.Question">
-		<property name="question" value="Question 3 Rendezvous 1" />
+		<property name="text" value="Question 3 Rendezvous 1" />
 		<property name="rendezvous" ref="rendezvous1" />
 	</bean>	
 	
