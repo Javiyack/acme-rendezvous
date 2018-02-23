@@ -54,6 +54,12 @@
 	<form:errors cssClass="error" path="address" />
 	<br />
 	
+	<form:label path="adult">
+		<spring:message code="actor.adult" />
+	</form:label>
+	<form:checkbox path="adult"/>
+	<br/>
+	
 	<security:authorize access="hasRole('ADMIN')">
 		<input type="submit" name="saveAdmin"
 			value='<spring:message code="actor.save"/>'/>&nbsp;
