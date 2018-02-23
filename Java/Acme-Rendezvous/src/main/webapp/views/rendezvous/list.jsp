@@ -134,6 +134,16 @@
 		</div>
 	</display:column>
 	</security:authorize>
+	
+	<jstl:if test="${showAddQuestion}">
+	<display:column>
+		<div>
+			<a href="question/user/create.do?rendezvousId=${row.id}"> 
+				<spring:message code="rendezvous.question.add" />
+			</a>
+		</div>
+	</display:column>
+	</jstl:if>
 
 </display:table>
 

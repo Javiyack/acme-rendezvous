@@ -45,6 +45,7 @@
 			
 		<!-- User -->
 		<security:intercept-url pattern="/rendezvous/user/**" access="hasRole('USER')" />
+		<security:intercept-url pattern="/question/user/**" access="hasRole('USER')" />
 		<!-- Admin -->
 		<security:intercept-url pattern="/rendezvous/administrator/**" access="hasRole('ADMINISTRATOR')" />
 		<security:intercept-url pattern="/dashboard/**" access="hasRole('ADMINISTRATOR')" />

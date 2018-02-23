@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Collection;
@@ -7,9 +8,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import repositories.QuestionRepository;
+import domain.Actor;
 import domain.Answer;
 import domain.Question;
-import repositories.QuestionRepository;
+import domain.Rendezvous;
+import domain.User;
 
 @Service
 @Transactional
@@ -17,11 +21,15 @@ public class QuestionService {
 
 	// Managed repositories ------------------------------------------------
 	@Autowired
-	private QuestionRepository questionRepository;
+	private QuestionRepository	questionRepository;
 
 	// Supporting services 
 	@Autowired
-	private AnswerService answerService;
+	private AnswerService		answerService;
+	@Autowired
+	private RendezvousService	rendezvousService;
+	@Autowired
+	private ActorService		actorService;
 
 
 	// Constructor ----------------------------------------------------------
@@ -30,11 +38,14 @@ public class QuestionService {
 	}
 
 	// Methods CRUD ---------------------------------------------------------
-	public Question create() {
+	public Question create(final int rendezvousId) {
 
 		final Question result;
+		final Rendezvous rendezvous = this.rendezvousService.findOne(rendezvousId);
+		Assert.notNull(rendezvous);
 
 		result = new Question();
+		result.setRendezvous(rendezvous);
 
 		return result;
 	}
@@ -49,7 +60,6 @@ public class QuestionService {
 		return result;
 	}
 
-
 	public Question findOne(final int questionId) {
 		Question result;
 
@@ -61,6 +71,10 @@ public class QuestionService {
 
 	public Question save(final Question question) {
 		Assert.notNull(question);
+		final Actor actor = this.actorService.findByPrincipal();
+		Assert.isTrue(actor instanceof User);
+		Assert.isTrue(question.getRendezvous().getUser().equals(actor));
+
 		Question saved;
 
 		saved = this.questionRepository.save(question);
@@ -75,18 +89,18 @@ public class QuestionService {
 	}
 
 	public Collection<Question> findAllByRendezvousId(final int id) {
-		
-		return questionRepository.findAllByRendezvousId(id);
+
+		return this.questionRepository.findAllByRendezvousId(id);
 	}
 
-	public void deleteInBatch(Collection<Question> questions) {
+	public void deleteInBatch(final Collection<Question> questions) {
 		// TOASK ¿habria que comprobar aqui tambien que en usuario logado es admin?
 
 		Assert.notEmpty(questions);
 
-		for (Question question : questions) {
-			Collection<Answer> answers = answerService.findByQuestionId(question.getId());
-			answerService.deleteInBatch(answers);
+		for (final Question question : questions) {
+			final Collection<Answer> answers = this.answerService.findByQuestionId(question.getId());
+			this.answerService.deleteInBatch(answers);
 		}
 
 		this.questionRepository.deleteInBatch(questions);

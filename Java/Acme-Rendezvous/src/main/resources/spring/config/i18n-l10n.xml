@@ -33,6 +33,7 @@
 		<value>/views/comment/messages</value>
 		<value>/views/announcement/messages</value>
 		<value>/views/answer/messages</value>
+		<value>/views/question/messages</value>
 		
 		
 			
