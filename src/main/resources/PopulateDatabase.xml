@@ -368,17 +368,17 @@
 	<!-- Answers -->
 		
 	<bean id="answer1-1" class="domain.Answer">
-		<property name="answer" value="Answer Question 1 Rendezvous 1" />
+		<property name="text" value="Answer Question 1 Rendezvous 1" />
 		<property name="question" ref="question1-1" />
 		<property name="reservation" ref="reservation1" />
 	</bean>
 	<bean id="answer2-1" class="domain.Answer">
-		<property name="answer" value="Answer Question 2 Rendezvous 1" />
+		<property name="text" value="Answer Question 2 Rendezvous 1" />
 		<property name="question" ref="question2-1" />
 		<property name="reservation" ref="reservation1" />
 	</bean>
 	<bean id="answer3-1" class="domain.Answer">
-		<property name="answer" value="Answer Question 3 Rendezvous 1" />
+		<property name="text" value="Answer Question 3 Rendezvous 1" />
 		<property name="question" ref="question3-1" />
 		<property name="reservation" ref="reservation1" />
 	</bean>

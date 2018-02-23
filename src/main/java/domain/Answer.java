@@ -17,19 +17,19 @@ import org.hibernate.validator.constraints.NotBlank;
 	}))
 public class Answer extends DomainEntity{
 
-	private String answer;
+	private String text;
 
 	private Reservation reservation;
 	
 	private Question question;
 
 	@NotBlank
-	public String getAnswer() {
-		return answer;
+	public String getText() {
+		return text;
 	}
 
-	public void setAnswer(String answer) {
-		this.answer = answer;
+	public void setText(String text) {
+		this.text = text;
 	}
 
 	@NotNull
