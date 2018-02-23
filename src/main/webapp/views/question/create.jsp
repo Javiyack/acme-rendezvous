@@ -17,11 +17,11 @@
 	<form:hidden path="rendezvous" />
 
 
-	<form:label path="question">
+	<form:label path="text">
 		<spring:message code="question.question" />
 	</form:label>
-	<form:input path="question" />
-	<form:errors cssClass="error" path="question" />
+	<form:input path="text" />
+	<form:errors cssClass="error" path="text" />
 	<br />
 
 	<input type="submit" name="save"
