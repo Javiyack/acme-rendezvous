@@ -55,6 +55,12 @@
 	<form:errors cssClass="error" path="address" />
 	<br />
 	
+	<form:label path="adult">
+		<spring:message code="user.adult" />
+	</form:label>
+	<form:checkbox path="adult"/>
+	<br/>
+	
 	<form:label path="userAccount.username">
 		<spring:message code="user.userAccount.username" />
 	</form:label>

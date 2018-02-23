@@ -37,6 +37,11 @@
 	<jstl:out value="${userAddress} ${user.address }" />
 </p>
 
+<p>
+	<spring:message code="user.adult" var="userAdult" />
+	<jstl:out value="${userAdult} ${user.adult }" />
+</p>
+
 
 <h4>
 	<spring:message code="user.rendezvous" />

@@ -9,9 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.AnnouncementRepository;
+import domain.Actor;
+import domain.Administrator;
 import domain.Announcement;
-import domain.Answer;
-import domain.Reservation;
 import domain.Rendezvous;
 
 @Service
@@ -25,6 +25,8 @@ public class AnnouncementService {
 	// Supporting services --------------------------------------------------
 	@Autowired
 	private RendezvousService		rendezvousService;
+	@Autowired
+	private ActorService			actorService;
 
 
 	// Constructor ----------------------------------------------------------
@@ -85,14 +87,22 @@ public class AnnouncementService {
 		Assert.notNull(announcements);
 		return announcements;
 	}
-	
-	public void deleteInBatch(Collection<Announcement> announcements) {
+
+	public void deleteInBatch(final Collection<Announcement> announcements) {
 		// TOASK ¿habria que comprobar aqui tambien que en usuario logado es admin?
 
-		Assert.notEmpty(announcements);		
+		Assert.notEmpty(announcements);
 
 		this.announcementRepository.deleteInBatch(announcements);
 
+	}
+
+	public void deleteByAdministrator(final Announcement announcement) {
+		// TODO Auto-generated method stub
+		final Actor actor = this.actorService.findByPrincipal();
+		Assert.isTrue(actor instanceof Administrator);
+
+		this.announcementRepository.delete(announcement);
 	}
 
 }

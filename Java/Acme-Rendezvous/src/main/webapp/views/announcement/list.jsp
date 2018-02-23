@@ -31,6 +31,16 @@
 	
 	<spring:message code="announcement.moment" var="announcementMoment" />
 	<display:column property="moment" title="${announcementMoment}" sortable="true" />
+	
+	<security:authorize access="hasRole('ADMINISTRATOR')">
+	<display:column>
+		<div>
+			<a href="announcement/administrator/delete.do?announcementId=${row.id}"> 
+				<spring:message code="announcement.delete" />
+			</a>
+		</div>
+	</display:column>
+	</security:authorize>
 
 </display:table>
 	
