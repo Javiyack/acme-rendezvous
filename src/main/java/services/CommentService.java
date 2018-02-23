@@ -1,18 +1,21 @@
+
 package services;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import repositories.CommentRepository;
 import domain.Actor;
 import domain.Administrator;
 import domain.Comment;
+import domain.Rendezvous;
 import domain.Reply;
 import domain.User;
-import repositories.CommentRepository;
 
 @Service
 @Transactional
@@ -20,14 +23,16 @@ public class CommentService {
 
 	// Managed repositories ------------------------------------------------
 	@Autowired
-	private CommentRepository commentRepository;
+	private CommentRepository	commentRepository;
 
 	// Supporting services
 	@Autowired
-	private ReplyService replyService;
-
+	private ReplyService		replyService;
 	@Autowired
-	private ActorService actorService;
+	private RendezvousService	rendezvousService;
+	@Autowired
+	private ActorService		actorService;
+
 
 	// Constructor ----------------------------------------------------------
 	public CommentService() {
@@ -35,15 +40,18 @@ public class CommentService {
 	}
 
 	// Methods CRUD ---------------------------------------------------------
-	public Comment create() {
+	public Comment create(final int rendezvousId) {
+		final Rendezvous rendezvous = this.rendezvousService.findOne(rendezvousId);
+		Assert.notNull(rendezvous);
 
-		final Actor actor = actorService.findByPrincipal();
+		final Actor actor = this.actorService.findByPrincipal();
 		Assert.isTrue(actor instanceof User);
 
 		final Comment result;
 
 		result = new Comment();
 		result.setUser((User) actor);
+		result.setRendezvous(rendezvous);
 
 		return result;
 	}
@@ -61,7 +69,7 @@ public class CommentService {
 
 		// Comprobamos que el actor autenticado es un "User"
 
-		final Actor actor = actorService.findByPrincipal();
+		final Actor actor = this.actorService.findByPrincipal();
 		Assert.isTrue(actor instanceof User);
 
 		// Comprobamos que el usuario autenticado coincide con el usario pasado
@@ -88,6 +96,9 @@ public class CommentService {
 		Assert.notNull(comment);
 		Comment saved;
 
+		final Date moment = new Date(System.currentTimeMillis() - 1);
+		comment.setMoment(moment);
+
 		saved = this.commentRepository.save(comment);
 
 		return saved;
@@ -98,23 +109,23 @@ public class CommentService {
 		Assert.notNull(comment);
 		// Comprobamos que el actor autenticado es un "Administrator"
 
-		final Actor actor = actorService.findByPrincipal();
+		final Actor actor = this.actorService.findByPrincipal();
 		Assert.isTrue(actor instanceof Administrator);
 
 		// Buscamos y borramos todos las respuestas si las hubiera
 
-		Collection<Reply> replies = replyService.findAllByCommentId(comment.getId());
+		final Collection<Reply> replies = this.replyService.findAllByCommentId(comment.getId());
 		if (!replies.isEmpty())
-			replyService.deleteInBatch(replies);
+			this.replyService.deleteInBatch(replies);
 
 		// Finalmente borramos el comentario
 
 		this.commentRepository.delete(comment);
 	}
 
-	public Collection<Comment> findAllByRendezvousId(int id) {
-		
-		return commentRepository.findAllByRendezvousId(id);
+	public Collection<Comment> findAllByRendezvousId(final int id) {
+
+		return this.commentRepository.findAllByRendezvousId(id);
 	}
 
 }

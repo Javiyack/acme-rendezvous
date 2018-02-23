@@ -19,13 +19,13 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
 <display:table pagesize="5" class="displaytag" name="comments" requestURI="${requestUri}" id="row">
+	
 	<spring:message code="comment.text" var="commentText" />
 	<display:column property="text" title="${commentText}" />
-
-
 	
 	<spring:message code="moment.format" var="momentFormat" />
 	
@@ -37,13 +37,15 @@
 		<IMG src="${row.picture}" class="commentImg"/>
 	</display:column>
 	
-	<spring:message code="comment.delete" var="commentPicture" />
+	<security:authorize access="hasRole('USER')">
 	<display:column>
-		<a href="comment/administrator/delete.do?Id=${row.id}"> 
-				<spring:message code="comment.delete" />
+		<div>
+			<a href="reply/user/create.do?commentId=${row.id}"> 
+				<spring:message code="rendezvous.reply.write" />
 			</a>
+		</div>
 	</display:column>
-	
+	</security:authorize>
 
 </display:table>
 

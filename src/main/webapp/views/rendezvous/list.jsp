@@ -129,11 +129,30 @@
 	<display:column>
 		<div>
 			<a href="rendezvous/administrator/delete.do?rendezvousId=${row.id}"> 
-				<spring:message code="comment.delete" />
+				<spring:message code="rendezvous.delete" />
 			</a>
 		</div>
 	</display:column>
 	</security:authorize>
+	
+	<security:authorize access="hasRole('USER')">
+	<display:column>
+		<div>
+			<a href="comment/user/create.do?rendezvousId=${row.id}"> 
+				<spring:message code="rendezvous.comment.write" />
+			</a>
+		</div>
+	</display:column>
+	
+	<display:column>
+		<div>
+			<a href="comment/user/list.do?rendezvousId=${row.id}"> 
+				<spring:message code="rendezvous.comments" />
+			</a>
+		</div>
+	</display:column>
+	</security:authorize>
+	
 	
 	<jstl:if test="${showAddQuestion}">
 	<display:column>
