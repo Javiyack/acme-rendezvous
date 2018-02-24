@@ -19,7 +19,6 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-<%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
 <display:table pagesize="5" class="displaytag" name="comments" requestURI="${requestUri}" id="row">
@@ -34,7 +33,7 @@
 	
 	<spring:message code="comment.picture" var="picture" />
 	<display:column  title="${picture}">
-		<IMG src="${row.picture}" class="commentImg"/>
+		<IMG src="${row.picture}" class="tableImg"/>
 	</display:column>
 	
 	<security:authorize access="hasRole('USER')">
