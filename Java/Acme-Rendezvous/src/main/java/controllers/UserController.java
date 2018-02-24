@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
 import services.RendezvousService;
 import services.UserService;
+import domain.Actor;
 import domain.Rendezvous;
 import domain.User;
 
@@ -25,6 +27,8 @@ public class UserController extends AbstractController {
 	// Supporting services -----------------------------------------------------
 	@Autowired
 	UserService			userService;
+	@Autowired
+	ActorService		actorService;
 	@Autowired
 	RendezvousService	rendezvousService;
 
@@ -55,19 +59,23 @@ public class UserController extends AbstractController {
 	@RequestMapping(value = "/listAttendants", method = RequestMethod.GET)
 	public ModelAndView listAttendants(@RequestParam final int rendezvousId) {
 
-		ModelAndView result;
+		final ModelAndView result;
+
+		final Actor actor = this.actorService.findByPrincipal();
+		Boolean showAnswer = false;
+		if (actor != null)
+			showAnswer = true;
 
 		final Collection<User> attendants = this.userService.findAttendantsByRendezvous(rendezvousId);
 
 		result = new ModelAndView("user/list");
 		result.addObject("users", attendants);
 		result.addObject("requestUri", "user/list.do");
-		result.addObject("showAnswer", true);
+		result.addObject("showAnswer", showAnswer);
 		result.addObject("rendezvousId", rendezvousId);
 
 		return result;
 	}
-
 	// Create user ---------------------------------------------------------------	
 	@RequestMapping("/create")
 	public ModelAndView create() {

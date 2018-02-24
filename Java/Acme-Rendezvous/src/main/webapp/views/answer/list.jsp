@@ -25,10 +25,10 @@
 <display:table pagesize="5" class="displaytag" name="answers" requestURI="${requestUri}" id="row">
 	
 	<spring:message code="answer.question" var="answerQuestion" />
-	<display:column property="question.question" title="${answerQuestion}" sortable="true" />
+	<display:column property="question.text" title="${answerQuestion}" sortable="true" />
 
-	<spring:message code="answer.answer" var="answerAnswer" />
-	<display:column property="answer" title="${answerAnswer}" sortable="true" />	
+	<spring:message code="answer.text" var="answerText" />
+	<display:column property="text" title="${answerText}" sortable="true" />	
 	
 	
 </display:table>
