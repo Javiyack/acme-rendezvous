@@ -17,35 +17,36 @@
 	<form:hidden path="user" />
 	<form:hidden path="deleted" />
 
-
-	<acme:textbox code="rendezvous.name" path="name" />
-
-	<acme:textarea code="rendezvous.description" path="description" />
-
-	<acme:textbox code="rendezvous.moment" path="moment"
-		placeholder="dd/MM/yyyy HH:mm" />
-
-	<acme:textbox code="rendezvous.picture" path="picture" />
-
 	<form:label path="draft">
 		<spring:message code="rendezvous.draft" />
 	</form:label>
-	<form:checkbox path="draft"/>
-
+	<form:checkbox path="draft" />
 	<form:label path="adult">
 		<spring:message code="rendezvous.adult" />
 	</form:label>
-	<form:checkbox path="adult"/>
+	<form:checkbox path="adult" />
+	<table>
+		<tbody>
+			<acme:textboxOnTable code="rendezvous.name" path="name" />
+			<acme:textareaOnTable code="rendezvous.description"
+				path="description" />
+			<spring:message code="moment.pattern" var="momentPattern" />
+			<spring:message code="moment.format" var="momentFormat" />
+			<acme:textboxOnTable code="rendezvous.moment" path="moment"
+				placeholder="${momentPattern}" format="${momentFormat}" />
+			<acme:textboxOnTable code="rendezvous.location.longitude" path="location.longitude" pattern="^([0-9]*\.?[0-9])|([0-9]*\.?)$"/>
+			<acme:textboxOnTable code="rendezvous.location.latitude" path="location.latitude"  />
+			<acme:textboxOnTable code="rendezvous.picture" path="picture" />
+		</tbody>
+	</table>
 	<br />
+	<acme:cancel url="/" code="rendezvous.cancel" />
+			<acme:submit name="save" code="rendezvous.save" />
 
-	<acme:cancel url="/" code="rendezvous.cancel"/>
-	<acme:submit name="save" code="rendezvous.save"/>
+			<jstl:if test="${rendezvous.id!=0 }">
+				<input type="submit" name="delete"
+					value="<spring:message code="rendezvous.delete" />"
+					onclick="return confirm('<spring:message code="rendezvous.confirm.delete" />')" />
 
-<jstl:if test="${rendezvous.id!=0 }">
-<input type="submit" name="delete"
-			value="<spring:message code="rendezvous.delete" />"
-			onclick="return confirm('<spring:message code="rendezvous.confirm.delete" />')" />
-
-</jstl:if>
-
+			</jstl:if>
 </form:form>

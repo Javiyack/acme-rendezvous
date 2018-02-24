@@ -117,9 +117,10 @@ ul,li {
 
 .show {display:block;}
 
-.commentImg {
-	max-width: 4em;
-	border-radius: 8px;
+.tableImg {
+	max-width: 10em;
+	max-height: 8em;
+	border-radius: 9px;
 	background-color: rgba(255,255,255,0.2);
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	box-sizing: border-box;

@@ -46,6 +46,15 @@
 	</display:column>
 	</security:authorize>
 
+
+	<security:authorize access="hasRole('ADMINISTRATOR')">
+		<display:column>
+			<a href="comment/administrator/delete.do?Id=${row.id}"> <spring:message
+					code="comment.delete" />
+			</a>
+		</display:column>
+	</security:authorize>
+
 </display:table>
 
 
