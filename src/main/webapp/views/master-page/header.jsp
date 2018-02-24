@@ -96,7 +96,6 @@
 </div>
 
 <div>
-	<a href="${requestScope['javax.servlet.forward.request_uri']}<my:replaceParam name='language' value='en' />">en</a> | 
-	<a href="${requestScope['javax.servlet.forward.request_uri']}<my:replaceParam name='language' value='es' />">es</a>
-		
+	<a href="?language=en">en</a> | <a href="?language=es">es</a>
 </div>
+

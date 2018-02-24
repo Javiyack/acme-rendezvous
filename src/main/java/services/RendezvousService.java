@@ -23,6 +23,7 @@ import domain.Actor;
 import domain.Administrator;
 import domain.Announcement;
 import domain.Comment;
+import domain.Coordinate;
 import domain.Link;
 import domain.Question;
 import domain.Rendezvous;
@@ -74,9 +75,11 @@ public class RendezvousService {
 
 		final Rendezvous res;
 		res = new Rendezvous();
-
+		
 		res.setUser(user);
 		res.setDeleted(false);
+		res.setDraft(true);
+		res.setLocation(new Coordinate());
 
 		return res;
 	}

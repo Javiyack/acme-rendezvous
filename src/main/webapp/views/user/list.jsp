@@ -21,13 +21,6 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<% String url = request.getAttribute("javax.servlet.forward.request_uri").toString(); %>
-
-<%=url %>
-
-
-
-
 <display:table pagesize="5" class="displaytag" name="users" requestURI="${requestUri}" id="row">
 	
 	<spring:message code="user.name" var="userName" />
