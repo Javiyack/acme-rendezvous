@@ -27,6 +27,9 @@ public interface RendezvousRepository extends JpaRepository<Rendezvous, Integer>
 	@Query("select rendezvous from Reservation r join r.rendezvous rendezvous where r.user.id = ?1")
 	Collection<Rendezvous> findReservedByUserId(int userId);
 
+	@Query("select rendezvous from Reservation r join r.rendezvous rendezvous where r.user.id = ?1 and r.canceled = true")
+	Collection<Rendezvous> findCanceledByUserId(int userId);
+
 	@Query("select rendezvous from Reservation r join r.rendezvous rendezvous where r.canceled=false and r.user.id = ?1")
 	Collection<Rendezvous> findReservedAndNotCanceledByUserId(int userId);
 

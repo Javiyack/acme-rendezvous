@@ -11,6 +11,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -33,19 +34,19 @@ public class Rendezvous extends DomainEntity {
 	private User		user;
 
 	private Boolean		deleted;
-	
-	private Boolean adult;
 
-	
+	private Boolean		adult;
+
+
 	public Boolean getAdult() {
-		return adult;
+		return this.adult;
 	}
 
-	public void setAdult(Boolean adult) {
+	public void setAdult(final Boolean adult) {
 		this.adult = adult;
 	}
 
-	@NotNull
+	@NotBlank
 	public String getName() {
 		return this.name;
 	}
@@ -54,7 +55,7 @@ public class Rendezvous extends DomainEntity {
 		this.name = name;
 	}
 
-	@NotNull
+	@NotBlank
 	public String getDescription() {
 		return this.description;
 	}
