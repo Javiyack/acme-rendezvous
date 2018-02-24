@@ -10,6 +10,8 @@
 
 package controllers.user;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +48,23 @@ public class QuestionUserController extends AbstractController {
 
 		question = this.questionService.create(rendezvousId);
 		result = this.createEditModelAndView(question);
+
+		return result;
+	}
+
+	// Listing ----------------------------------------------------------------
+
+	@RequestMapping("/list")
+	public ModelAndView list(@RequestParam final int rendezvousId) {
+		ModelAndView result;
+		Collection<Question> questions;
+
+		questions = this.questionService.findAllUnansweredByRendezvousId(rendezvousId);
+
+		result = new ModelAndView("question/user/list");
+		result.addObject("requestURI", "question/user/list.do");
+		result.addObject("questions", questions);
+		result.addObject("rendezvous", rendezvousId);
 
 		return result;
 	}

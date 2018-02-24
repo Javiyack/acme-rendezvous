@@ -22,53 +22,22 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-
-<display:table pagesize="5" class="displaytag" name="comments" requestURI="${requestUri}" id="row">
+<display:table pagesize="5" class="displaytag" name="questions" requestURI="${requestUri}" id="row">
 	
-	<spring:message code="comment.text" var="commentText" />
-	<display:column property="text" title="${commentText}" />
-	
-	<spring:message code="moment.format" var="momentFormat" />
-	
-	<spring:message code="comment.moment" var="commentMoment" />
-	<display:column property="moment" title="${commentMoment}" format="${momentFormat}" />
-	
-	<spring:message code="comment.picture" var="picture" />
-	<display:column  title="${picture}">
-		<IMG src="${row.picture}" class="tableImg"/>
-	</display:column>
+	<spring:message code="question.text" var="questionText" />
+	<display:column property="text" title="${questionText}" />
 	
 	<security:authorize access="hasRole('USER')">
 	<display:column>
 		<div>
-			<a href="reply/user/create.do?commentId=${row.id}"> 
-				<spring:message code="comment.reply.write" />
+			<a href="answer/user/create.do?questionId=${row.id}&rendezvousId=${rendezvous}"> 
+				<spring:message code="question.answer" />
 			</a>
 		</div>
 	</display:column>
-	</security:authorize>
-	
-	<security:authorize access="hasRole('USER')">
-	<display:column>
-		<div>
-			<a href="reply/user/list.do?commentId=${row.id}"> 
-				<spring:message code="comment.reply.list" />
-			</a>
-		</div>
-	</display:column>
-	</security:authorize>
-
-
-	<security:authorize access="hasRole('ADMINISTRATOR')">
-		<display:column>
-			<a href="comment/administrator/delete.do?Id=${row.id}"> <spring:message
-					code="comment.delete" />
-			</a>
-		</display:column>
 	</security:authorize>
 
 </display:table>
-
 
 <acme:cancel url="/" code="comment.back"/>
 	

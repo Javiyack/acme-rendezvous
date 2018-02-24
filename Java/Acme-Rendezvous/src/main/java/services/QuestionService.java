@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import domain.Actor;
 import domain.Answer;
 import domain.Question;
 import domain.Rendezvous;
+import domain.Reservation;
 import domain.User;
 
 @Service
@@ -30,6 +32,10 @@ public class QuestionService {
 	private RendezvousService	rendezvousService;
 	@Autowired
 	private ActorService		actorService;
+	@Autowired
+	private UserService			userService;
+	@Autowired
+	private ReservationService	reservationService;
 
 
 	// Constructor ----------------------------------------------------------
@@ -107,4 +113,23 @@ public class QuestionService {
 
 	}
 
+	public Collection<Question> findAllUnansweredByRendezvousId(final int rendezvousId) {
+		final Collection<Question> questionsUnanswered = new ArrayList<Question>();
+		final Collection<Question> questions = this.findAllByRendezvousId(rendezvousId);
+		final User user = this.userService.findByPrincipal();
+		final Rendezvous rendezvous = this.rendezvousService.findOne(rendezvousId);
+
+		Assert.notNull(user);
+		Assert.notNull(rendezvous);
+
+		final Reservation reservation = this.reservationService.findReservationByUserAndRendezvous(user, rendezvous);
+
+		for (final Question q : questions) {
+			final Answer answer = this.answerService.findByReservationIdAndQuestionId(reservation.getId(), q.getId());
+			if (answer == null)
+				questionsUnanswered.add(q);
+		}
+
+		return questionsUnanswered;
+	}
 }

@@ -14,12 +14,11 @@ import domain.Reply;
 
 @Repository
 public interface ReplyRepository extends JpaRepository<Reply, Integer> {
-	
+
 	@Query("select r from Reply r where r.user.id = ?1")
 	Collection<Reply> findAllByUser(int userId);
-	
-	
+
 	@Query("select r from Reply r where r.comment.id = ?1")
-	Collection<Reply> findAllByCommetId(int commentId);
+	Collection<Reply> findAllByCommentId(int commentId);
 
 }

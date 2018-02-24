@@ -10,6 +10,7 @@ import org.springframework.util.Assert;
 
 import repositories.AnswerRepository;
 import domain.Answer;
+import domain.Question;
 import domain.Rendezvous;
 import domain.Reservation;
 import domain.User;
@@ -29,6 +30,8 @@ public class AnswerService {
 	private UserService			userService;
 	@Autowired
 	private ReservationService	reservationService;
+	@Autowired
+	private QuestionService		questionService;
 
 
 	// Constructor ----------------------------------------------------------
@@ -37,11 +40,22 @@ public class AnswerService {
 	}
 
 	// Methods CRUD ---------------------------------------------------------
-	public Answer create() {
+	public Answer create(final int questionId, final int rendezvousId) {
+		final Question question = this.questionService.findOne(questionId);
+		final Rendezvous rendezvous = this.rendezvousService.findOne(rendezvousId);
+		final User user = this.userService.findByPrincipal();
+		Assert.notNull(question);
+		Assert.notNull(rendezvous);
+		Assert.notNull(user);
+
+		final Reservation reservation = this.reservationService.findReservationByUserAndRendezvous(user, rendezvous);
+		Assert.notNull(reservation);
 
 		final Answer result;
 
 		result = new Answer();
+		result.setQuestion(question);
+		result.setReservation(reservation);
 
 		return result;
 	}
@@ -88,6 +102,9 @@ public class AnswerService {
 
 	public Answer save(final Answer answer) {
 		Assert.notNull(answer);
+		final User user = this.userService.findByPrincipal();
+		Assert.isTrue(answer.getReservation().getUser().equals(user));
+
 		Answer saved;
 
 		saved = this.answerRepository.save(answer);
@@ -109,6 +126,11 @@ public class AnswerService {
 	public Collection<Answer> findByQuestionId(final int id) {
 		// TODO Auto-generated method stub
 		return this.answerRepository.findByQuestionId(id);
+	}
+
+	public Answer findByReservationIdAndQuestionId(final int reservationId, final int questionId) {
+		final Answer answer = this.answerRepository.findByReservationIdAndQuestionId(reservationId, questionId);
+		return answer;
 	}
 
 }

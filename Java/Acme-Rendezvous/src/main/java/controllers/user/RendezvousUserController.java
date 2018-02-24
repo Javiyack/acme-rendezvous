@@ -73,6 +73,7 @@ public class RendezvousUserController {
 		result.addObject("rendezvouses", rendezvouses);
 		result.addObject("requestUri", "rendezvous/user/listReserved.do");
 		result.addObject("user", user);
+		result.addObject("reservedRendezvous", true);
 
 		return result;
 	}
