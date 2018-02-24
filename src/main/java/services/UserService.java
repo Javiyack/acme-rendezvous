@@ -131,7 +131,6 @@ public class UserService {
 		Assert.notNull(rendezvous);
 
 		attendants = this.userRepository.findAttendantsByRendezvous(rendezvousId);
-		attendants.add(rendezvous.getUser());
 
 		return attendants;
 

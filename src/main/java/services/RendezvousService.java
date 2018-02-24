@@ -75,7 +75,7 @@ public class RendezvousService {
 
 		final Rendezvous res;
 		res = new Rendezvous();
-		
+
 		res.setUser(user);
 		res.setDeleted(false);
 		res.setDraft(true);
@@ -292,6 +292,14 @@ public class RendezvousService {
 				rendezvouses.add(l.getLinkedToRendezvous());
 
 		return rendezvouses;
+	}
+
+	public Collection<Rendezvous> findCanceledByUserId(final int userId) {
+		Collection<Rendezvous> result;
+		result = this.rendezvousRepository.findCanceledByUserId(userId);
+		Assert.notNull(result);
+
+		return result;
 	}
 
 }

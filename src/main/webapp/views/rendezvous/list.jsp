@@ -113,7 +113,7 @@
 	<security:authorize access="hasRole('USER')">
 	
 	<jstl:choose>
-	<jstl:when test="${reserved.contains(row)}">
+	<jstl:when test="${reserved.contains(row) and user ne row.user}">
 	<display:column>
 		<div>
 			<a href="rendezvous/user/cancel.do?rendezvousId=${row.id}"> 
@@ -157,6 +157,17 @@
 	<jstl:out value="${passed}"/>
 	</jstl:if>
 	</display:column>
+	
+	
+	<display:column>
+		<jstl:if test="${canceled.contains(row)}">
+		<div>
+			Canceled
+		</div>
+		</jstl:if>
+	</display:column>
+	
+	
 	
 	
 	<security:authorize access="hasRole('ADMINISTRATOR')">

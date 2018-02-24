@@ -68,11 +68,15 @@ public class RendezvousUserController {
 		final User user = this.userService.findByPrincipal();
 
 		final Collection<Rendezvous> rendezvouses = this.rendezvousService.findReservedByUser(user.getId());
+		final Collection<Rendezvous> reserved = this.rendezvousService.findReservedAndNotCanceledByUserId(user.getId());
+		final Collection<Rendezvous> canceled = this.rendezvousService.findCanceledByUserId(user.getId());
 
 		result = new ModelAndView("rendezvous/user/listReserved");
 		result.addObject("rendezvouses", rendezvouses);
 		result.addObject("requestUri", "rendezvous/user/listReserved.do");
 		result.addObject("user", user);
+		result.addObject("reserved", reserved);
+		result.addObject("canceled", canceled);
 		result.addObject("reservedRendezvous", true);
 
 		return result;
