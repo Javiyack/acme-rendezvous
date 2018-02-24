@@ -81,7 +81,36 @@
 	</display:column>
 	
 	<security:authorize access="hasRole('USER')">
+	<display:column>
+		<div>
+			<a href="comment/user/create.do?rendezvousId=${row.id}"> 
+				<spring:message code="rendezvous.comment.write" />
+			</a>
+		</div>
+	</display:column>
+	</security:authorize>
 	
+	<security:authorize access="hasRole('USER')">
+	<display:column>
+		<div>
+			<a href="comment/user/list.do?rendezvousId=${row.id}"> 
+				<spring:message code="rendezvous.comments" />
+			</a>
+		</div>
+	</display:column>
+	</security:authorize>
+	
+	<jstl:if test="${reservedRendezvous}">
+	<display:column>
+		<div>
+			<a href="question/user/list.do?rendezvousId=${row.id}"> 
+				<spring:message code="rendezvous.questions" />
+			</a>
+		</div>
+	</display:column>
+	</jstl:if>
+	
+	<security:authorize access="hasRole('USER')">
 	
 	<jstl:choose>
 	<jstl:when test="${reserved.contains(row)}">
@@ -140,23 +169,7 @@
 	</display:column>
 	</security:authorize>
 	
-	<security:authorize access="hasRole('USER')">
-	<display:column>
-		<div>
-			<a href="comment/user/create.do?rendezvousId=${row.id}"> 
-				<spring:message code="rendezvous.comment.write" />
-			</a>
-		</div>
-	</display:column>
 	
-	<display:column>
-		<div>
-			<a href="comment/user/list.do?rendezvousId=${row.id}"> 
-				<spring:message code="rendezvous.comments" />
-			</a>
-		</div>
-	</display:column>
-	</security:authorize>
 	
 	
 	<jstl:if test="${showAddQuestion}">

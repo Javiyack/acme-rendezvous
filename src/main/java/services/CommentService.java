@@ -95,9 +95,14 @@ public class CommentService {
 	public Comment save(final Comment comment) {
 		Assert.notNull(comment);
 		Comment saved;
+		final Actor actor = this.actorService.findByPrincipal();
+		Assert.isTrue(actor instanceof User);
+		Assert.isTrue(comment.getUser().equals(actor));
 
-		final Date moment = new Date(System.currentTimeMillis() - 1);
-		comment.setMoment(moment);
+		if (comment.getId() == 0) {
+			final Date moment = new Date(System.currentTimeMillis() - 1);
+			comment.setMoment(moment);
+		}
 
 		saved = this.commentRepository.save(comment);
 

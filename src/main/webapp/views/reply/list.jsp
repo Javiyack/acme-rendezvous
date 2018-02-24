@@ -22,50 +22,15 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-
-<display:table pagesize="5" class="displaytag" name="comments" requestURI="${requestUri}" id="row">
+<display:table pagesize="5" class="displaytag" name="replys" requestURI="${requestUri}" id="row">
 	
-	<spring:message code="comment.text" var="commentText" />
+	<spring:message code="reply.text" var="commentText" />
 	<display:column property="text" title="${commentText}" />
 	
 	<spring:message code="moment.format" var="momentFormat" />
 	
-	<spring:message code="comment.moment" var="commentMoment" />
-	<display:column property="moment" title="${commentMoment}" format="${momentFormat}" />
-	
-	<spring:message code="comment.picture" var="picture" />
-	<display:column  title="${picture}">
-		<IMG src="${row.picture}" class="tableImg"/>
-	</display:column>
-	
-	<security:authorize access="hasRole('USER')">
-	<display:column>
-		<div>
-			<a href="reply/user/create.do?commentId=${row.id}"> 
-				<spring:message code="comment.reply.write" />
-			</a>
-		</div>
-	</display:column>
-	</security:authorize>
-	
-	<security:authorize access="hasRole('USER')">
-	<display:column>
-		<div>
-			<a href="reply/user/list.do?commentId=${row.id}"> 
-				<spring:message code="comment.reply.list" />
-			</a>
-		</div>
-	</display:column>
-	</security:authorize>
-
-
-	<security:authorize access="hasRole('ADMINISTRATOR')">
-		<display:column>
-			<a href="comment/administrator/delete.do?Id=${row.id}"> <spring:message
-					code="comment.delete" />
-			</a>
-		</display:column>
-	</security:authorize>
+	<spring:message code="reply.moment" var="replyMoment" />
+	<display:column property="moment" title="${replyMoment}" format="${momentFormat}" />
 
 </display:table>
 

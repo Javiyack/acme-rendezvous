@@ -15,5 +15,10 @@
 		<put-attribute name="title" value="New Question" />
 		<put-attribute name="body" value="/views/question/create.jsp" />
 	</definition>	
+	
+	<definition name="question/user/list" extends="master.page">
+		<put-attribute name="title" value="Questions list" />
+		<put-attribute name="body" value="/views/question/list.jsp" />
+	</definition>
 
 </tiles-definitions>
