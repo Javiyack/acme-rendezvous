@@ -30,16 +30,19 @@
 	<spring:message code="rendezvous.description" var="rendezvousDescription" />
 	<display:column property="description" title="${rendezvousDescription}" />
 
+	<spring:message code="moment.format" var="momentFormat" />
 	<spring:message code="rendezvous.moment" var="rendezvousMoment" />
-	<display:column property="moment" title="${rendezvousMoment}" format="${displaypriceformat}" />
+	<display:column property="moment" title="${rendezvousMoment}" format="${momentFormat}" />
 	
-	<spring:message code="rendezvous.picture" var="rendezvousPicture" />
-	<display:column>
-		<IMG src="${rendezvousPicture}" width="50" height="50"/>
+	<spring:message code="rendezvous.picture" var="picture" />
+	<display:column title="${picture}">
+		<IMG src="${row.picture}" class="tableImg"/>
 	</display:column>
 	
 	<spring:message code="rendezvous.location" var="rendezvousLocation" />
-	<display:column property="location" title="${rendezvousLocation}" />
+	<display:column property="location.longitude" title="${rendezvousLocation}" />
+	<spring:message code="rendezvous.location" var="rendezvousLocation" />
+	<display:column property="location.latitude" title="${rendezvousLocation}" />
 	
 	<spring:message code="rendezvous.user" var="rendezvousUser" />
 	<display:column>
@@ -79,24 +82,26 @@
 	
 	<security:authorize access="hasRole('USER')">
 	
-	<display:column>
+	
 	<jstl:choose>
 	<jstl:when test="${reserved.contains(row)}">
+	<display:column>
 		<div>
 			<a href="rendezvous/user/cancel.do?rendezvousId=${row.id}"> 
 				<spring:message code="rendezvous.cancel" />
 			</a>
 		</div>
+		</display:column>
 	</jstl:when>
 	<jstl:when test="${!reserved.contains(row) and user ne row.user}">
-	<div>
+	<display:column><div>
 			<a href="rendezvous/user/reserve.do?rendezvousId=${row.id}"> 
 				<spring:message code="rendezvous.reserve" />
 			</a>
 		</div>
+		</display:column>
 	</jstl:when>
 	</jstl:choose>
-	</display:column>
 
 	<display:column>
 		<jstl:if test="${user == row.user and row.deleted==false and row.draft==true}">
