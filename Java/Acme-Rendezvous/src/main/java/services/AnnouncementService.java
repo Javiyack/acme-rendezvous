@@ -14,6 +14,7 @@ import domain.Actor;
 import domain.Administrator;
 import domain.Announcement;
 import domain.Rendezvous;
+import domain.User;
 
 @Service
 @Transactional
@@ -28,6 +29,8 @@ public class AnnouncementService {
 	private RendezvousService		rendezvousService;
 	@Autowired
 	private ActorService			actorService;
+	@Autowired
+	private UserService				userService;
 
 
 	// Constructor ----------------------------------------------------------
@@ -36,15 +39,18 @@ public class AnnouncementService {
 	}
 
 	// Methods CRUD ---------------------------------------------------------
-	public Announcement create() {
+	public Announcement create(final int rendezvousId) {
+		final Rendezvous rendezvous = this.rendezvousService.findOne(rendezvousId);
+		final User user = this.userService.findByPrincipal();
+		Assert.notNull(user);
+		Assert.notNull(rendezvous);
+		Assert.isTrue(rendezvous.getUser().equals(user));
 
-		Date moment;
-
-		moment = new Date(System.currentTimeMillis() - 1);
 		final Announcement result;
 
 		result = new Announcement();
-		result.setMoment(moment);
+		result.setRendezvous(rendezvous);
+
 		return result;
 	}
 
@@ -70,11 +76,12 @@ public class AnnouncementService {
 	public Announcement save(final Announcement announcement) {
 		Assert.notNull(announcement);
 		Announcement saved;
-		Date moment;
 
-		moment = new Date(System.currentTimeMillis() - 1);
+		if (announcement.getId() == 0) {
+			final Date moment = new Date(System.currentTimeMillis() - 1);
+			announcement.setMoment(moment);
+		}
 
-		announcement.setMoment(moment);
 		saved = this.announcementRepository.save(announcement);
 
 		return saved;

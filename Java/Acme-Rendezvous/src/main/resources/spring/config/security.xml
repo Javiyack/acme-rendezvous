@@ -21,7 +21,6 @@
 	<!-- Access control -->
 
 	<security:http auto-config="true" use-expressions="true">
-	
 		<security:intercept-url pattern="/" access="permitAll" />
 
 		<security:intercept-url pattern="/favicon.ico"
@@ -51,6 +50,7 @@
 		<security:intercept-url pattern="/comment/user/**" access="hasRole('USER')" />
 		<security:intercept-url pattern="/reply/user/**" access="hasRole('USER')" />
 		<security:intercept-url pattern="/announcement/user/**" access="hasRole('USER')" />
+		<security:intercept-url pattern="/link/user/**" access="hasRole('USER')" />
 		
 		<!-- Admin -->
 		<security:intercept-url pattern="/rendezvous/administrator/**" access="hasRole('ADMINISTRATOR')" />

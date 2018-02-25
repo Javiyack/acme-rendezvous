@@ -29,11 +29,23 @@
 	
 	<security:authorize access="hasRole('USER')">
 	<display:column>
+		<jstl:if test="${!showEdit}">
 		<div>
 			<a href="answer/user/create.do?questionId=${row.id}&rendezvousId=${rendezvous}"> 
 				<spring:message code="question.answer" />
 			</a>
 		</div>
+		</jstl:if>
+	</display:column>
+	
+	<display:column>
+		<jstl:if test="${showEdit}">
+		<div>
+			<a href="question/user/edit.do?questionId=${row.id}"> 
+				<spring:message code="question.edit.question" />
+			</a>
+		</div>
+		</jstl:if>
 	</display:column>
 	</security:authorize>
 

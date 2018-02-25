@@ -166,19 +166,29 @@ public class RendezvousUserController {
 
 		ModelAndView result;
 
+		final User user = this.userService.findByPrincipal();
+		Assert.notNull(user);
+
 		Rendezvous rendezvous;
 		rendezvous = this.rendezvousService.findOne(rendezvousId);
 		Assert.notNull(rendezvous);
 
-		Reservation reservation;
-		reservation = this.reservationService.create();
-		Assert.notNull(reservation);
+		Reservation reservation = this.reservationService.findReservationByUserAndRendezvous(user, rendezvous);
 
-		Reservation done;
-		done = this.rendezvousService.reserveRendezvous(reservation, rendezvous);
-		Assert.notNull(done);
+		if (reservation == null) {
+			reservation = this.reservationService.create();
+			Assert.notNull(reservation);
 
-		this.reservationService.save(done);
+			Reservation done;
+			done = this.rendezvousService.reserveRendezvous(reservation, rendezvous);
+			Assert.notNull(done);
+
+			this.reservationService.save(done);
+
+		} else if (reservation.isCanceled()) {
+			reservation.setCanceled(false);
+			this.reservationService.save(reservation);
+		}
 
 		result = new ModelAndView("redirect:/");
 

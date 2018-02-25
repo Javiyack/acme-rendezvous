@@ -46,7 +46,6 @@ public class Announcement extends DomainEntity {
 		this.description = description;
 	}
 
-	@NotNull
 	@Past
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")

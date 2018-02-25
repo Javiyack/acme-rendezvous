@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Collection;
@@ -7,8 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import domain.Link;
 import repositories.LinkRepository;
+import domain.Link;
+import domain.Rendezvous;
+import domain.User;
 
 @Service
 @Transactional
@@ -16,9 +19,13 @@ public class LinkService {
 
 	// Managed repositories ------------------------------------------------
 	@Autowired
-	private LinkRepository linkRepository;
+	private LinkRepository		linkRepository;
 
 	// Supporting services 
+	@Autowired
+	private RendezvousService	rendezvousService;
+	@Autowired
+	private UserService			userService;
 
 
 	// Constructor ----------------------------------------------------------
@@ -27,11 +34,17 @@ public class LinkService {
 	}
 
 	// Methods CRUD ---------------------------------------------------------
-	public Link create() {
+	public Link create(final int rendezvousId) {
+		final Rendezvous rendezvous = this.rendezvousService.findOne(rendezvousId);
+		final User user = this.userService.findByPrincipal();
+		Assert.notNull(user);
+		Assert.notNull(rendezvous);
+		Assert.isTrue(rendezvous.getUser().equals(user));
 
 		final Link result;
 
 		result = new Link();
+		result.setRendezvous(rendezvous);
 
 		return result;
 	}
@@ -45,7 +58,6 @@ public class LinkService {
 
 		return result;
 	}
-
 
 	public Link findOne(final int linkId) {
 		Link result;
@@ -71,13 +83,13 @@ public class LinkService {
 		this.linkRepository.delete(link);
 	}
 
-	public Collection<Link> findAllByRendezvousId(int id) {
-		
-		return 	linkRepository.findAllByRendezvousId(id);
-	
+	public Collection<Link> findAllByRendezvousId(final int id) {
+
+		return this.linkRepository.findAllByRendezvousId(id);
+
 	}
 
-	public void deleteInBatch(Collection<Link> links) {
+	public void deleteInBatch(final Collection<Link> links) {
 		// TOASK ¿habria que comprobar aqui tambien que en usuario logado es admin?
 
 		Assert.notEmpty(links);

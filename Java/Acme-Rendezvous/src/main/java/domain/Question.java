@@ -1,3 +1,4 @@
+
 package domain;
 
 import javax.persistence.Access;
@@ -6,33 +7,34 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 @Access(AccessType.PROPERTY)
-public class Question extends DomainEntity{
+public class Question extends DomainEntity {
 
-	private String text;
+	private String		text;
 
-	private Rendezvous rendezvous;
+	private Rendezvous	rendezvous;
 
-	
-	@NotNull
+
+	@NotBlank
 	public String getText() {
-		return text;
+		return this.text;
 	}
 
-	public void setText(String text) {
+	public void setText(final String text) {
 		this.text = text;
 	}
 
 	@NotNull
 	@ManyToOne(optional = false)
 	public Rendezvous getRendezvous() {
-		return rendezvous;
+		return this.rendezvous;
 	}
 
-	public void setRendezvous(Rendezvous rendezvous) {
+	public void setRendezvous(final Rendezvous rendezvous) {
 		this.rendezvous = rendezvous;
 	}
 
-	
 }
