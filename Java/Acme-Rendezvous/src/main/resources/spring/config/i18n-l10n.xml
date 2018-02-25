@@ -25,6 +25,7 @@
 		<value>/views/misc/messages</value>
 		<value>/views/security/messages</value>		
 		<value>/views/welcome/messages</value>
+		<value>/views/term/messages</value>
 		
 		<value>/views/actor/messages</value>
 		<value>/views/user/messages</value>
@@ -37,8 +38,6 @@
 		<value>/views/question/messages</value>
 		<value>/views/link/messages</value>
 		
-		
-			
 	</util:list>
 
 </beans>
