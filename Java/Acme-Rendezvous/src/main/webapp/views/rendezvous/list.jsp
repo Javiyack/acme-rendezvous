@@ -99,6 +99,18 @@
 		</div>
 	</display:column>
 	</security:authorize>
+	<!-- Crear announcement -->
+	<security:authorize access="hasRole('USER')">
+	<display:column>
+	<jstl:if test="${row.user eq user }">
+		<div>
+			<a href="announcement/user/create.do?rendezvousId=${row.id}"> 
+				<spring:message code="rendezvous.announcement" />
+			</a>
+		</div>
+	</jstl:if>
+	</display:column>
+	</security:authorize>
 	
 	<jstl:if test="${reservedRendezvous}">
 	<display:column>

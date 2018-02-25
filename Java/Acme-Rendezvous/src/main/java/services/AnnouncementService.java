@@ -2,17 +2,18 @@
 package services;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import repositories.AnnouncementRepository;
 import domain.Actor;
 import domain.Administrator;
 import domain.Announcement;
 import domain.Rendezvous;
+import repositories.AnnouncementRepository;
 
 @Service
 @Transactional
@@ -66,8 +67,12 @@ public class AnnouncementService {
 	public Announcement save(final Announcement announcement) {
 		Assert.notNull(announcement);
 		Announcement saved;
+		Date moment;
+		
+		moment = new Date(System.currentTimeMillis() - 1);
 
 		saved = this.announcementRepository.save(announcement);
+		saved.setMoment(moment);
 
 		return saved;
 	}
