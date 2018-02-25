@@ -39,10 +39,10 @@
 		<IMG src="${row.picture}" class="tableImg"/>
 	</display:column>
 	
-	<spring:message code="rendezvous.location" var="rendezvousLocation" />
-	<display:column property="location.longitude" title="${rendezvousLocation}" />
-	<spring:message code="rendezvous.location" var="rendezvousLocation" />
-	<display:column property="location.latitude" title="${rendezvousLocation}" />
+		<spring:message code="rendezvous.location.longitude" var="rendezvousLongitude" />
+	<display:column property="location.longitude" title="${rendezvousLongitude}" />
+	<spring:message code="rendezvous.location.latitude" var="rendezvousLongitude" />
+	<display:column property="location.latitude" title="${rendezvousLongitude}" />
 	
 	<spring:message code="rendezvous.user" var="rendezvousUser" />
 	<display:column>
