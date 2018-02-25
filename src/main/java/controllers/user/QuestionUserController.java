@@ -24,8 +24,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.QuestionService;
 import services.RendezvousService;
+import services.UserService;
 import controllers.AbstractController;
 import domain.Question;
+import domain.Rendezvous;
+import domain.User;
 
 @Controller
 @RequestMapping("/question/user")
@@ -37,6 +40,8 @@ public class QuestionUserController extends AbstractController {
 	private QuestionService		questionService;
 	@Autowired
 	private RendezvousService	rendezvousService;
+	@Autowired
+	private UserService			userService;
 
 
 	// Creation ---------------------------------------------------------------
@@ -52,6 +57,19 @@ public class QuestionUserController extends AbstractController {
 		return result;
 	}
 
+	// Edit ---------------------------------------------------------------
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int questionId) {
+		ModelAndView result;
+		Question question;
+		question = this.questionService.findOne(questionId);
+
+		result = new ModelAndView("question/user/edit");
+		result.addObject("question", question);
+
+		return result;
+	}
+
 	// Listing ----------------------------------------------------------------
 
 	@RequestMapping("/list")
@@ -59,12 +77,19 @@ public class QuestionUserController extends AbstractController {
 		ModelAndView result;
 		Collection<Question> questions;
 
+		final User user = this.userService.findByPrincipal();
+		final Rendezvous rendezvous = this.rendezvousService.findOne(rendezvousId);
+		Boolean showEdit = false;
+		if (user.equals(rendezvous.getUser()))
+			showEdit = true;
+
 		questions = this.questionService.findAllUnansweredByRendezvousId(rendezvousId);
 
 		result = new ModelAndView("question/user/list");
 		result.addObject("requestURI", "question/user/list.do");
 		result.addObject("questions", questions);
 		result.addObject("rendezvous", rendezvousId);
+		result.addObject("showEdit", showEdit);
 
 		return result;
 	}

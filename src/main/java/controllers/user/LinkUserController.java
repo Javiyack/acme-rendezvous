@@ -1,4 +1,16 @@
+/*
+ * ProfileController.java
+ * 
+ * Copyright (C) 2017 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the
+ * TDG Licence, a copy of which you may download from
+ * http://www.tdg-seville.info/License.html
+ */
+
 package controllers.user;
+
+import java.util.Collection;
 
 import javax.validation.Valid;
 
@@ -10,19 +22,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.AnnouncementService;
+import services.LinkService;
 import services.RendezvousService;
 import controllers.AbstractController;
-import domain.Announcement;
+import domain.Link;
+import domain.Rendezvous;
 
 @Controller
-@RequestMapping("/announcement/user")
-public class AnnouncementUserController extends AbstractController {
+@RequestMapping("/link/user")
+public class LinkUserController extends AbstractController {
 
 	// Services ---------------------------------------------------------------
 
 	@Autowired
-	private AnnouncementService	announcementService;
+	private LinkService			linkService;
 	@Autowired
 	private RendezvousService	rendezvousService;
 
@@ -32,10 +45,10 @@ public class AnnouncementUserController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam final int rendezvousId) {
 		ModelAndView result;
-		Announcement announcement;
+		Link link;
 
-		announcement = this.announcementService.create(rendezvousId);
-		result = this.createEditModelAndView(announcement);
+		link = this.linkService.create(rendezvousId);
+		result = this.createEditModelAndView(link);
 
 		return result;
 	}
@@ -43,18 +56,18 @@ public class AnnouncementUserController extends AbstractController {
 	// Save --------------------------------------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Announcement announcement, final BindingResult binding) {
+	public ModelAndView save(@Valid final Link link, final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors())
-			result = this.createEditModelAndView(announcement);
+			result = this.createEditModelAndView(link);
 		else
 			try {
-				this.announcementService.save(announcement);
+				this.linkService.save(link);
 				result = new ModelAndView("redirect:/");
 			} catch (final Throwable oops) {
 				oops.printStackTrace();
-				result = this.createEditModelAndView(announcement, "announcement.commit.error");
+				result = this.createEditModelAndView(link, "link.commit.error");
 			}
 
 		return result;
@@ -62,20 +75,24 @@ public class AnnouncementUserController extends AbstractController {
 
 	// Ancillary methods ------------------------------------------------------
 
-	protected ModelAndView createEditModelAndView(final Announcement announcement) {
+	protected ModelAndView createEditModelAndView(final Link link) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(announcement, null);
+		result = this.createEditModelAndView(link, null);
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Announcement announcement, final String message) {
+	protected ModelAndView createEditModelAndView(final Link link, final String message) {
 		ModelAndView result;
 
-		result = new ModelAndView("announcement/user/create");
-		result.addObject("announcement", announcement);
+		final Collection<Rendezvous> rendezvouses = this.rendezvousService.findAll();
+		rendezvouses.remove(link.getRendezvous());
+
+		result = new ModelAndView("link/user/create");
+		result.addObject("link", link);
 		result.addObject("message", message);
+		result.addObject("linkedToRendezvous", rendezvouses);
 
 		return result;
 	}

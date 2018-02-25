@@ -10,19 +10,23 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="${requestURI}" modelAttribute="announcement" method="post">
+<form:form action="${requestURI}" modelAttribute="link" method="post">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="rendezvous" />
-	<form:hidden path="moment" />
-
-	<acme:textbox code="announcement.title" path="title" />
-	<acme:textbox code="announcement.description" path="description" />
-	<br/>
 	
-	<acme:cancel url="/" code="announcement.cancel"/>
-	<acme:submit name="save" code="announcement.save"/>
+	
+	<form:label path="linkedToRendezvous">
+			<spring:message code="link.linkedToRendezvous" />
+		</form:label>
+		<form:select id="linkedToRendezvousId" path="linkedToRendezvous">
+			<form:options items="${linkedToRendezvous}" itemValue="id" itemLabel="name" />
+		</form:select>
+		<form:errors cssClass="error" path="linkedToRendezvous" />
+	
+	<acme:cancel url="/" code="link.cancel"/>
+	<acme:submit name="save" code="link.save"/>
 
 
 </form:form>

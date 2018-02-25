@@ -63,7 +63,9 @@
 	</display:column>
 	
 	<spring:message code="rendezvous.location" var="rendezvousLocation" />
-	<display:column property="location" title="${rendezvousLocation}" />
+	<display:column property="location.longitude" title="${rendezvousLocation}" />
+	<spring:message code="rendezvous.location" var="rendezvousLocation" />
+	<display:column property="location.latitude" title="${rendezvousLocation}" />
 	
 	
 </display:table>

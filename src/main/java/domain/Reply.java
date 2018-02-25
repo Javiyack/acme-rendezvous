@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Date;
@@ -9,60 +10,59 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Reply extends DomainEntity{
+public class Reply extends DomainEntity {
 
-	private String text;
+	private String	text;
 
-	private Date moment;
+	private Date	moment;
 
-	private User user;
+	private User	user;
 
-	private Comment comment;
+	private Comment	comment;
 
-	@NotNull
+
+	@NotBlank
 	public String getText() {
-		return text;
+		return this.text;
 	}
 
-	public void setText(String text) {
+	public void setText(final String text) {
 		this.text = text;
 	}
 
 	@Past
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getMoment() {
-		return moment;
+		return this.moment;
 	}
 
-	public void setMoment(Date moment) {
+	public void setMoment(final Date moment) {
 		this.moment = moment;
 	}
 
 	@NotNull
 	@ManyToOne(optional = false)
 	public User getUser() {
-		return user;
+		return this.user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(final User user) {
 		this.user = user;
 	}
 
 	@NotNull
 	@ManyToOne(optional = false)
 	public Comment getComment() {
-		return comment;
+		return this.comment;
 	}
 
-	public void setComment(Comment comment) {
+	public void setComment(final Comment comment) {
 		this.comment = comment;
 	}
 
-	
 }
