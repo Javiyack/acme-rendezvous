@@ -10,37 +10,53 @@ import javax.validation.constraints.Pattern;
 @Access(AccessType.PROPERTY)
 public class Coordinate {
 
-	private Double	longitude;
-	private Double	latitude;
+	private String	longitude;
+	private String	latitude;
 
 
-	@Pattern(regexp = "^([0-9]*\\.?[0-9])|([0-9]*\\.?)$")
+	@Pattern(regexp = "^((\\+|-)?(?:180(?:(?:\\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\\.[0-9]{1,6})?)))|()$")
 	public String getLongitude() {
-		final String res = (this.longitude == null) ? "" : this.longitude.toString();
-		return res;
+		return this.longitude;
 	}
 	public void setLongitude(final String longitude) {
-		Double lon = null;
-		try {
-			final Object res = Double.parseDouble(longitude);
-			lon = (res instanceof Double) ? (Double) res : null;
-		} catch (final NumberFormatException e) {
-		}
-		this.longitude = lon;
+		
+		this.longitude = longitude;
 	}
 
-	@Pattern(regexp = "^([0-9]*\\.?[0-9])|([0-9]*\\.?)$")
+	@Pattern(regexp = "^((\\+|-)?(?:90(?:(?:\\.0{1,6})?)|(?:[0-9]|[1-8][0-9])(?:(?:\\.[0-9]{1,6})?)))|()$")
 	public String getLatitude() {
-		final String res = (this.latitude == null) ? "" : this.latitude.toString();
-		return res;
+		return this.latitude;
 	}
 	public void setLatitude(final String latitude) {
-		Double lat = null;
-		try {
-			final Object res = Double.valueOf(latitude);
-			lat = (res instanceof Double) ? (Double) res : null;
-		} catch (final NumberFormatException e) {
-		}
-		this.latitude = lat;
+		this.latitude = latitude;
 	}
+	
+//	@Pattern(regexp = "^((\\+|-)?(?:180(?:(?:\\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\\.[0-9]{1,6})?)))|()$")
+//	public String getLongitude() {
+//		return (this.longitude!=null)?this.longitude.toString():"";
+//	}
+//	public void setLongitude(final String longitude) {
+//		
+//		String fpRegex = "^(\\+|-)?(?:180(?:(?:\\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\\.[0-9]{1,6})?))$";
+//		if (java.util.regex.Pattern.matches(fpRegex, longitude)){
+//			this.longitude = Double.valueOf(longitude); // Will not throw NumberFormatException
+//		} else {
+//		   this.longitude = null;
+//		}
+//	}
+//
+//	@Pattern(regexp = "^((\\+|-)?(?:90(?:(?:\\.0{1,6})?)|(?:[0-9]|[1-8][0-9])(?:(?:\\.[0-9]{1,6})?)))|()$")
+//	public String getLatitude() {
+//		return (this.latitude!=null)?this.latitude.toString():"";
+//	}
+//	public void setLatitude(final String latitude) {
+//		String fpRegex = "^(\\+|-)?(?:90(?:(?:\\.0{1,6})?)|(?:[0-9]|[1-8][0-9])(?:(?:\\.[0-9]{1,6})?))$";
+//		if (java.util.regex.Pattern.matches(fpRegex, latitude)){
+//			this.latitude = Double.valueOf(latitude); // Will not throw NumberFormatException
+//		} else {
+//		   this.latitude = null;
+//		}
+//		
+//	}
+	
 }
