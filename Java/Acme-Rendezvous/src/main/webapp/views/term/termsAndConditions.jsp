@@ -67,6 +67,30 @@ ol,li,ul,li.terms {
 		<li class="terms"><spring:message code="term.terms.text4.1" /></li>
 		<li class="terms"><spring:message code="term.terms.text4.2" /></li>
 	</ul>
-
+	<br>
+	<li class="thick"><spring:message code="term.terms.title5" /></li>
+	<spring:message code="term.terms.text5" />
+	<ul>
+		<li class="terms"><spring:message code="term.terms.text5.1" /></li>
+		<li class="terms"><spring:message code="term.terms.text5.2" /></li>
+		<li class="terms"><spring:message code="term.terms.text5.3" /></li>
+		<li class="terms"><spring:message code="term.terms.text5.4" /></li>
+		<li class="terms"><spring:message code="term.terms.text5.5" /></li>
+		<li class="terms"><spring:message code="term.terms.text5.6" /></li>
+		<li class="terms"><spring:message code="term.terms.text5.7" /></li>
+	</ul>
+	<spring:message code="term.terms.text5.8" />
+	<br>
+	<br>
+	<li class="thick"><spring:message code="term.terms.title6" /></li>
+	<spring:message code="term.terms.text6.1" />
+	<br>
+	<spring:message code="term.terms.text6.2" />
+	<br>
+	<br>
+	<li class="thick"><spring:message code="term.terms.title7" /></li>
+	<spring:message code="term.terms.text7.1" />
+	<br>
+	<spring:message code="term.terms.text7.2" />
 </ol>
 
