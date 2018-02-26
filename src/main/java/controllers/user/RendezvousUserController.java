@@ -207,7 +207,8 @@ public class RendezvousUserController {
 			this.reservationService.save(reservation);
 		}
 
-		result = new ModelAndView("redirect:/");
+		//Una vez reservado un rendezvous, ha de contestar las preguntas asociadas
+		result = new ModelAndView("redirect:/question/user/list.do?rendezvousId=" + rendezvous.getId());
 
 		return result;
 	}
