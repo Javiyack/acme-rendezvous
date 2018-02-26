@@ -93,6 +93,16 @@ public class RendezvousService {
 
 		return result;
 	}
+	
+	public List<Rendezvous> findAllNotAdult() {
+		List<Rendezvous> result;
+
+		Assert.notNull(this.rendezvousRepository);
+		result = this.rendezvousRepository.findAllNotAdult();
+		Assert.notNull(result);
+
+		return result;
+	}	
 
 	public Rendezvous findOne(final int rendezvousId) {
 

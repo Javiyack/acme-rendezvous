@@ -11,6 +11,7 @@
 package repositories;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -23,6 +24,9 @@ public interface RendezvousRepository extends JpaRepository<Rendezvous, Integer>
 
 	@Query("select r from Rendezvous r where r.user.id = ?1")
 	Collection<Rendezvous> findCreatedByUserId(int userId);
+	
+	@Query("select r from Rendezvous r where r.adult = false")
+	List<Rendezvous> findAllNotAdult();	
 
 	@Query("select rendezvous from Reservation r join r.rendezvous rendezvous where r.user.id = ?1")
 	Collection<Rendezvous> findReservedByUserId(int userId);

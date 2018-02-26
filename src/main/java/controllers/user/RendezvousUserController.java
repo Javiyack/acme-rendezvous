@@ -87,10 +87,17 @@ public class RendezvousUserController {
 	public ModelAndView listAll() {
 
 		ModelAndView result;
-
-		final Collection<Rendezvous> rendezvouses = this.rendezvousService.findAll();
+		Collection<Rendezvous> rendezvouses;
+		
 		final User user;
 		user = this.userService.findByPrincipal();
+		
+		//No mostrar rendezvouses de adultos a usuarios no adultos
+		if (!user.getAdult())
+			rendezvouses = this.rendezvousService.findAllNotAdult();
+		else
+			rendezvouses = this.rendezvousService.findAll();
+		
 		final Collection<Rendezvous> reserved = this.rendezvousService.findReservedAndNotCanceledByUserId(user.getId());
 		result = new ModelAndView("rendezvous/list");
 		result.addObject("rendezvouses", rendezvouses);
@@ -134,6 +141,12 @@ public class RendezvousUserController {
 			result = this.createEditModelAndView(rendezvous);
 		else
 			try {
+				//Usuario no adulto solo puede crear rendezvous no adulto
+				final User user;
+				user = this.userService.findByPrincipal();				
+				if (!user.getAdult())
+					rendezvous.setAdult(false);
+				
 				this.rendezvousService.save(rendezvous);
 				result = new ModelAndView("redirect:/");
 			} catch (final Throwable ooops) {
@@ -172,6 +185,10 @@ public class RendezvousUserController {
 		Rendezvous rendezvous;
 		rendezvous = this.rendezvousService.findOne(rendezvousId);
 		Assert.notNull(rendezvous);
+		
+		//Usuario no adulto no puede reservar rendezvous adulto
+		if (!user.getAdult() && rendezvous.getAdult())
+			return new ModelAndView("redirect:/");
 
 		Reservation reservation = this.reservationService.findReservationByUserAndRendezvous(user, rendezvous);
 

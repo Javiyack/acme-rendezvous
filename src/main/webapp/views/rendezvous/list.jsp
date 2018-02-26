@@ -100,92 +100,79 @@
 	</display:column>
 	</security:authorize>
 	
-	<jstl:if test="${reservedRendezvous}">
-	<display:column>
-		<div>
-			<a href="question/user/list.do?rendezvousId=${row.id}"> 
-				<spring:message code="rendezvous.questions" />
-			</a>
-		</div>
-	</display:column>
-	</jstl:if>
-	
 	<security:authorize access="hasRole('USER')">
-	
-	<jstl:choose>
-	<jstl:when test="${reserved.contains(row) and user ne row.user}">
-	<display:column>
-		<div>
-			<a href="rendezvous/user/cancel.do?rendezvousId=${row.id}"> 
-				<spring:message code="rendezvous.cancel" />
-			</a>
-		</div>
+		<display:column>
+			<jstl:choose>
+				<jstl:when test="${reserved.contains(row) and user ne row.user}">
+					<div>
+						<a href="rendezvous/user/cancel.do?rendezvousId=${row.id}"> 
+							<spring:message code="rendezvous.cancel" />
+						</a>
+					</div>
+				</jstl:when>
+				<jstl:when test="${!reserved.contains(row) and user ne row.user}">
+					<div>
+						<a href="rendezvous/user/reserve.do?rendezvousId=${row.id}"> 
+							<spring:message code="rendezvous.reserve" />
+						</a>
+					</div>
+				</jstl:when>
+			</jstl:choose>
 		</display:column>
-	</jstl:when>
-	<jstl:when test="${!reserved.contains(row) and user ne row.user}">
-	<display:column><div>
-			<a href="rendezvous/user/reserve.do?rendezvousId=${row.id}"> 
-				<spring:message code="rendezvous.reserve" />
-			</a>
-		</div>
+	
+		<display:column>
+			<jstl:if test="${user == row.user and row.deleted==false and row.draft==true}">
+			<div>
+				<a href="rendezvous/user/edit.do?rendezvousId=${row.id}"> 
+					<spring:message code="rendezvous.edit" />
+				</a>
+			</div>
+			</jstl:if>
 		</display:column>
-	</jstl:when>
-	</jstl:choose>
-
-	<display:column>
-		<jstl:if test="${user == row.user and row.deleted==false and row.draft==true}">
-		<div>
-			<a href="rendezvous/user/edit.do?rendezvousId=${row.id}"> 
-				<spring:message code="rendezvous.edit" />
-			</a>
-		</div>
-		</jstl:if>
-	</display:column>
-	
-	<display:column>
-		<jstl:if test="${user == row.user}">
-		<div>
-			<a href="announcement/user/create.do?rendezvousId=${row.id}"> 
-				<spring:message code="rendezvous.announcement.create" />
-			</a>
-		</div>
-		</jstl:if>
-	</display:column>
-	
-	<display:column>
-		<jstl:if test="${user == row.user}">
-		<div>
-			<a href="link/user/create.do?rendezvousId=${row.id}"> 
-				<spring:message code="rendezvous.link.create" />
-			</a>
-		</div>
-		</jstl:if>
-	</display:column>
-	
-	<display:column>
-		<jstl:if test="${user == row.user}">
-		<div>
-			<a href="question/user/list.do?rendezvousId=${row.id}"> 
-				<spring:message code="rendezvous.questions" />
-			</a>
-		</div>
-		</jstl:if>
-	</display:column>
+		
+		<display:column>
+			<jstl:if test="${user == row.user}">
+			<div>
+				<a href="announcement/user/create.do?rendezvousId=${row.id}"> 
+					<spring:message code="rendezvous.announcement.create" />
+				</a>
+			</div>
+			</jstl:if>
+		</display:column>
+		
+		<display:column>
+			<jstl:if test="${user == row.user}">
+			<div>
+				<a href="link/user/create.do?rendezvousId=${row.id}"> 
+					<spring:message code="rendezvous.link.create" />
+				</a>
+			</div>
+			</jstl:if>
+		</display:column>
+		
+		<display:column>
+			<jstl:if test="${reservedRendezvous || user == row.user}">
+			<div>
+				<a href="question/user/list.do?rendezvousId=${row.id}"> 
+					<spring:message code="rendezvous.questions" />
+				</a>
+			</div>
+			</jstl:if>
+		</display:column>
 	</security:authorize>
 	
 	<spring:message code ="rendezvous.deleted" var="deleted"/>
 	<display:column title="${deleted}">
-	<jstl:if test="${row.deleted == true }">
-	<jstl:out value="${deleted }"/>
-	</jstl:if>
+		<jstl:if test="${row.deleted == true }">
+			<jstl:out value="${deleted }"/>
+		</jstl:if>
 	</display:column>
 
-	
 	<spring:message code ="rendezvous.passed" var="passed"/>
 	<display:column title="${passed}">
-	<jstl:if test="${row.moment < date}">
-	<jstl:out value="${passed}"/>
-	</jstl:if>
+		<jstl:if test="${row.moment < date}">
+			<jstl:out value="${passed}"/>
+		</jstl:if>
 	</display:column>
 	
 	
@@ -196,7 +183,6 @@
 		</div>
 		</jstl:if>
 	</display:column>
-	
 	
 	
 	
@@ -211,17 +197,15 @@
 	</security:authorize>
 	
 	
-	
-	
-	<jstl:if test="${showAddQuestion}">
 	<display:column>
-		<div>
-			<a href="question/user/create.do?rendezvousId=${row.id}"> 
-				<spring:message code="rendezvous.question.add" />
-			</a>
-		</div>
+		<jstl:if test="${showAddQuestion}">
+			<div>
+				<a href="question/user/create.do?rendezvousId=${row.id}"> 
+					<spring:message code="rendezvous.question.add" />
+				</a>
+			</div>
+		</jstl:if>
 	</display:column>
-	</jstl:if>
 
 </display:table>
 
