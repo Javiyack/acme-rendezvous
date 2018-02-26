@@ -175,11 +175,11 @@
 		</jstl:if>
 	</display:column>
 	
-	
+	<spring:message code ="rendezvous.canceled" var="cancelado"/>
 	<display:column>
 		<jstl:if test="${canceled.contains(row)}">
 		<div>
-			Canceled
+			<jstl:out value="${cancelado}"/>
 		</div>
 		</jstl:if>
 	</display:column>

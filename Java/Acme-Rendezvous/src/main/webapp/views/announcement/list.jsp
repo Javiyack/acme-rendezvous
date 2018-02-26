@@ -29,8 +29,9 @@
 	<spring:message code="announcement.description" var="announcementDescription" />
 	<display:column property="description" title="${announcementDescription}" sortable="true" />
 	
+	<spring:message code="moment.format" var="momentFormat" />
 	<spring:message code="announcement.moment" var="announcementMoment" />
-	<display:column property="moment" title="${announcementMoment}" sortable="true" />
+	<display:column property="moment" title="${announcementMoment}" format="${momentFormat}" />
 	
 	<security:authorize access="hasRole('ADMINISTRATOR')">
 	<display:column>
