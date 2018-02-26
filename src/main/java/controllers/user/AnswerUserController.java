@@ -44,6 +44,7 @@ public class AnswerUserController extends AbstractController {
 		answer = this.answerService.create(questionId, rendezvousId);
 		result = this.createEditModelAndView(answer);
 
+		
 		return result;
 	}
 
@@ -58,11 +59,13 @@ public class AnswerUserController extends AbstractController {
 		else
 			try {
 				this.answerService.save(answer);
-				result = new ModelAndView("redirect:/");
+				result = new ModelAndView("redirect:/rendezvous/user/reserve.do?rendezvousId="+answer.getReservation().getRendezvous().getId());
+				
 			} catch (final Throwable oops) {
 				oops.printStackTrace();
 				result = this.createEditModelAndView(answer, "answer.commit.error");
 			}
+		
 
 		return result;
 	}

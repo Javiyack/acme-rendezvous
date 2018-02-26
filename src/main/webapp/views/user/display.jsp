@@ -47,7 +47,7 @@
 	<spring:message code="user.rendezvous" />
 </h4>
 
-<display:table name="rendezvouses" class="displaytag">
+<display:table name="rendezvouses" class="displaytag" id="row">
 	<spring:message code="rendezvous.name" var="rendezvousName" />
 	<display:column property="name" title="${rendezvousName}" />
 
@@ -57,15 +57,15 @@
 	<spring:message code="rendezvous.moment" var="rendezvousMoment" />
 	<display:column property="moment" title="${rendezvousMoment}" format="${displaypriceformat}" />
 	
-	<spring:message code="rendezvous.picture" var="rendezvousPicture" />
-	<display:column>
-		<IMG src="${rendezvousPicture}" width="50" height="50"/>
+	<spring:message code="rendezvous.picture" var="picture" />
+	<display:column title="${picture}">
+		<IMG src="${row.picture}" class="tableImg"/>
 	</display:column>
 	
-	<spring:message code="rendezvous.location" var="rendezvousLocation" />
-	<display:column property="location.longitude" title="${rendezvousLocation}" />
-	<spring:message code="rendezvous.location" var="rendezvousLocation" />
-	<display:column property="location.latitude" title="${rendezvousLocation}" />
+	<spring:message code="rendezvous.location.longitude" var="rendezvousLongitude" />
+	<display:column property="location.longitude" title="${rendezvousLongitude}" />
+	<spring:message code="rendezvous.location.latitude" var="rendezvousLLatitude" />
+	<display:column property="location.latitude" title="${rendezvousLLatitude}" />
 	
 	
 </display:table>
