@@ -27,7 +27,7 @@
 
 <%@ attribute name="readonly" required="false" %>
 <%@ attribute name="placeholder" required="false" %>
-<%@ attribute name="format" required="false" %>
+<%@ attribute name="dateFormat" required="false" %>
 <%@ attribute name="type" required="false" %>
 <%@ attribute name="pattern" required="false" %>
 
@@ -40,7 +40,7 @@
 </jstl:if>
 
 <jstl:if test="${dateFormat == null}">
-	<jstl:set var="format" value="" />
+	<jstl:set var="dateFormat" value="" />
 </jstl:if>
 
 <jstl:if test="${type == null}">
@@ -56,11 +56,11 @@
 
 <div>
 	<tr>
-		<td><form:label path="${path}">
+		<td style="width: 20%"><form:label path="${path}">
 				<spring:message code="${code}" />
 			</form:label></td>
 		<td><form:input path="${path}" readonly="${readonly}"
-				placeholder="${placeholder}" format="${dateFormat}" type="${type}" pattern="${patern}"/> <form:errors
+				placeholder="${placeholder}" format="${dateFormat}" type="${type}" pattern="${pattern}" cssClass="inputTexbox"/> <form:errors
 				path="${path}" cssClass="error" /></td>
 	</tr>
 </div>

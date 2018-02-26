@@ -30,12 +30,17 @@
 			<acme:textboxOnTable code="rendezvous.name" path="name" />
 			<acme:textareaOnTable code="rendezvous.description"
 				path="description" />
-			<spring:message code="moment.pattern" var="momentPattern" />
-			<spring:message code="moment.format" var="momentFormat" />
 			<acme:textboxOnTable code="rendezvous.moment" path="moment"
-				placeholder="${momentPattern}" format="${momentFormat}" />
-			<acme:textboxOnTable code="rendezvous.location.longitude" path="location.longitude" pattern="^([0-9]*\.?[0-9])|([0-9]*\.?)$"/>
-			<acme:textboxOnTable code="rendezvous.location.latitude" path="location.latitude"  />
+				placeholder="dd/MM/yyyy HH:mm"/>
+
+			<spring:message code="location.longitude.placeholder" var="logitudePlaceholder" />
+			<acme:textboxOnTable code="rendezvous.location.longitude"
+				path="location.longitude" placeholder="${logitudePlaceholder}"
+				pattern="^(\+|-)?(?:180(?:(?:\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\.[0-9]{1,6})?))$" />
+			<spring:message code="location.latitude.placeholder" var="latitudePlaceholder" />
+			<acme:textboxOnTable code="rendezvous.location.latitude"
+				path="location.latitude" placeholder="${latitudePlaceholder}"
+				pattern="^(\+|-)?(?:90(?:(?:\.0{1,6})?)|(?:[0-9]|[1-8][0-9])(?:(?:\.[0-9]{1,6})?))$" />
 			<acme:textboxOnTable code="rendezvous.picture" path="picture" />
 		</tbody>
 	</table>
