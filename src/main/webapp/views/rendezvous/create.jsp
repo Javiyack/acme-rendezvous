@@ -41,7 +41,7 @@
 			<acme:textboxOnTable code="rendezvous.location.latitude"
 				path="location.latitude" placeholder="${latitudePlaceholder}"
 				pattern="^(\+|-)?(?:90(?:(?:\.0{1,6})?)|(?:[0-9]|[1-8][0-9])(?:(?:\.[0-9]{1,6})?))$" />
-			<acme:textboxOnTable code="rendezvous.picture" path="picture" />
+			<acme:textboxOnTable code="rendezvous.picture" path="picture" placeholder="Url..."/>
 		</tbody>
 	</table>
 	<br />
