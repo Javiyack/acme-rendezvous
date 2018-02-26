@@ -14,12 +14,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.RendezvousService;
-import services.ReservationService;
-import services.UserService;
+import domain.Answer;
+import domain.Question;
 import domain.Rendezvous;
 import domain.Reservation;
 import domain.User;
+import services.AnswerService;
+import services.QuestionService;
+import services.RendezvousService;
+import services.ReservationService;
+import services.UserService;
 
 @Controller
 @RequestMapping("/rendezvous/user")
@@ -40,6 +44,11 @@ public class RendezvousUserController {
 
 	@Autowired
 	private ReservationService	reservationService;
+
+	@Autowired
+	private QuestionService	    questionService;
+	@Autowired
+	private AnswerService	    answerService;
 
 
 	// List ---------------------------------------------------------------
@@ -189,7 +198,7 @@ public class RendezvousUserController {
 		//Usuario no adulto no puede reservar rendezvous adulto
 		if (!user.getAdult() && rendezvous.getAdult())
 			return new ModelAndView("redirect:/");
-
+		
 		Reservation reservation = this.reservationService.findReservationByUserAndRendezvous(user, rendezvous);
 
 		if (reservation == null) {
@@ -200,15 +209,31 @@ public class RendezvousUserController {
 			done = this.rendezvousService.reserveRendezvous(reservation, rendezvous);
 			Assert.notNull(done);
 
-			this.reservationService.save(done);
+			reservation = this.reservationService.save(done);
 
 		} else if (reservation.isCanceled()) {
 			reservation.setCanceled(false);
-			this.reservationService.save(reservation);
+			reservation = this.reservationService.save(reservation);
 		}
 
-		//Una vez reservado un rendezvous, ha de contestar las preguntas asociadas
-		result = new ModelAndView("redirect:/question/user/list.do?rendezvousId=" + rendezvous.getId());
+		// Comprobamos si hay preguntas asociadas
+
+		Collection<Question> preguntas = questionService.findAllByRendezvousId(rendezvousId);
+		if (preguntas.isEmpty()) {
+
+			result = new ModelAndView("redirect:/");
+		} else {
+			// Por cada pregunta comprobamos si esta contestada
+			for (Question question : preguntas) {
+				Answer respuestaDelUsuario = answerService.findByReservationIdAndQuestionId(reservation.getId(), question.getId());
+				if(respuestaDelUsuario==null) {
+					result = new ModelAndView("redirect:/answer/user/create.do?questionId="+question.getId()+"&rendezvousId="+reservation.getId());
+					return result;
+				}
+			}
+		}
+		
+		result = new ModelAndView("redirect:/");
 
 		return result;
 	}
