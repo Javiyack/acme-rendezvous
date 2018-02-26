@@ -151,7 +151,7 @@
 		</display:column>
 		
 		<display:column>
-			<jstl:if test="${reservedRendezvous || user == row.user}">
+			<jstl:if test="${(reservedRendezvous && !row.draft) || user == row.user}">
 			<div>
 				<a href="question/user/list.do?rendezvousId=${row.id}"> 
 					<spring:message code="rendezvous.questions" />
@@ -198,7 +198,7 @@
 	
 	
 	<display:column>
-		<jstl:if test="${showAddQuestion}">
+		<jstl:if test="${user == row.user && row.draft}">
 			<div>
 				<a href="question/user/create.do?rendezvousId=${row.id}"> 
 					<spring:message code="rendezvous.question.add" />

@@ -64,7 +64,6 @@ public class RendezvousUserController {
 		result.addObject("rendezvouses", rendezvouses);
 		result.addObject("requestUri", "rendezvous/user/list.do");
 		result.addObject("user", user);
-		result.addObject("showAddQuestion", true);
 
 		return result;
 	}

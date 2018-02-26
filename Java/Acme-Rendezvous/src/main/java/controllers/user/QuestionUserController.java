@@ -80,7 +80,7 @@ public class QuestionUserController extends AbstractController {
 		final User user = this.userService.findByPrincipal();
 		final Rendezvous rendezvous = this.rendezvousService.findOne(rendezvousId);
 		Boolean showEdit = false;
-		if (user.equals(rendezvous.getUser()))
+		if (user.equals(rendezvous.getUser()) && !rendezvous.getDraft())
 			showEdit = true;
 
 		questions = this.questionService.findAllUnansweredByRendezvousId(rendezvousId);
