@@ -34,7 +34,7 @@ public class RendezvousController {
 
 		ModelAndView result;
 
-		final Collection<Rendezvous> rendezvouses = this.rendezvousService.findAll();
+		final Collection<Rendezvous> rendezvouses = this.rendezvousService.findAllNotAdult();
 
 		result = new ModelAndView("rendezvous/list");
 		result.addObject("rendezvouses", rendezvouses);
