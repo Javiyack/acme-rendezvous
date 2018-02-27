@@ -162,9 +162,10 @@ public class RendezvousUserController extends AbstractController {
 	public ModelAndView save(@Valid final Rendezvous rendezvous, final BindingResult binding) {
 		ModelAndView result;
 
-		if (binding.hasErrors())
-			result = this.createEditModelAndView(rendezvous);
-		else
+		if (binding.hasErrors()) {
+			result = new ModelAndView("rendezvous/user/edit");
+			result.addObject("rendezvous", rendezvous);
+		} else
 			try {
 				//Usuario no adulto solo puede crear rendezvous no adulto
 				final User user;
@@ -196,8 +197,6 @@ public class RendezvousUserController extends AbstractController {
 			}
 		return result;
 	}
-
-
 
 	// Cancel -----------------------------------------------------------
 
