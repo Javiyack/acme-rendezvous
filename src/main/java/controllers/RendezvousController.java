@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.RendezvousService;
+import services.UserService;
 import domain.Rendezvous;
 
 @Controller
@@ -26,6 +27,8 @@ public class RendezvousController {
 
 	@Autowired
 	private RendezvousService	rendezvousService;
+	@Autowired
+	private UserService			userService;
 
 
 	//List ---------------------------------------------------------------		
@@ -53,9 +56,9 @@ public class RendezvousController {
 
 		result = new ModelAndView("rendezvous/listSimilar");
 		result.addObject("rendezvouses", rendezvouses);
+		result.addObject("rendezvousId", rendezvousId);
 		result.addObject("requestUri", "rendezvous/listSimilar.do");
 
 		return result;
 	}
-
 }

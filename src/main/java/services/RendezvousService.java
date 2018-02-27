@@ -304,6 +304,18 @@ public class RendezvousService {
 		return rendezvouses;
 	}
 
+	public Collection<Rendezvous> findSimilarByRendezvousId(final int rendezvousId) {
+		final Rendezvous rendezvous = this.rendezvousRepository.findOne(rendezvousId);
+		Assert.notNull(rendezvous);
+		final Collection<Link> links = this.linkService.findByRendezvousId(rendezvousId);
+		final Collection<Rendezvous> rendezvouses = new ArrayList<Rendezvous>();
+
+		for (final Link l : links)
+			rendezvouses.add(l.getLinkedToRendezvous());
+
+		return rendezvouses;
+	}
+
 	public Collection<Rendezvous> findCanceledByUserId(final int userId) {
 		Collection<Rendezvous> result;
 		result = this.rendezvousRepository.findCanceledByUserId(userId);
