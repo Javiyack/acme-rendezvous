@@ -190,7 +190,7 @@
 		<property name="name" value="Rendezvous 6" ></property>
 		<property name="description" value="Descripcion Rendezvous 6" />
 		<property name="moment" value="2017/06/15 22:00" />
-		<property name="draft" value="false" />
+		<property name="draft" value="true" />
 		<property name="deleted" value="false" />
 		<property name="user" ref="user3" />	
 		<property name="adult" value="false"/>		
@@ -200,7 +200,7 @@
 		<property name="name" value="Rendezvous 7" ></property>
 		<property name="description" value="Descripcion Rendezvous 7" />
 		<property name="moment" value="2018/04/15 12:00" />
-		<property name="draft" value="false" />
+		<property name="draft" value="true" />
 		<property name="deleted" value="false" />
 		<property name="user" ref="user1" />
 		<property name="adult" value="false"/>			
