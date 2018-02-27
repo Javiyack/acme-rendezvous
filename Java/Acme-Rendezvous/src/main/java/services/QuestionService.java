@@ -49,6 +49,9 @@ public class QuestionService {
 
 		final Question result;
 		final Rendezvous rendezvous = this.rendezvousService.findOne(rendezvousId);
+		final Actor actor = this.actorService.findByPrincipal();
+		Assert.isTrue(actor instanceof User);
+		Assert.isTrue(rendezvous.getUser().equals(actor));
 		Assert.notNull(rendezvous);
 
 		result = new Question();
@@ -80,7 +83,7 @@ public class QuestionService {
 		Assert.notNull(question);
 		final Actor actor = this.actorService.findByPrincipal();
 		Assert.isTrue(actor instanceof User);
-		Assert.isTrue(question.getRendezvous().getUser().equals(actor));
+		Assert.isTrue(question.getRendezvous().getUser().equals((User) actor));
 
 		Question saved;
 
