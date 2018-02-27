@@ -40,6 +40,13 @@ public class AnswerService {
 	}
 
 	// Methods CRUD ---------------------------------------------------------
+
+	public Answer create() {
+		return new Answer();
+		
+	}
+	
+	
 	public Answer create(final int questionId, final int rendezvousId) {
 		final Question question = this.questionService.findOne(questionId);
 		final Rendezvous rendezvous = this.rendezvousService.findOne(rendezvousId);
@@ -47,9 +54,10 @@ public class AnswerService {
 		Assert.notNull(question);
 		Assert.notNull(rendezvous);
 		Assert.notNull(user);
-
+		
 		final Reservation reservation = this.reservationService.findReservationByUserAndRendezvous(user, rendezvous);
 		Assert.notNull(reservation);
+		Assert.isTrue(reservation.getUser().equals(user));
 
 		final Answer result;
 
@@ -124,7 +132,6 @@ public class AnswerService {
 	}
 
 	public Collection<Answer> findByQuestionId(final int id) {
-		// TODO Auto-generated method stub
 		return this.answerRepository.findByQuestionId(id);
 	}
 
@@ -132,5 +139,6 @@ public class AnswerService {
 		final Answer answer = this.answerRepository.findByReservationIdAndQuestionId(reservationId, questionId);
 		return answer;
 	}
+
 
 }

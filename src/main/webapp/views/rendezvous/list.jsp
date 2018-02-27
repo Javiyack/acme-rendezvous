@@ -112,7 +112,7 @@
 				</jstl:when>
 				<jstl:when test="${!reserved.contains(row) and user ne row.user}">
 					<div>
-						<a href="rendezvous/user/reserve.do?rendezvousId=${row.id}"> 
+						<a href="reservation/user/reserve.do?rendezvousId=${row.id}"> 
 							<spring:message code="rendezvous.reserve" />
 						</a>
 					</div>
