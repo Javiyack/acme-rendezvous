@@ -44,9 +44,9 @@ public class AnnouncementAdministratorController extends AbstractController {
 
 		final Collection<Announcement> announcements = this.announcementService.findByRendezvous(rendezvousId);
 
-		result = new ModelAndView("announcement/list");
+		result = new ModelAndView("announcement/administrator/list");
 		result.addObject("announcements", announcements);
-		result.addObject("requestUri", "announcement/list.do");
+		result.addObject("requestUri", "announcement/administrator/list.do");
 
 		return result;
 	}

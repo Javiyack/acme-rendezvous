@@ -92,7 +92,7 @@ public class RendezvousAdministratorController extends AbstractController {
 	}
 	protected ModelAndView createEditModelAndView(final Rendezvous rendezvous, final String message) {
 		final ModelAndView result;
-		result = new ModelAndView("rendezvous/user/create");
+		result = new ModelAndView("rendezvous/administrator/create");
 		result.addObject("rendezvous", rendezvous);
 		result.addObject("message", message);
 

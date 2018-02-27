@@ -42,7 +42,7 @@ public class CommentController extends AbstractController {
 
 		comments = this.commetService.findAll();
 		result = new ModelAndView("comment/list");
-		result.addObject("requestURI", "comment/list.do");
+		result.addObject("requestUri", "comment/list.do");
 		result.addObject("comments", comments);
 
 		return result;
