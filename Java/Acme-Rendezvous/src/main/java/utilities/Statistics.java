@@ -12,6 +12,9 @@ public class Statistics {
     }   
 
     public double getMean() {
+        if (size ==0)
+        	return 0;
+    	
         double sum = 0.0;
         for(Object a : data)
             sum += (long) a;
@@ -19,6 +22,9 @@ public class Statistics {
     }
 
     public double getVariance() {
+    	if (size==0)
+    		return 0;
+    	
         double mean = getMean();
         double temp = 0;
         for(Object a :data)
@@ -35,6 +41,8 @@ public class Statistics {
     }
 
     public double median() {
+    	if (size == 0)
+    		return 0;
        Arrays.sort(data);
 
        if (data.length % 2 == 0) {
