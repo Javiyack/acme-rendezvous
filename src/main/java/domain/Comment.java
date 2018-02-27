@@ -7,6 +7,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
@@ -55,6 +56,7 @@ public class Comment extends DomainEntity {
 		this.picture = picture;
 	}
 
+	@Valid
 	@NotNull
 	@ManyToOne(optional = false)
 	public User getUser() {
@@ -65,6 +67,7 @@ public class Comment extends DomainEntity {
 		this.user = user;
 	}
 
+	@Valid
 	@NotNull
 	@ManyToOne(optional = false)
 	public Rendezvous getRendezvous() {

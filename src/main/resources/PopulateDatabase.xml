@@ -383,12 +383,6 @@
 		<property name="reservation" ref="reservation1" />
 	</bean>
 	
-	<!-- Configuration Parameters -->
-	
-	<bean id="ConfigurationParameter1" class="domain.ConfigurationParameter">
-		<property name="termAndConditions" value="Terminos y condiciones" />
-	</bean>
-	
 	
 	
 </beans>

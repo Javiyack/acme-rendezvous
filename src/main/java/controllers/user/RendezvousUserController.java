@@ -14,23 +14,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import domain.Answer;
-import domain.Question;
-import domain.Rendezvous;
-import domain.Reservation;
-import domain.User;
 import services.AnswerService;
 import services.QuestionService;
 import services.RendezvousService;
 import services.ReservationService;
 import services.UserService;
+import controllers.AbstractController;
 import domain.Rendezvous;
 import domain.Reservation;
 import domain.User;
 
 @Controller
 @RequestMapping("/rendezvous/user")
-public class RendezvousUserController {
+public class RendezvousUserController extends AbstractController {
 
 	public RendezvousUserController() {
 		super();
@@ -49,9 +45,9 @@ public class RendezvousUserController {
 	private ReservationService	reservationService;
 
 	@Autowired
-	private QuestionService	    questionService;
+	private QuestionService		questionService;
 	@Autowired
-	private AnswerService	    answerService;
+	private AnswerService		answerService;
 
 
 	// List ---------------------------------------------------------------
@@ -200,6 +196,7 @@ public class RendezvousUserController {
 			}
 		return result;
 	}
+
 
 
 	// Cancel -----------------------------------------------------------

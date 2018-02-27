@@ -105,6 +105,7 @@ public class Rendezvous extends DomainEntity {
 		this.draft = draft;
 	}
 
+	@Valid
 	@NotNull
 	@ManyToOne(optional = false)
 	public User getUser() {

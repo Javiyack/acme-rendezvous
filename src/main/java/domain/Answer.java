@@ -1,3 +1,4 @@
+
 package domain;
 
 import javax.persistence.Access;
@@ -6,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -13,44 +15,46 @@ import org.hibernate.validator.constraints.NotBlank;
 @Entity
 @Access(AccessType.PROPERTY)
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {
-		"reservation_id", "question_id"
-	}))
-public class Answer extends DomainEntity{
+	"reservation_id", "question_id"
+}))
+public class Answer extends DomainEntity {
 
-	private String text;
+	private String		text;
 
-	private Reservation reservation;
-	
-	private Question question;
+	private Reservation	reservation;
+
+	private Question	question;
+
 
 	@NotBlank
 	public String getText() {
-		return text;
+		return this.text;
 	}
 
-	public void setText(String text) {
+	public void setText(final String text) {
 		this.text = text;
 	}
 
+	@Valid
 	@NotNull
 	@ManyToOne(optional = false)
 	public Reservation getReservation() {
-		return reservation;
+		return this.reservation;
 	}
 
-	public void setReservation(Reservation rSVP) {
+	public void setReservation(final Reservation rSVP) {
 		this.reservation = rSVP;
 	}
 
+	@Valid
 	@NotNull
 	@ManyToOne(optional = false)
 	public Question getQuestion() {
-		return question;
+		return this.question;
 	}
 
-	public void setQuestion(Question question) {
+	public void setQuestion(final Question question) {
 		this.question = question;
 	}
 
-	
 }

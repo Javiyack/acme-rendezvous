@@ -15,7 +15,7 @@ import domain.Answer;
 
 @Controller
 @RequestMapping("/answer")
-public class AnswerController {
+public class AnswerController extends AbstractController {
 
 	public AnswerController() {
 		super();
