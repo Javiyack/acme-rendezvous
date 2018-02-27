@@ -45,7 +45,7 @@ public class ReplyUserController extends AbstractController {
 
 		replys = this.replyService.findAllByCommentId(commentId);
 		result = new ModelAndView("reply/user/list");
-		result.addObject("requestURI", "reply/user/list.do");
+		result.addObject("requestUri", "reply/user/list.do");
 		result.addObject("replys", replys);
 
 		return result;

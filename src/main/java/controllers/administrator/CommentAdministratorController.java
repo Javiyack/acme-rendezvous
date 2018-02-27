@@ -50,7 +50,7 @@ public class CommentAdministratorController extends AbstractController {
 
 		comments = this.commentService.findAll();
 		result = new ModelAndView("comment/administrator/list");
-		result.addObject("requestURI", "comment/administrator/list.do");
+		result.addObject("requestUri", "comment/administrator/list.do");
 		result.addObject("comments", comments);
 
 		return result;

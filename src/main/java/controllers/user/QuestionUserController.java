@@ -91,7 +91,7 @@ public class QuestionUserController extends AbstractController {
 		questions = this.questionService.findAllUnansweredByRendezvousId(rendezvousId);
 
 		result = new ModelAndView("question/user/list");
-		result.addObject("requestURI", "question/user/list.do");
+		result.addObject("requestUri", "question/user/list.do");
 		result.addObject("questions", questions);
 		result.addObject("rendezvous", rendezvousId);
 		result.addObject("showEdit", showEdit);

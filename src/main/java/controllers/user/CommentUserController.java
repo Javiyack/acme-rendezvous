@@ -48,7 +48,7 @@ public class CommentUserController extends AbstractController {
 
 		comments = this.commentService.findAllByRendezvousId(rendezvousId);
 		result = new ModelAndView("comment/user/list");
-		result.addObject("requestURI", "comment/user/list.do");
+		result.addObject("requestUri", "comment/user/list.do");
 		result.addObject("comments", comments);
 
 		return result;

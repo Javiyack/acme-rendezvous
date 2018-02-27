@@ -54,8 +54,9 @@
 	<spring:message code="rendezvous.description" var="rendezvousDescription" />
 	<display:column property="description" title="${rendezvousDescription}" />
 
+	<spring:message code="moment.format" var="momentFormat" />
 	<spring:message code="rendezvous.moment" var="rendezvousMoment" />
-	<display:column property="moment" title="${rendezvousMoment}" format="${displaypriceformat}" />
+	<display:column property="moment" title="${rendezvousMoment}" format="${momentFormat}" />
 	
 	<spring:message code="rendezvous.picture" var="picture" />
 	<display:column title="${picture}">
@@ -64,8 +65,8 @@
 	
 	<spring:message code="rendezvous.location.longitude" var="rendezvousLongitude" />
 	<display:column property="location.longitude" title="${rendezvousLongitude}" />
-	<spring:message code="rendezvous.location.latitude" var="rendezvousLLatitude" />
-	<display:column property="location.latitude" title="${rendezvousLLatitude}" />
+	<spring:message code="rendezvous.location.latitude" var="rendezvousLongitude" />
+	<display:column property="location.latitude" title="${rendezvousLongitude}" />
 	
 	
 </display:table>

@@ -39,7 +39,7 @@
 		<IMG src="${row.picture}" class="tableImg"/>
 	</display:column>
 	
-		<spring:message code="rendezvous.location.longitude" var="rendezvousLongitude" />
+	<spring:message code="rendezvous.location.longitude" var="rendezvousLongitude" />
 	<display:column property="location.longitude" title="${rendezvousLongitude}" />
 	<spring:message code="rendezvous.location.latitude" var="rendezvousLongitude" />
 	<display:column property="location.latitude" title="${rendezvousLongitude}" />
@@ -83,16 +83,6 @@
 	<security:authorize access="hasRole('USER')">
 	<display:column>
 		<div>
-			<a href="comment/user/create.do?rendezvousId=${row.id}"> 
-				<spring:message code="rendezvous.comment.write" />
-			</a>
-		</div>
-	</display:column>
-	</security:authorize>
-	
-	<security:authorize access="hasRole('USER')">
-	<display:column>
-		<div>
 			<a href="comment/user/list.do?rendezvousId=${row.id}"> 
 				<spring:message code="rendezvous.comments" />
 			</a>
@@ -131,12 +121,22 @@
 		</display:column>
 		
 		<display:column>
-			<jstl:if test="${user == row.user}">
+			<jstl:if test="${reservedRendezvous}">
 			<div>
 				<a href="announcement/user/create.do?rendezvousId=${row.id}"> 
 					<spring:message code="rendezvous.announcement.create" />
 				</a>
 			</div>
+			</jstl:if>
+		</display:column>
+		
+		<display:column>
+			<jstl:if test="${reservedRendezvous}">
+			<div>
+				<a href="comment/user/create.do?rendezvousId=${row.id}"> 
+					<spring:message code="rendezvous.comment.write" />
+				</a>
+				</div>
 			</jstl:if>
 		</display:column>
 		
