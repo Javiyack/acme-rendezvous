@@ -120,8 +120,8 @@ public class RendezvousService {
 		Assert.isTrue(rendezvousId != 0);
 		result = this.rendezvousRepository.findOne(rendezvousId);
 		this.checkPrincipal(result);
-		Assert.isTrue(result.getDraft().equals(true));
-		Assert.isTrue(result.getDeleted().equals(false), "Cannot edit a deleted Rendezvous");
+		Assert.isTrue(result.getDraft() == (true));
+		Assert.isTrue(result.getDeleted() == (false), "Cannot edit a deleted Rendezvous");
 		return result;
 	}
 
@@ -255,8 +255,8 @@ public class RendezvousService {
 		Assert.notNull(principal);
 		Assert.isTrue(!rendezvous.getUser().equals(principal), "Cannot reserve this rendezvous");
 		Assert.isTrue(!this.findReservedByUser(principal.getId()).contains(rendezvous));
-		if (rendezvous.getAdult().equals(true))
-			Assert.isTrue(principal.getAdult().equals(true));
+		if (rendezvous.getAdult() == (true))
+			Assert.isTrue(principal.getAdult() == (true));
 
 		reservation.setRendezvous(rendezvous);
 		reservation.setUser(principal);
