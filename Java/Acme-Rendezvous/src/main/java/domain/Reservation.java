@@ -24,7 +24,6 @@ public class Reservation extends DomainEntity {
 	private Rendezvous	rendezvous;
 
 
-	@NotNull
 	public boolean isCanceled() {
 		return this.canceled;
 	}

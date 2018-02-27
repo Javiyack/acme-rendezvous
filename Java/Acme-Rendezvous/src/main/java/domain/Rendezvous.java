@@ -30,16 +30,16 @@ public class Rendezvous extends DomainEntity {
 
 	private Coordinate	location;		// Optional
 
-	private Boolean		draft;
+	private boolean		draft;
 
 	private User		user;
 
-	private Boolean		deleted;
+	private boolean		deleted;
 
-	private Boolean		adult;
+	private boolean		adult;
 
 
-	public Boolean getAdult() {
+	public boolean getAdult() {
 		return this.adult;
 	}
 
@@ -96,8 +96,7 @@ public class Rendezvous extends DomainEntity {
 		this.location = location;
 	}
 
-	@NotNull
-	public Boolean getDraft() {
+	public boolean getDraft() {
 		return this.draft;
 	}
 
@@ -116,8 +115,7 @@ public class Rendezvous extends DomainEntity {
 		this.user = user;
 	}
 
-	@NotNull
-	public Boolean getDeleted() {
+	public boolean getDeleted() {
 		return this.deleted;
 	}
 
