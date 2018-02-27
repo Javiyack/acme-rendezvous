@@ -48,7 +48,7 @@
 	<display:column>
 		<div>
 			<a href="user/display.do?userId=${row.user.id}"> 
-				<spring:message code="rendezvous.user" />
+				<jstl:out value="${row.user.name}"/>
 			</a>
 		</div>
 	</display:column>
