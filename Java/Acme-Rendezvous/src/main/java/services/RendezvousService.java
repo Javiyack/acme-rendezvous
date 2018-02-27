@@ -127,20 +127,20 @@ public class RendezvousService {
 
 	public Rendezvous save(final Rendezvous rendezvous) {
 		assert rendezvous != null;
+		final User user = this.userService.findByPrincipal();
+		Assert.notNull(user);
+		final Rendezvous rendezvousFind = this.findOne(rendezvous.getId());
+		Assert.isTrue(rendezvousFind.getUser().equals(user));
 
-		final int id = rendezvous.getId();
+		final int id = rendezvousFind.getId();
 		Rendezvous result;
-		result = this.rendezvousRepository.save(rendezvous);
+		result = this.rendezvousRepository.save(rendezvousFind);
 
 		if (id == 0) {
 
 			Reservation reservation;
 			reservation = this.reservationService.create();
 			Assert.notNull(reservation);
-
-			User user;
-			user = this.userService.findByPrincipal();
-			Assert.notNull(user);
 
 			reservation.setUser(user);
 			reservation.setRendezvous(result);

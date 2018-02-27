@@ -90,11 +90,14 @@ public class QuestionService {
 	}
 
 	public void delete(final Question question) {
-		
 		Assert.notNull(question);
+		final User user = this.userService.findByPrincipal();
+		Assert.notNull(user);
+		final Question questionFind = this.findOne(question.getId());
+		Assert.isTrue(questionFind.getRendezvous().getUser().equals(user));
 
-		Collection<Question> questions = new LinkedList<Question>();
-		questions.add(question);
+		final Collection<Question> questions = new LinkedList<Question>();
+		questions.add(questionFind);
 		this.deleteInBatch(questions);
 	}
 
@@ -125,21 +128,20 @@ public class QuestionService {
 
 		Assert.notNull(user);
 		Assert.notNull(rendezvous);
-		
+
 		//Dependiendo de si es el creador del rendezvous o no...
 		if (user.getId() != rendezvous.getUser().getId()) {
-		
+
 			final Reservation reservation = this.reservationService.findReservationByUserAndRendezvous(user, rendezvous);
-	
+
 			for (final Question q : questions) {
 				final Answer answer = this.answerService.findByReservationIdAndQuestionId(reservation.getId(), q.getId());
 				if (answer == null)
 					questionsUnanswered.add(q);
 			}
 			return questionsUnanswered;
-		
-		} else {
+
+		} else
 			return questions;
-		}
 	}
 }
