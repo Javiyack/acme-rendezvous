@@ -133,4 +133,12 @@ public class CommentService {
 		return this.commentRepository.findAllByRendezvousId(id);
 	}
 
+	public void deleteByAdministrator(final Comment comment) {
+		// TODO Auto-generated method stub
+		final Actor actor = this.actorService.findByPrincipal();
+		Assert.isTrue(actor instanceof Administrator);
+
+		this.commentRepository.delete(comment);
+	}
+
 }

@@ -76,6 +76,9 @@ public class AnnouncementService {
 	public Announcement save(final Announcement announcement) {
 		Assert.notNull(announcement);
 		Announcement saved;
+		final User user = this.userService.findByPrincipal();
+		Assert.notNull(user);
+		Assert.isTrue(announcement.getRendezvous().getUser().equals(user));
 
 		if (announcement.getId() == 0) {
 			final Date moment = new Date(System.currentTimeMillis() - 1);
@@ -89,6 +92,9 @@ public class AnnouncementService {
 
 	public void delete(final Announcement announcement) {
 		Assert.notNull(announcement);
+		final Actor user = this.userService.findByPrincipal();
+		Assert.notNull(user instanceof User);
+		Assert.isTrue(announcement.getRendezvous().getUser().equals(user));
 
 		this.announcementRepository.delete(announcement);
 	}

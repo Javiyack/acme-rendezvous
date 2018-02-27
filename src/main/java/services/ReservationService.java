@@ -25,6 +25,8 @@ public class ReservationService {
 	// Supporting services 
 	@Autowired
 	private AnswerService			answerService;
+	@Autowired
+	private UserService				userService;
 
 
 	// Constructor ----------------------------------------------------------
@@ -63,6 +65,10 @@ public class ReservationService {
 
 	public Reservation save(final Reservation reservation) {
 		Assert.notNull(reservation);
+		final User user = this.userService.findByPrincipal();
+		Assert.notNull(user);
+		Assert.isTrue(reservation.getRendezvous().getUser().equals(user));
+
 		Reservation saved;
 
 		saved = this.reservationRepository.save(reservation);

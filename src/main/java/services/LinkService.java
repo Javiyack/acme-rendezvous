@@ -70,6 +70,10 @@ public class LinkService {
 
 	public Link save(final Link link) {
 		Assert.notNull(link);
+		final User user = this.userService.findByPrincipal();
+		Assert.notNull(user);
+		Assert.isTrue(link.getRendezvous().getUser().equals(user));
+
 		Link saved;
 
 		saved = this.linkRepository.save(link);
@@ -79,6 +83,9 @@ public class LinkService {
 
 	public void delete(final Link link) {
 		Assert.notNull(link);
+		final User user = this.userService.findByPrincipal();
+		Assert.notNull(user);
+		Assert.isTrue(link.getRendezvous().getUser().equals(user));
 
 		this.linkRepository.delete(link);
 	}

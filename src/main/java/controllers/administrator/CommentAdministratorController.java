@@ -64,7 +64,7 @@ public class CommentAdministratorController extends AbstractController {
 		final Comment selected = this.commentService.findOne(Id);
 
 		try {
-			this.commentService.delete(selected);
+			this.commentService.deleteByAdministrator(selected);
 
 			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
