@@ -43,26 +43,25 @@ public class AnswerUserController extends AbstractController {
 	// Services ---------------------------------------------------------------
 
 	@Autowired
-	private AnswerService 			answerService;
+	private AnswerService answerService;
 	@Autowired
-	private QuestionService 		questionService;
+	private QuestionService questionService;
 	@Autowired
-	private ReservationService		reservationService;
+	private ReservationService reservationService;
 	@Autowired
-	private UserService 			userService;
+	private UserService userService;
 	@Autowired
-	private RendezvousService 		rendezvousService;
+	private RendezvousService rendezvousService;
 
-	
 	// Fail page
+	@RequestMapping(value = "/fail", method = RequestMethod.GET)
 	public ModelAndView fail() {
 		ModelAndView result;
-		result = new ModelAndView("/answer/fail");
+		result = new ModelAndView("/answer/user/fail");
 
 		return result;
 	}
 
-	
 	// Creation ---------------------------------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -101,57 +100,65 @@ public class AnswerUserController extends AbstractController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public ModelAndView save(@ModelAttribute("formularioEjemplo") final FormularioPreguntas formulario,
 			final BindingResult binding) {
-		final User user = this.userService.findByPrincipal();
-		Assert.notNull(user);
-		Assert.isTrue(user.equals(formulario.getUser()));
-		Boolean todasRespondidas = true;
-		// Comprobamos que las preguntas estan contestadas si no es cadena vacia o solo
-		// espacios
-		// Para ello:
-		// 1º recuperamos las Questions
-		Collection<Question> preguntas = questionService.findAllByRendezvousId(formulario.getRendezvous().getId());
-		for (Question question : preguntas) {
-			if (formulario.getCuestionario().get(question.getText()).trim().length() == 0) {
-				todasRespondidas = false;
-			}
-		}
-
-		// Creamos y guardamos la reserva
-		if (todasRespondidas) {
-			if (!user.getAdult() && formulario.getRendezvous().getAdult())
-				return new ModelAndView("redirect:/");
-
-			Reservation reservation = this.reservationService.findReservationByUserAndRendezvous(user, formulario.getRendezvous());
-
-			if (reservation == null) {
-				reservation = this.reservationService.create();
-				Assert.notNull(reservation);
-
-				Reservation done;
-				done = this.rendezvousService.reserveRendezvous(reservation, formulario.getRendezvous());
-				Assert.notNull(done);
-
-				reservation = this.reservationService.save(done);
-
-			} else if (reservation.isCanceled()) {
-				reservation.setCanceled(false);
-				reservation = this.reservationService.save(reservation);
-			}	
-			
-			
-			for (Question question : preguntas) {
-				Answer respuesta = answerService.create(question.getId(), formulario.getRendezvous().getId());
-				respuesta.setText(formulario.getCuestionario().get(question.getText()).trim());
-				answerService.save(respuesta);
-			}
-
+		ModelAndView result;
+		if (binding.hasErrors()) {
+			result = new ModelAndView("answer/user/create");
+			result.addObject("formulario", formulario);
+			result.addObject("message", null);
 		} else {
-			return new ModelAndView("redirect:/answer/user/fail.do");
+
+			final User user = this.userService.findByPrincipal();
+			Assert.notNull(user);
+			Assert.isTrue(user.equals(formulario.getUser()));
+			Boolean todasRespondidas = true;
+			// Comprobamos que las preguntas estan contestadas si no es cadena vacia o solo
+			// espacios
+			// Para ello:
+			// 1º recuperamos las Questions
+			Collection<Question> preguntas = questionService.findAllByRendezvousId(formulario.getRendezvous().getId());
+			for (Question question : preguntas) {
+				if (formulario.getCuestionario().get(question.getText()).trim().length() == 0) {
+					todasRespondidas = false;
+				}
+			}
+
+			// Creamos y guardamos la reserva
+			if (todasRespondidas) {
+				if (!user.getAdult() && formulario.getRendezvous().getAdult())
+					return new ModelAndView("redirect:/");
+
+				Reservation reservation = this.reservationService.findReservationByUserAndRendezvous(user,
+						formulario.getRendezvous());
+
+				if (reservation == null) {
+					reservation = this.reservationService.create();
+					Assert.notNull(reservation);
+
+					Reservation done;
+					done = this.rendezvousService.reserveRendezvous(reservation, formulario.getRendezvous());
+					Assert.notNull(done);
+
+					reservation = this.reservationService.save(done);
+
+				} else if (reservation.isCanceled()) {
+					reservation.setCanceled(false);
+					reservation = this.reservationService.save(reservation);
+				}
+
+				for (Question question : preguntas) {
+					Answer respuesta = answerService.create(question.getId(), formulario.getRendezvous().getId());
+					respuesta.setText(formulario.getCuestionario().get(question.getText()).trim());
+					answerService.save(respuesta);
+				}
+
+			} else {
+				return new ModelAndView("redirect:/answer/user/fail.do");
+			}
+			// Guardamos las respuestas
+
+			result = new ModelAndView("redirect:/");
 		}
-		// Guardamos las respuestas
-
-		return new ModelAndView("redirect:/");
-
+		return result;
 	}
 
 	// Ancillary methods ------------------------------------------------------

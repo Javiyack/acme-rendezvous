@@ -172,13 +172,13 @@ public class ReservationUserController {
 			for (Question question : preguntas) {
 				preguntasMap.put(question.getText(), "");
 			}
-			FormularioPreguntas formEj = new FormularioPreguntas();
-			formEj.setCuestionario(preguntasMap);
-			formEj.setRendezvous(rendezvous);
-			formEj.setUser(user);
+			FormularioPreguntas formularioPreguntas = new FormularioPreguntas();
+			formularioPreguntas.setCuestionario(preguntasMap);
+			formularioPreguntas.setRendezvous(rendezvous);
+			formularioPreguntas.setUser(user);
 			result = new ModelAndView("answer/user/edit");
 			result.addObject("requestURI", "answer/user/save.do");
-			result.addObject("formularioEjemplo", formEj);
+			result.addObject("formularioPreguntas", formularioPreguntas);
 
 		}
 		return result;
