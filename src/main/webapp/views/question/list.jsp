@@ -29,7 +29,7 @@
 	
 	<security:authorize access="hasRole('USER')">
 	<display:column>
-		<jstl:if test="${!showEdit}">
+		<jstl:if test="${showAnswerQuestion}">
 		<div>
 			<a href="answer/user/create.do?questionId=${row.id}&rendezvousId=${rendezvous}"> 
 				<spring:message code="question.answer" />
@@ -47,9 +47,22 @@
 		</div>
 		</jstl:if>
 	</display:column>
+
+	<display:column>
+		<jstl:if test="${showEdit}">
+		<div>
+			<a href="question/user/delete.do?questionId=${row.id}"> 
+				<spring:message code="question.delete" />
+			</a>
+		</div>
+		</jstl:if>
+	</display:column>
+
+
 	</security:authorize>
 
 </display:table>
+
 
 <acme:cancel url="/" code="comment.back"/>
 	
