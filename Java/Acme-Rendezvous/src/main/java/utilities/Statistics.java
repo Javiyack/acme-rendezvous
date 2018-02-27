@@ -12,12 +12,14 @@ public class Statistics {
     }   
 
     public double getMean() {
-        if (size ==0)
-        	return 0;
+        if (size == 0) return 0;
     	
         double sum = 0.0;
-        for(Object a : data)
+        for(Object a : data) {
+        	if (a == null) return 0;
             sum += (long) a;
+        }
+        
         return sum/size;
     }
 
@@ -27,8 +29,10 @@ public class Statistics {
     	
         double mean = getMean();
         double temp = 0;
-        for(Object a :data)
+        for(Object a :data) {
+        	if (a == null) return 0;
             temp += ((long)a-mean)*((long)a-mean);
+        }
         
         if (size-1 !=0)
         	return temp/(size-1);
