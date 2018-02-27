@@ -31,6 +31,7 @@
 <script type="text/javascript" src="scripts/jmenu.js"></script>
 <script type="text/javascript" src="scripts/jbrowser.js"></script>
 <script type="text/javascript" src="scripts/cookie.js"></script>
+<script type="text/javascript" src="scripts/cookiePopus.js"></script>
 
 <link rel="stylesheet" href="styles/common.css" type="text/css">
 <link rel="stylesheet" href="styles/jmenu.css" media="screen" type="text/css" />
@@ -86,7 +87,7 @@
 
 </head>
 
-<body>
+<body onload="checkCookie()">
 
 	<div>
 		<tiles:insertAttribute name="header" />
