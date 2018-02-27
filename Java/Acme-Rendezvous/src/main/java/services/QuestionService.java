@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -89,9 +90,12 @@ public class QuestionService {
 	}
 
 	public void delete(final Question question) {
+		
 		Assert.notNull(question);
 
-		this.questionRepository.delete(question);
+		Collection<Question> questions = new LinkedList<Question>();
+		questions.add(question);
+		this.deleteInBatch(questions);
 	}
 
 	public Collection<Question> findAllByRendezvousId(final int id) {

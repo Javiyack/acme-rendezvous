@@ -16,6 +16,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -80,8 +81,12 @@ public class QuestionUserController extends AbstractController {
 		final User user = this.userService.findByPrincipal();
 		final Rendezvous rendezvous = this.rendezvousService.findOne(rendezvousId);
 		Boolean showEdit = false;
-		if (user.equals(rendezvous.getUser()) && !rendezvous.getDraft())
+		Boolean showAnswerQuestion = false;
+		if (user.equals(rendezvous.getUser()) && rendezvous.getDraft())
 			showEdit = true;
+		
+		if (!user.equals(rendezvous.getUser()) && !rendezvous.getDraft())
+			showAnswerQuestion = true;
 
 		questions = this.questionService.findAllUnansweredByRendezvousId(rendezvousId);
 
@@ -90,6 +95,7 @@ public class QuestionUserController extends AbstractController {
 		result.addObject("questions", questions);
 		result.addObject("rendezvous", rendezvousId);
 		result.addObject("showEdit", showEdit);
+		result.addObject("showAnswerQuestion", showAnswerQuestion);
 
 		return result;
 	}
@@ -110,6 +116,29 @@ public class QuestionUserController extends AbstractController {
 				oops.printStackTrace();
 				result = this.createEditModelAndView(question, "question.commit.error");
 			}
+
+		return result;
+	}
+	
+	// Delete by GET (link)------------------------------------------------------
+
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam final int questionId) {
+		ModelAndView result;
+
+		final User user = this.userService.findByPrincipal();
+		Question question = this.questionService.findOne(questionId);
+		Assert.isTrue(question.getRendezvous().getUser().getId() == user.getId());
+		
+		try {
+			
+			this.questionService.delete(question);
+
+			result = new ModelAndView("redirect:list.do?rendezvousId=" + question.getRendezvous().getId());
+		} catch (final Throwable oops) {
+			oops.printStackTrace();
+			result = this.createEditModelAndView(question, "msg.commit.error");
+		}
 
 		return result;
 	}
