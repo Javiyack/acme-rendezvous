@@ -10,22 +10,17 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="${requestURI}" modelAttribute="formularioEjemplo"
+<form:form action="${requestURI}" modelAttribute="formularioPreguntas"
 	method="post">
 
 	<form:hidden path="rendezvous" />
 	<form:hidden path="user" />
 
-	<jstl:forEach items="${formularioEjemplo.cuestionario}" var="mapEntry">
-
+	<jstl:forEach items="${formularioPreguntas.cuestionario}" var="mapEntry">
 
 		</br>
-
-
 		<form:label path="cuestionario[${mapEntry.key}]">${mapEntry.key}</form:label>
 		<form:input path="cuestionario[${mapEntry.key}]" />
-
-
 	</jstl:forEach>
 
 	</br>

@@ -10,28 +10,6 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="${requestURI}" modelAttribute="formularioEjemplo"
-	method="post">
-
-	<form:hidden path="rendezvous" />
-	<form:hidden path="user" />
-
-	<jstl:forEach items="${formularioEjemplo.cuestionario}" var="mapEntry">
 
 
-		</br>
-
-
-		<form:label path="cuestionario[${mapEntry.key}]">${mapEntry.key}</form:label>
-		<form:input path="cuestionario[${mapEntry.key}]" />
-
-
-	</jstl:forEach>
-
-	</br>
-
-	<acme:cancel url="/" code="comment.cancel" />
-	<acme:submit name="save" code="comment.save" />
-
-
-</form:form>
+	<acme:cancel url="/" code="answer.back" />>
