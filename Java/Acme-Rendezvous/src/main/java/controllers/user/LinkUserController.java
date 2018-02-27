@@ -73,6 +73,25 @@ public class LinkUserController extends AbstractController {
 		return result;
 	}
 
+	// Delete by GET (link)------------------------------------------------------
+
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam(required = false) final int rendezvousId, @RequestParam(required = false) final int linkedToRendezvousId) {
+		ModelAndView result;
+		final Link link = this.linkService.findLink(rendezvousId, linkedToRendezvousId);
+
+		try {
+			this.linkService.delete(link);
+
+			result = new ModelAndView("redirect:/");
+		} catch (final Throwable oops) {
+			oops.printStackTrace();
+			result = this.createEditModelAndView(link, "link.commit.error");
+		}
+
+		return result;
+	}
+
 	// Ancillary methods ------------------------------------------------------
 
 	protected ModelAndView createEditModelAndView(final Link link) {

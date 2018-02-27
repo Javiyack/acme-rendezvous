@@ -159,6 +159,26 @@
 			</div>
 			</jstl:if>
 		</display:column>
+		
+<%-- 		<display:column> --%>
+<%-- 			<jstl:if test="${isCreater}"> --%>
+<!-- 			<div> -->
+<%-- 				<a href="link/user/delete.do?linkedToRendezvousId=${row.id}&rendezvousId=${rendezvousId}">  --%>
+<%-- 					<spring:message code="rendezvous.link.delete" /> --%>
+<!-- 				</a> -->
+<!-- 			</div> -->
+<%-- 			</jstl:if> --%>
+<%-- 		</display:column> --%>
+		
+		<display:column>
+		<jstl:if test="${isCreater}">
+			<div>
+				<a href="rendezvous/user/listSimilar.do?rendezvousId=${row.id}"> 
+					<spring:message code="rendezvous.edit.similars" />
+				</a>
+			</div>
+		</jstl:if>
+		</display:column>
 	</security:authorize>
 	
 	<spring:message code ="rendezvous.deleted" var="deleted"/>
@@ -206,6 +226,16 @@
 			</div>
 		</jstl:if>
 	</display:column>
+	
+	<jstl:if test="${delete}">
+		<display:column>
+			<div>
+				<a href="link/user/delete.do?rendezvousId=${rendezvousId}&linkedToRendezvousId=${row.id}"> 
+					<spring:message code="rendezvous.link.delete" />
+				</a>
+			</div>
+		</display:column>
+	</jstl:if>
 
 </display:table>
 

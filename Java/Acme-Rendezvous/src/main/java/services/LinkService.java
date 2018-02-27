@@ -83,9 +83,17 @@ public class LinkService {
 		this.linkRepository.delete(link);
 	}
 
+	//Este busca tanto por link.rendezvousId como por link.linkedToRendezvousId
 	public Collection<Link> findAllByRendezvousId(final int id) {
 
 		return this.linkRepository.findAllByRendezvousId(id);
+
+	}
+
+	//Este busca solo por link.rendezvousId
+	public Collection<Link> findByRendezvousId(final int rendezvousId) {
+
+		return this.linkRepository.findByRendezvousId(rendezvousId);
 
 	}
 
@@ -95,6 +103,11 @@ public class LinkService {
 		Assert.notEmpty(links);
 
 		this.linkRepository.deleteInBatch(links);
+	}
+
+	public Link findLink(final int rendezvousId, final int linkedToRendezvousId) {
+		final Link link = this.linkRepository.findLink(rendezvousId, linkedToRendezvousId);
+		return link;
 	}
 
 }

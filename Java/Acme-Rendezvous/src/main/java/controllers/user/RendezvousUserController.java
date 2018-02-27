@@ -24,6 +24,9 @@ import services.QuestionService;
 import services.RendezvousService;
 import services.ReservationService;
 import services.UserService;
+import domain.Rendezvous;
+import domain.Reservation;
+import domain.User;
 
 @Controller
 @RequestMapping("/rendezvous/user")
@@ -64,6 +67,24 @@ public class RendezvousUserController {
 		result.addObject("rendezvouses", rendezvouses);
 		result.addObject("requestUri", "rendezvous/user/list.do");
 		result.addObject("user", user);
+		result.addObject("isCreater", true);
+
+		return result;
+	}
+
+	//List Similar---------------------------------------------------------------		
+	@RequestMapping(value = "/listSimilar", method = RequestMethod.GET)
+	public ModelAndView listSimilar(@RequestParam final int rendezvousId) {
+
+		ModelAndView result;
+
+		final Collection<Rendezvous> rendezvouses = this.rendezvousService.findSimilarByRendezvousId(rendezvousId);
+
+		result = new ModelAndView("rendezvous/user/listSimilar");
+		result.addObject("rendezvouses", rendezvouses);
+		result.addObject("rendezvousId", rendezvousId);
+		result.addObject("requestUri", "rendezvous/listSimilar.do");
+		result.addObject("delete", true);
 
 		return result;
 	}
@@ -96,16 +117,16 @@ public class RendezvousUserController {
 
 		ModelAndView result;
 		Collection<Rendezvous> rendezvouses;
-		
+
 		final User user;
 		user = this.userService.findByPrincipal();
-		
+
 		//No mostrar rendezvouses de adultos a usuarios no adultos
 		if (!user.getAdult())
 			rendezvouses = this.rendezvousService.findAllNotAdult();
 		else
 			rendezvouses = this.rendezvousService.findAll();
-		
+
 		final Collection<Rendezvous> reserved = this.rendezvousService.findReservedAndNotCanceledByUserId(user.getId());
 		result = new ModelAndView("rendezvous/list");
 		result.addObject("rendezvouses", rendezvouses);
@@ -151,10 +172,10 @@ public class RendezvousUserController {
 			try {
 				//Usuario no adulto solo puede crear rendezvous no adulto
 				final User user;
-				user = this.userService.findByPrincipal();				
+				user = this.userService.findByPrincipal();
 				if (!user.getAdult())
 					rendezvous.setAdult(false);
-				
+
 				this.rendezvousService.save(rendezvous);
 				result = new ModelAndView("redirect:/");
 			} catch (final Throwable ooops) {
@@ -180,7 +201,6 @@ public class RendezvousUserController {
 		return result;
 	}
 
-	
 
 	// Cancel -----------------------------------------------------------
 
