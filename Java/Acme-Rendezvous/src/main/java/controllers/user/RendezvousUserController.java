@@ -180,62 +180,7 @@ public class RendezvousUserController {
 		return result;
 	}
 
-	// Reserve -----------------------------------------------------------
-
-	@RequestMapping(value = "/reserve", method = RequestMethod.GET)
-	public ModelAndView reserve(@RequestParam final int rendezvousId) {
-
-		ModelAndView result;
-
-		final User user = this.userService.findByPrincipal();
-		Assert.notNull(user);
-
-		Rendezvous rendezvous;
-		rendezvous = this.rendezvousService.findOne(rendezvousId);
-		Assert.notNull(rendezvous);
-		
-		//Usuario no adulto no puede reservar rendezvous adulto
-		if (!user.getAdult() && rendezvous.getAdult())
-			return new ModelAndView("redirect:/");
-		
-		Reservation reservation = this.reservationService.findReservationByUserAndRendezvous(user, rendezvous);
-
-		if (reservation == null) {
-			reservation = this.reservationService.create();
-			Assert.notNull(reservation);
-
-			Reservation done;
-			done = this.rendezvousService.reserveRendezvous(reservation, rendezvous);
-			Assert.notNull(done);
-
-			reservation = this.reservationService.save(done);
-
-		} else if (reservation.isCanceled()) {
-			reservation.setCanceled(false);
-			reservation = this.reservationService.save(reservation);
-		}
-
-		// Comprobamos si hay preguntas asociadas
-
-		Collection<Question> preguntas = questionService.findAllByRendezvousId(rendezvousId);
-		if (preguntas.isEmpty()) {
-
-			result = new ModelAndView("redirect:/");
-		} else {
-			// Por cada pregunta comprobamos si esta contestada
-			for (Question question : preguntas) {
-				Answer respuestaDelUsuario = answerService.findByReservationIdAndQuestionId(reservation.getId(), question.getId());
-				if(respuestaDelUsuario==null) {
-					result = new ModelAndView("redirect:/answer/user/create.do?questionId="+question.getId()+"&rendezvousId="+reservation.getId());
-					return result;
-				}
-			}
-		}
-		
-		result = new ModelAndView("redirect:/");
-
-		return result;
-	}
+	
 
 	// Cancel -----------------------------------------------------------
 
