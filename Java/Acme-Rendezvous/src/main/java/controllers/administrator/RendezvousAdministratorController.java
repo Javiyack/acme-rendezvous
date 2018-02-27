@@ -13,12 +13,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import domain.Rendezvous;
 import services.RendezvousService;
+import controllers.AbstractController;
+import domain.Rendezvous;
 
 @Controller
 @RequestMapping("/rendezvous/administrator")
-public class RendezvousAdministratorController {
+public class RendezvousAdministratorController extends AbstractController {
 
 	public RendezvousAdministratorController() {
 		super();
@@ -29,8 +30,8 @@ public class RendezvousAdministratorController {
 
 	@Autowired
 	private RendezvousService	rendezvousService;
-	
-	
+
+
 	// List ---------------------------------------------------------------
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -48,7 +49,6 @@ public class RendezvousAdministratorController {
 
 	// Delete by POST ------------------------------------------------------------
 
-	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(@Valid final Rendezvous rendezvous, final BindingResult binding) {
 		ModelAndView result;
@@ -64,26 +64,25 @@ public class RendezvousAdministratorController {
 			}
 		return result;
 	}
-	
+
 	// Delete by GET (link)------------------------------------------------------
 
-		@RequestMapping(value = "/delete", method = RequestMethod.GET)
-		public ModelAndView deleteByGET(@RequestParam(required = false) Integer rendezvousId) {
-			ModelAndView result;
-			Rendezvous selected = rendezvousService.findOne(rendezvousId);
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView deleteByGET(@RequestParam(required = false) final Integer rendezvousId) {
+		ModelAndView result;
+		final Rendezvous selected = this.rendezvousService.findOne(rendezvousId);
 
-			try {
-				rendezvousService.remove(selected);
+		try {
+			this.rendezvousService.remove(selected);
 
-				result = new ModelAndView("redirect:list.do");
-			} catch (final Throwable oops) {
-				oops.printStackTrace();
-				result = this.createEditModelAndView(selected, "msg.commit.error");
-			}
-
-			return result;
+			result = new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+			oops.printStackTrace();
+			result = this.createEditModelAndView(selected, "msg.commit.error");
 		}
 
+		return result;
+	}
 
 	// Auxiliary methods ---------------------------------------------------------------
 	protected ModelAndView createEditModelAndView(final Rendezvous rendezvous) {
