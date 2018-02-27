@@ -16,43 +16,40 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.AnswerService;
-import services.QuestionService;
-import services.RendezvousService;
-import services.ReservationService;
-import services.UserService;
-import controllers.AbstractController;
 import domain.Question;
 import domain.Rendezvous;
 import domain.Reservation;
 import domain.User;
 import forms.FormularioPreguntas;
+import services.AnswerService;
+import services.QuestionService;
+import services.RendezvousService;
+import services.ReservationService;
+import services.UserService;
 
 @Controller
 @RequestMapping("/reservation/user")
-public class ReservationUserController extends AbstractController {
+public class ReservationUserController {
 
 	public ReservationUserController() {
 		super();
 	}
 
-
 	// Services ---------------------------------------------------------------
 
 	@Autowired
-	private RendezvousService	rendezvousService;
+	private RendezvousService rendezvousService;
 
 	@Autowired
-	private UserService			userService;
+	private UserService userService;
 
 	@Autowired
-	private ReservationService	reservationService;
+	private ReservationService reservationService;
 
 	@Autowired
-	private QuestionService		questionService;
+	private QuestionService questionService;
 	@Autowired
-	private AnswerService		answerService;
-
+	private AnswerService answerService;
 
 	// List ---------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -137,50 +134,54 @@ public class ReservationUserController extends AbstractController {
 	public ModelAndView create(@RequestParam final int rendezvousId) {
 
 		ModelAndView result;
-
-		// Comprobamos si tiene preguntas asociadas
-		final Collection<Question> preguntas = this.questionService.findAllByRendezvousId(rendezvousId);
 		final User user = this.userService.findByPrincipal();
 		Assert.notNull(user);
 		Rendezvous rendezvous;
 		rendezvous = this.rendezvousService.findOne(rendezvousId);
 		Assert.notNull(rendezvous);
+		// Abortamos si un usuario no adulto intenta reservar una cita para adultosinte
+		if (!user.getAdult() && rendezvous.getAdult())
+			return new ModelAndView("redirect:/");
 
-		if (preguntas.isEmpty()) {// Si no las tiene creamos la reserva
-
-			// Usuario no adulto no puede reservar rendezvous adulto
-			if (!user.getAdult() && rendezvous.getAdult())
-				return new ModelAndView("redirect:/");
-
-			Reservation reservation = this.reservationService.findReservationByUserAndRendezvous(user, rendezvous);
-
-			if (reservation == null) {
-				reservation = this.reservationService.create();
-				Assert.notNull(reservation);
-
-				Reservation done;
-				done = this.rendezvousService.reserveRendezvous(reservation, rendezvous);
-				Assert.notNull(done);
-
-				reservation = this.reservationService.save(done);
-
-			} else if (reservation.isCanceled()) {
+		// Buscamos si ya existe una reserva y si estubiera cancelada.
+		// En ese case se descancelaria la reserva pues ya habria respondido a las
+		// preguntas si las tubiera
+		Reservation reservation = this.reservationService.findReservationByUserAndRendezvous(user, rendezvous);
+		if (reservation != null) {
+			if (reservation.isCanceled()) {
 				reservation.setCanceled(false);
 				reservation = this.reservationService.save(reservation);
 			}
-			result = new ModelAndView("redirect:/");
-		} else {// Si las tiene creamos un formulario con las preguntas y la cita
-			final Map<String, String> preguntasMap = new HashMap<String, String>();
-			for (final Question question : preguntas)
-				preguntasMap.put(question.getText(), "");
-			final FormularioPreguntas formularioPreguntas = new FormularioPreguntas();
-			formularioPreguntas.setCuestionario(preguntasMap);
-			formularioPreguntas.setRendezvous(rendezvous);
-			formularioPreguntas.setUser(user);
-			result = new ModelAndView("answer/user/edit");
-			result.addObject("requestURI", "answer/user/save.do");
-			result.addObject("formularioPreguntas", formularioPreguntas);
+			return new ModelAndView("redirect:/");
+		} else {// reservation == null
+				// Comprobamos si tiene preguntas asociadas
+			Collection<Question> preguntas = questionService.findAllByRendezvousId(rendezvousId);
+			if (preguntas.isEmpty()) {
+				// Si no las tiene creamos la reserva y terminamos
+				reservation = this.reservationService.create();
+				Assert.notNull(reservation);
 
+				Reservation saved;
+				saved = this.rendezvousService.reserveRendezvous(reservation, rendezvous);
+				Assert.notNull(saved);
+
+				reservation = this.reservationService.save(saved);
+				result = new ModelAndView("redirect:/");
+			} else {// Si tiene preguntas creamos un formulario con las preguntas y la cita
+				Map<String, String> preguntasMap = new HashMap<String, String>();
+				for (Question question : preguntas) {
+					preguntasMap.put(question.getText(), "");
+				}
+				FormularioPreguntas formularioPreguntas = new FormularioPreguntas();
+				formularioPreguntas.setCuestionario(preguntasMap);
+				formularioPreguntas.setRendezvous(rendezvous);
+				formularioPreguntas.setUser(user);
+				
+				result = new ModelAndView("answer/user/edit");
+				result.addObject("requestURI", "answer/user/save.do");
+				result.addObject("formularioPreguntas", formularioPreguntas);
+
+			}
 		}
 		return result;
 	}
